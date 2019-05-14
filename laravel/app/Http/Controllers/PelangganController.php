@@ -16,7 +16,8 @@ class PelangganController extends Controller
     public function index()
     {
         $data = Pelanggan::all();
-        return view('master.pelanggan.pelanggan', compact('data'));
+        $member = Member::all();
+        return view('master.pelanggan.pelanggan', compact('data', 'member'));
     }
 
     /**

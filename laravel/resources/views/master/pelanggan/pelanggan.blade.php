@@ -8,7 +8,7 @@
 					<div class="foxlabel-alert foxlabel-alert-icon alert3"> <i class="fa fa-check"></i> <a href="#" class="closed">&times;</a> {{ \Illuminate\Support\Facades\Session::get('alert-success') }}</div>
 				@endif
 				<div class="panel panel-default">
-					<a href="{{ route('pelanggan.create') }}" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Pelangan</a>
+					<a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Pelanggan</a>
 					<br>
 					<br>
 					<div class="panel-title"> Data Costumer </div>
@@ -17,7 +17,7 @@
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>ID Member</th>
+									<th>ID Costumer</th>
 									<th>Nama</th>
 									<th>Alamat</th>
 									<th>No. Telp/HP</th>
@@ -47,7 +47,7 @@
 										<form action="{{ route('pelanggan.destroy', $datas->id) }}" method="post">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-										<a href="{{ route('pelanggan.edit', $datas->id) }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
+										<a href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
 										<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
 										</form>
 									</td>
@@ -64,5 +64,8 @@
 			</div>
 			<!-- End Panel --> 
 		</div>
+		
 		<!-- End Row --> 
+		@include('master.pelanggan.modal')
+		@include('master.pelanggan.edit')
 @endsection

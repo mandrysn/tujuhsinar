@@ -42,7 +42,7 @@ class EditorController extends Controller
         $data->tambahan_harga = $request->tambahan_harga;
         $data->save();
 
-        return redirect()->route('tools.index')->with('alert-success', 'Data Berhasil Ditambah');
+        return redirect()->route('finishing.index')->with('alert-success', 'Data Berhasil Ditambah');
     }
 
     /**
@@ -83,7 +83,7 @@ class EditorController extends Controller
         $data->tambahan_harga = $request->tambahan_harga;
         $data->update();
 
-        return redirect()->route('tools.index')->with('alert-success', 'Data Berhasil Diedit !');
+        return redirect()->route('finishing.index')->with('alert-success', 'Data Berhasil Diedit !');
     }
 
     /**
@@ -97,6 +97,6 @@ class EditorController extends Controller
         $data = Editor::findorfail($id);
         $data->delete();
         
-        return redirect()->route('tools.index')->with('alert-success', 'Data Berhasil Dihapus !');
+        return redirect()->route('finishing.index')->with('alert-success', 'Data Berhasil Dihapus !');
     }
 }

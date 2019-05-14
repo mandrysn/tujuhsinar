@@ -42,7 +42,7 @@ class KakiController extends Controller
         $data->tambahan_harga = $request->tambahan_harga;
         $data->save();
 
-        return redirect()->route('tools.index')->with('alert-display', 'Data Berhasil Ditambah');
+        return redirect()->route('kaki.index')->with('alert-display', 'Data Berhasil Ditambah');
     }
 
     /**
@@ -81,7 +81,7 @@ class KakiController extends Controller
         $kaki->tambahan_harga = $request->tambahan_harga;
         $kaki->save();
 
-        return redirect()->route('tools.index')->with('alert-success', 'Data Berhasil Diubah');
+        return redirect()->route('kaki.index')->with('alert-success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -93,6 +93,6 @@ class KakiController extends Controller
     public function destroy(Kaki $kaki)
     {
         $kaki->delete();
-        return redirect()->route('tools.index')->with('alert-success','Data berhasi dihapus!');
+        return redirect()->route('kaki.index')->with('alert-success','Data berhasi dihapus!');
     }
 }

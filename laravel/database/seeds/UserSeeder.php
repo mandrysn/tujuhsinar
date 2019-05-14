@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
                 'alamat' => 'Lambung Mangkurat',
                 'no_telp' => '0836367333',
                 'username' => 'outdoor',
-                'role'      => '4',
+                'role'      => '6',
                 'password' => '$2y$10$ADX.2A1Z.rtJT/Pcyvbk5eHkkZaEjdcFn07D2p8iazDZgVLp9FO0i',
                 ),
             array(
@@ -59,15 +59,15 @@ class UserSeeder extends Seeder
                 'alamat' => 'Lambung Mangkurat',
                 'no_telp' => '0836367333',
                 'username' => 'indoor',
-                'role'      => '4',
+                'role'      => '7',
                 'password' => '$2y$10$hYA0NxvX/B3QZnjB2xB4fOkBjG1r4HtPe64hwCKYmUeMd2vrtLvJu',
                 ),
             array(
-                'nama' => 'Merchant', 
+                'nama' => 'Merchandise', 
                 'alamat' => 'Lambung Mangkurat',
                 'no_telp' => '0836367333',
                 'username' => 'merchant',
-                'role'      => '4',
+                'role'      => '8',
                 'password' => '$2y$10$uybiRjUlXiy8yLFKtvLTie8GUTn.lFScsDXS.DUc4EJ0w3e4N8OiS',
                 ),
             array(
@@ -75,7 +75,7 @@ class UserSeeder extends Seeder
                 'alamat' => 'Lambung Mangkurat',
                 'no_telp' => '0836367333',
                 'username' => 'printa3',
-                'role'      => '4',
+                'role'      => '9',
                 'password' => '$2y$10$M8eAW.jjMjsgLpRLNso.feHLUqOO9BokhnEMCva/kmvUF4lMva/IC',
                 ),
             array(
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
                 'alamat' => 'Lambung Mangkurat',
                 'no_telp' => '0836367333',
                 'username' => 'custom',
-                'role'      => '4',
+                'role'      => '10',
                 'password' => '$2y$10$6imCWsFssc4kSiUU37hi4.1I73YalQJiOFTqbixRp.7hmJjtgGqti',
                 )
     		);

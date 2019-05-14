@@ -1,7 +1,6 @@
 @extends('layout.layout')
 @section('title', 'Data Member')
 @section('content')
-	<div class="container-padding animated fadeInRight"> 
 		<div class="row"> 
 			<!-- Start Panel -->
 			<div class="col-md-12">
@@ -9,7 +8,7 @@
 					<div class="foxlabel-alert foxlabel-alert-icon alert3"> <i class="fa fa-check"></i> <a href="#" class="closed">&times;</a> {{ \Illuminate\Support\Facades\Session::get('alert-success') }}</div>
 				@endif
 				<div class="panel panel-default">
-					<a href="{{ route('member.create') }}" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Member</a>
+					<a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Member</a>
 					<br>
 					<br>
 					<div class="panel-title"> Data Tipe Member </div>
@@ -33,7 +32,7 @@
 										<form action="{{ route('member.destroy', $datas->id) }}" method="post">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-										<a href="{{ route('member.edit', $datas->id) }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
+										<a href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
 										<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
 										</form>
 									</td>
@@ -51,5 +50,6 @@
 			<!-- End Panel --> 
 		</div>
 		<!-- End Row --> 
-	</div>
+	@include('master.member.modal')
+	@include('master.member.edit')
 @endsection

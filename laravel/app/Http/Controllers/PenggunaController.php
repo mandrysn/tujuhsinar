@@ -93,21 +93,24 @@ class PenggunaController extends Controller
             $nama = $user->nama;
             if (Hash::check($request->lama, $user->password )) {
                 $user->update([
-                    'password' => bcrypt($request->baru)
+                    'password' => bcrypt($request->baru),
+                    'nama'      => $request->nama,
+                    'alamat'    => $request->alamat,
+                    'no_telp'   => $request->no_telp,
+                    'username'  => $request->username,
+                    'role'      => $request->role
                 ]);
             }else{
                 return redirect()->route('pengguna.index')->with('alert-user', 'Password Lama Salah!!');
             }
 
-        }else{   
-            if (Auth::user()->role == 1) $role = 1;
-            else $role = $request->role;
+        }else{
             User::find($id)->update([
                 'nama'      => $request->nama,
                 'alamat'    => $request->alamat,
                 'no_telp'   => $request->no_telp,
                 'username'  => $request->username,
-                'role'      => $role
+                'role'      => $request->role
             ]);
         }
 

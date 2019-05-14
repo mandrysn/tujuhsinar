@@ -50,7 +50,7 @@ class BarangController extends Controller
         $data->hrg_beli = $request->hrg_beli;
         $data->min_stok = $request->min_stok;
         $data->save();
-        return redirect()->route('tools.index')->with('alert-barang', 'Data Berhasil Ditambah');
+        return redirect()->route('barang.index')->with('alert-barang', 'Data Berhasil Ditambah');
     }
 
     /**
@@ -96,7 +96,7 @@ class BarangController extends Controller
         $data->hrg_beli = $request->hrg_beli;
         $data->min_stok = $request->min_stok;
         $data->save();
-        return redirect()->route('tools.index')->with('alert-barang', 'Data Berhasil Diubah');
+        return redirect()->route('barang.index')->with('alert-barang', 'Data Berhasil Diubah');
     }
 
     /**
@@ -108,6 +108,6 @@ class BarangController extends Controller
     public function destroy($id)
     {
         $data = Barang::where('id', $id)->delete();
-        return redirect()->route('tools.index')->with('alert-barang', 'Data Berhasil Dihapus');
+        return redirect()->route('barang.index')->with('alert-barang', 'Data Berhasil Dihapus');
     }
 }

@@ -29,10 +29,14 @@ class User extends Authenticatable
     public function getTugasAttribute(){
         $role = $this->role;
         if ($role == 1) return 'Admin';
-        elseif($role == 2) return 'Owner';
-        elseif($role == 3) return 'Produksi';
-        elseif($role == 4) return 'Kasir';
-        elseif($role == 5) return 'Setting';
+        elseif($role == 2) return 'Order';
+        elseif($role == 3) return 'Kasir';
+        elseif($role == 5) return 'Owner';
+        elseif($role == 6) return 'Outdoor';
+        elseif($role == 7) return 'Indoor';
+        elseif($role == 8) return 'Merchandise';
+        elseif($role == 9) return 'Print A3';
+        elseif($role == 10) return 'Costum';
         else return '*Undefined';
     }
 

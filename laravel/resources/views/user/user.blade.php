@@ -8,7 +8,7 @@
         <div class="foxlabel-alert foxlabel-alert-icon alert3"> <i class="fa fa-check"></i> <a href="#" class="closed">&times;</a> {{ \Illuminate\Support\Facades\Session::get('alert-user') }}</div>
     @endif
     <div class="panel panel-default">
-        <a href="{{ route('pengguna.create') }}" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Admin</a>
+        <a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Admin</a>
         <br>
         <br>
         <div class="panel-title"> Data Petugas </div>
@@ -38,7 +38,7 @@
                             <form action="{{ route('pengguna.destroy', $datas->id) }}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                            <a href="{{route('pengguna.edit', $datas->id)}}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
+                            <a href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
                             @if($datas->role == 1)
                             @elseif($datas->id == Auth::user()->id)
                             @else
@@ -59,4 +59,6 @@
 </div>
 <!-- End Panel -->
 </div>
+@include('user.modal')
+@include('user.edit')
 @endsection

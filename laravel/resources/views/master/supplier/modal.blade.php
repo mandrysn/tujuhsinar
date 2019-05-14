@@ -12,17 +12,11 @@
             </div>
             <div class="row">
                 <div class="col-md-12 col-lg-12">
-                    <form method="post" action="{{ route('costumer.storeModal') }}">
+                    <form method="post" action="{{ route('supplier.store') }}">
                         {!! csrf_field() !!}
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
-                                <label for="input1" class="form-label">ID Costumer</label>
-                                <input type="text" id="input1" name="member_id" class="form-control" value="{{ Helper::idLastMember() }}" required readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-lg-12">
-                            <div class="form-group">
-                                <label for="input1" class="form-label">Nama Pelanggan</label>
+                                <label for="input1" class="form-label">Nama Lengkap</label>
                                 <input type="text" id="input1" name="nama" class="form-control" required>
                             </div>
                         </div>
@@ -46,12 +40,8 @@
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
-                                <label for="input6" class="form-label">Tipe Member</label>
-                                <select class="form-control" name="member_id" id="input6" required="">
-                                    @foreach($member as $tampil)
-                                        <option value="{{ $tampil->id }}">{{ $tampil->nm_tipe }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="input6" class="form-label">Keterangan</label>
+                                <textarea class="form-control" name="keterangan" required></textarea>
                             </div>
                         </div>
 
