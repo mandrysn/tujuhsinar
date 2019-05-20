@@ -19,22 +19,29 @@
             <tr>
                 <td width="40%" colspan="5" align="left" valign="top">
                 <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
-                Nama Costumer : {{ $order->pelanggan->nama }} [{{ $order->pelanggan->member->nm_tipe }}]<br />
-                Alamat : {{ $order->pelanggan->alamat }}<br />
-                No hp : {{ $order->pelanggan->no_telp }} <br />
+                <br>
+                M Yamin
                 </td>
-                <td width="30%" colspan="5" align="left" valign="top">
-                    <br ><br />
-                NOTA ORDER<br />
-                NO Costumer : {{ Helper::idMember($order->pelanggan->id) }}<br />
-                TANGGAL : {{ Helper::tanggalId($order->tanggal) }}
-                </td>
-                <td width="15%">
+                <td width="20%"></td>
+                <td width="10%">
                     <br /><br />
                     <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($order->order, 'CODABAR') }}" height="30" width="110">
                 </td>
+                <td width="5%"></td>
+                <td width="60%" colspan="5" align="left" valign="top">
+                    <br ><br />
+                    No. Invoice/Nota : {{ $order->order }} <br>
+                    Kepada Yth <br>
+                    {{ $order->pelanggan->nama }} <br>
+                    Telp : {{ $order->pelanggan->no_telp }} <br>
+                    
+                    Tanggal pemesanan : {{ Helper::tanggalId($order->tanggal) }}
+                
+                </td>
+                
             </tr>
             <tr>
+                <td width="40%"></td>
                 <td rowspan="2">&nbsp;</td>
             </tr>
             <tr>
@@ -51,10 +58,13 @@
     <main>
         <div class="main">
         <table class="table-header" width="100%">
-            <tr><th colspan="5" align="left">Bahan / Keterangan Tambahan</th></tr>
+            <tr><th colspan="5" align="left">Bahan</th></tr>
             <tr> 
                 <td  width="5%" align="center">
                     Qty
+                </td>
+                <td  width="20%" class="border-left" align="center">
+                    Nama File
                 </td>
                 <td  width="10%" class="border-left" align="center">
                     Tipe Produk
@@ -73,18 +83,21 @@
             @forelse($data as $index => $datas)
             <tr>
                 <td colspan="5" valign="top">
-                    {{ $index + 1 }}.&nbsp;{{ $datas->barang->nm_barang }} {{ str_replace("<br />", " / ", $datas->keterangan_sub) }}
+                    {{ $index + 1 }}.&nbsp;{{ $datas->barang->nm_barang }}
                 </td>
             </tr>
             <tr>
                 <td  width="5%" align="center" valign="top">
                     <strong>{{ $datas->qty }}</strong>
                 </td>
+                <td width="20%" align="center" valign="top">
+                    <strong>{{ $datas->keterangan_file }}</strong>
+                </td>
                 <td width="10%" align="center" valign="top">
                     <strong>{{ $datas->nama_produk }}</strong>
                 </td>
                 <td width="15%" align="center" valign="top">
-                    <strong>{{ number_format($datas->barang->hrg_beli) }}</strong>
+                    <strong>{{ number_format($datas->harga) }}</strong>
                 </td>
                 <td  width="12%" align="right" valign="top">
                     <strong>{{ number_format($datas->total) }}</strong>
@@ -98,10 +111,10 @@
         <table class="table-foot" width="100%">
             <tr>
                 <td colspan="5" align="left" width="71%">
-                    Pembayaran {{ $order->status_payment }}. {{ str_replace("<br />", ". ", $order->keterangan) }}
+                    <strong>Pembayaran {{ $order->status_payment }}. {{ str_replace("<br />", ". ", $order->keterangan) }}</strong>
                 </td>
                 <td class="border-left" align="right">
-                    {{ number_format($totalan->total) }}
+                    <strong>{{ number_format($totalan->total) }}</strong>
                 </td>
             </tr>
         </table>
@@ -111,14 +124,14 @@
     <footer>
         <table width="100%" >
             <tr>
-                <td width="75%" align="left" valign="top">
+                <td width="60%" align="left" valign="top">
                     Catatan :<br />
                     1.  Periksa Kembali File Sebelum Cetak, Kesalahan Setelah Cetak Bukan tanggung jawab Management Toedjoe Sinar Group <br />
                     2. Wajib DP min 50% dari Total Biaya Cetak <br />
                     3. 1 (SATU) bulan barang tidak diambil, bukan tanggung jawab management Toedjoe Sinar Group<br />
                     4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
                 </td>
-                <td width="10%" align="left" valign="top">
+                <td width="20%" align="left" valign="top">
                 Kasir<br />
                 Tanggal:<br /><br /><br />
                 ADMIN

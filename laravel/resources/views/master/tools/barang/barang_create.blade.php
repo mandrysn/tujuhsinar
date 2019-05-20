@@ -14,7 +14,7 @@
         	<div class="panel-body">
         		<form method="post" action="{{ route('barang.store') }}">
         			{!! csrf_field() !!}
-        			<div class="form-group">
+        			<div class="form-group {{ $errors->has('barcode') ? ' has-error' : '' }}">
         				<label for="input2" class="form-label">Barcode</label>
         				<input type="text" class="form-control" name="barcode" id="input2" required>
                     </div>

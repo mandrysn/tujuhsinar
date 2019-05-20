@@ -19,7 +19,7 @@ class Barang extends Model
         $label = [
             Barang::$outdoor => 'Outdoor',
             Barang::$indoor => 'Indoor',
-            Barang::$merchant => 'Merchant',
+            Barang::$merchant => 'Merchandise',
             Barang::$print_a3 => 'Print A3',
             Barang::$costum => 'Costum',
         ];

@@ -3435,7 +3435,7 @@ div[data-role="editor-toolbar"] {
     max-width: 300px;
 }
 .modal-lg {
-    min-width: 50%;
+    min-width: 30%;
 }
 .modal .close {
     width: 26px;

@@ -7,7 +7,9 @@
 			<div class="col-md-12">
 				@if(Session::has('alert-barang'))
 					<div class="foxlabel-alert foxlabel-alert-icon alert3"> <i class="fa fa-check"></i> <a href="#" class="closed">&times;</a> {{ \Illuminate\Support\Facades\Session::get('alert-barang') }}</div>
-				@endif
+				@elseif($errors->has('barcode'))
+                    <div class="foxlabel-alert foxlabel-alert-icon alert6"> <i class="fa fa-close"></i> <a href="#" class="closed">&times;</a>{{ $errors->first('barcode') }}</div>
+                @endif
 				<div class="panel panel-default">
 					<a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Bahan</a>
 					<br>

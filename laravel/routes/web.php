@@ -47,20 +47,25 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 			Route::delete('hapus/{id}', 'OrderKerjaController@destroySubKerja')->name('order.subkerja.hapus');
 
 			Route::group(['prefix' => 'outdoor'], function() {
+				Route::get('kaki', 'HargaOutdoorController@getKaki');
+				Route::get('finishing', 'HargaOutdoorController@getFinishing');
 				Route::get('data/{barang}/{pelanggan}/{qty}/{p}/{l}', 'HargaOutdoorController@getData');
 			});
 
 			Route::group(['prefix' => 'indoor'], function() {
-				Route::get('data/{barang}/{pelanggan}/{qty}/{p}/{l}/{tipe}', 'HargaIndoorController@getData');
+				Route::get('kaki', 'HargaIndoorController@getKaki');
+				Route::get('finishing', 'HargaIndoorController@getFinishing');
+				Route::get('data/{barang}/{pelanggan}/{qty}/{p}/{l}', 'HargaIndoorController@getData');
 				
 			});
 
 			Route::group(['prefix' => 'merchant'], function() {
-				Route::get('data/{barang}/{pelanggan}/{qty}/{produk}', 'HargamerchantController@getData');
+				Route::get('data/{barang}/{pelanggan}/{qty}/{produk}', 'HargaMerchantController@getData');
 				
 			});
 
 			Route::group(['prefix' => 'print'], function() {
+				Route::get('finishing', 'HargaPrintController@getFinishing');
 				Route::get('data/{barang}/{pelanggan}/{qty}/{ukuran}/{tipe_print}', 'HargaPrintController@getData');
 				
 			});

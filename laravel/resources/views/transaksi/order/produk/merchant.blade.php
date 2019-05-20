@@ -49,7 +49,7 @@
 
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
-				<label class="form-label">Keterangan</label>
+				<label class="form-label">Nama File</label>
 				<input type="text" name="keterangan" class="form-control" required>
 			</div>
 		</div>
@@ -68,8 +68,15 @@
 				<input type="text" class="form-control" name="total" id="merchant_total" readonly placeholder="Total" required>
 			</div>
 		</div>
-
+		
 		<div class="col-md-12 col-lg-4">
+		<div class="form-group">
+			<label for="inputext" class="form-label">Keterangan File</label>
+			<textarea class="form-control" id="inputext" name="keterangan_file"></textarea>
+		</div>
+	</div>
+
+		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
 			<button type="submit" class="btn btn-primary" id="MSub" disabled>Submit</button>
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>

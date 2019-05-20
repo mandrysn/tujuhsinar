@@ -4,6 +4,7 @@
 	{{ Form::hidden('diskon', '', ['id' => 'print_diskon']) }}
 	{{ Form::hidden('order', $order->order, ['id' => 'order']) }}
   {{ Form::hidden('pelanggan_id', $order->pelanggan_id, ['id' => 'print_pelanggan', 'oninput' => 'get_printer()']) }}
+	{{ Form::hidden('member_id', $order->pelanggan->member_id, ['id' => 'pr_pelanggan']) }}
 
 	<div class="row">
 		<div class="col-md-12 col-lg-4">
@@ -29,7 +30,7 @@
 
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
-				<label class="form-label">Keterangan</label>
+				<label class="form-label">Nama File</label>
 				<input type="text" name="keterangan" class="form-control" required>
 			</div>
 		</div>
@@ -59,6 +60,20 @@
 			</div>
 		</div>
 
+<div class="col-md-12 col-lg-3">
+			<div class="form-group">
+				<label for="" class="form-label">Finishing</label>
+				<select class="form-control" name="editor_id" id="editor_print">
+					<option disabled>-- Pilih Finishing --</option>
+					{{-- @foreach($editors as $editor)
+						@if($editor->produk_id == 4)
+							<option value="{{ $editor->id }}">{{ $editor->nama_finishing }} - {{ number_format($editor->tambahan_harga) }}</option>
+						@endif
+					@endforeach --}}
+				</select>
+			</div>
+		</div>
+		
 		<div class="col-md-12 col-lg-2">
 			<div class="form-group">
 				<label for="input6" class="form-label">Qty</label>
@@ -74,6 +89,13 @@
 				<input type="text" class="form-control" name="total" id="print_total" readonly placeholder="Total" required>
 			</div>
 		</div>
+		
+		<div class="col-md-12 col-lg-4">
+			<div class="form-group">
+				<label class="form-label">Keterangan File</label>
+				<textarea class="form-control" id="inputext" name="keterangan_file"></textarea>
+			</div>
+		</div>
 
 		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
 			<button type="submit" class="btn btn-primary" id="PSub" disabled>Submit</button>
@@ -84,6 +106,27 @@
 </form>
 
 @push('style')
+<script type="text/javascript">
+	var pr_pelanggan = document.getElementById("pr_pelanggan").value;
+	$.ajax({
+		type	 : 'get',
+		url		 : "{{ url('admin/transaksi/order/print/finishing') }}",
+		data	 : {id:id},
+		typeData : 'json',
+		success:function(data)
+		{
+			console.log(data)
+			$('.editorPrint').remove();
+			var tablaDatos = $('#editor_print');
+			
+				$(data).each(function(key,value){
+						tablaDatos.append("<option class='editorPrint' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
+				});
+			
+		}
+	})
+
+</script>
 <script type="text/javascript">
     function get_printer() {
 			var print_pelanggan = document.getElementById("print_pelanggan").value;

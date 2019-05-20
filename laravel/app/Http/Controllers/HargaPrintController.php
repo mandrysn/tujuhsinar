@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Harga;
-use App\Models\HargaPrint;
+use App\Models\Editor;
 use App\Models\Pelanggan;
+use App\Models\HargaPrint;
 use Illuminate\Http\Request;
 
 class HargaPrintController extends Controller
@@ -43,24 +44,8 @@ class HargaPrintController extends Controller
                     $harga = '-';
                 } else {
                     
-                        $ukur = '';
-                        switch($ukuran) {
-                            case "1":
-                                $ukur = 0.210 * 0.297;
-                                break;
-                            case "2":
-                                $ukur = 0.215 * 0.33;
-                                break;
-                            case "3":
-                                $ukur = 0.297 * 0.420;
-                                break;
-                            default:
-                                $ukur = 0.00;
-                                break;
-                        }
-
                     if( ( $qty <= $data->range_max ) && ( $qty >= $data->range_min ) ) {
-                        $total = (($qty * $data->harga_jual) - ( ($qty * $data->harga_jual) * ($data->disc / 100) )) * $ukur;
+                        $total = (($qty * $data->harga_jual) - ( ($qty * $data->harga_jual) * ($data->disc / 100) ));
 
                     } else { 
                         $total = 'Tidak set';
@@ -74,6 +59,15 @@ class HargaPrintController extends Controller
 
             $arr = array('diskon' => $diskon, 'total' => ceil($total), 'harga' => $harga );
             return $arr;          
+        }
+    }
+
+    public function getFinishing(Request $r)
+    {
+        if ($r->ajax()) {
+            $sumberDatas = Editor::where('member_id', '=', $r->id)->where('produk_id', '=', '4')->get();
+            
+            return response()->json($sumberDatas->toArray());
         }
     }
 }

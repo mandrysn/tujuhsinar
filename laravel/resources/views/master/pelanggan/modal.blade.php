@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Costumer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Tipe Member</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
-                                <label for="input1" class="form-label">Nama Pelanggan</label>
+                                <label for="input1" class="form-label">Nama Costumer</label>
                                 <input type="text" id="input1" name="nama" class="form-control" required>
                             </div>
                         </div>

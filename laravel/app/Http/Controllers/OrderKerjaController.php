@@ -37,6 +37,16 @@ class OrderKerjaController extends Controller
      */
     public function create()
     {
+        // $l = '1.30';
+        // $pecah_luas = explode('.', $l);
+        //         if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
+        //             $lebar = $pecah_luas[0] . '.50';
+        //         } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
+        //             $lebar = $pecah_luas[0] + 1 . '.00';
+        //         } else {
+        //             $lebar = $l;
+        //         }
+        //         return $lebar;
         $cari = OrderKerja::count();
         if($cari == 0 ) {
             $add = 1;
@@ -93,6 +103,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Finishing: ' . $editor->nama_finishing . ', Rp ' . number_format($editor->tambahan_harga) . "<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $kaki->nama_kaki . ', Rp ' . number_format($kaki->tambahan_harga);
+        $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -121,32 +132,20 @@ class OrderKerjaController extends Controller
             $orderKerjaId = $cekData->id;
         }
 
-        $tipe_print = '';
-        switch ($request->tipe_print) {
-            case '1':
-                $tipe_print = 'Print Only';
-                break;
-            case '2':
-                $tipe_print = 'Print + Cut';
-                break;
-            case '3':
-                $tipe_print = 'Cut Only';
-                break;
-        }
         $subOrderKerjaBaru = new OrderKerjaSub;
         $subOrderKerjaBaru->order_kerja_id = $orderKerjaId;
         $subOrderKerjaBaru->produk_id = '2';
         $subOrderKerjaBaru->qty = $request->qty;
         $subOrderKerjaBaru->deadline = $request->deadline_indoor;
         $subOrderKerjaBaru->harga = $request->harga;
-        $subOrderKerjaBaru->total = is_null($request->editor_id) ? ($request->total + $kaki->tambahan_harga) : is_null($request->kaki_id) ? $request->total + $editor->tambahan_harga : (is_null($request->editor_id) && is_null($request->kaki_id) ) ? $request->total : $request->total + ($editor->tambahan_harga + $kaki->tambahan_harga);;
+        $subOrderKerjaBaru->total = is_null($request->editor_id) ? ($request->total + $kaki->tambahan_harga) : is_null($request->kaki_id) ? $request->total + $editor->tambahan_harga : (is_null($request->editor_id) && is_null($request->kaki_id) ) ? $request->total : $request->total + ($editor->tambahan_harga + $kaki->tambahan_harga);
         $subOrderKerjaBaru->diskon = $request->diskon;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
-        $subOrderKerjaBaru->keterangan_sub  .= 'Tipe Print : '.$tipe_print . "<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Finishing: ' . $editor->nama_finishing . ', Rp ' . number_format($editor->tambahan_harga) . "<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $kaki->nama_kaki . ', Rp ' . number_format($kaki->tambahan_harga);
+        $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -183,6 +182,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->deadline = $request->deadline;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = $request->keterangan;
+        $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -197,6 +197,7 @@ class OrderKerjaController extends Controller
     public function storePrintQuarto(Request $request)
     {
         $cekData = OrderKerja::where('order', $request->order)->first();
+        $editor = Editor::findOrFail($request->editor_id);
         
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;
@@ -230,11 +231,14 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->qty = $request->qty;
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
+        is_null($request->editor_id) ? $request->total : ($request->total + $editor->tambahan_harga);
         $subOrderKerjaBaru->diskon = $request->diskon;
         $subOrderKerjaBaru->deadline = $request->deadline;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
-        $subOrderKerjaBaru->keterangan_sub  = 'Ukuran : '.$ukuran."<br />";
+        $subOrderKerjaBaru->keterangan_sub  = 'Ukuran : '.$ukuran . "<br />";
+        $subOrderKerjaBaru->keterangan_sub .= 'Finishing : ' . $editor->nama_finishing . ', Rp ' . number_format($editor->tambahan_harga) . "<br />";
         $subOrderKerjaBaru->keterangan_sub .= $request->keterangan;
+        $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
 
         $subOrderKerjaBaru->save();
 
@@ -273,6 +277,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->diskon = $request->diskon;
         $subOrderKerjaBaru->keterangan_sub = 'Nama Produk : ' . $request->nama_produk;
         $subOrderKerjaBaru->keterangan_sub .= '<br />Keterangan : ' . nl2br($request->keterangan);
+        $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);

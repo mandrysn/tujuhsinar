@@ -52,6 +52,13 @@
 				<input type="text" class="form-control" name="total" id="merchant_total" readonly placeholder="Total" required>
 			</div>
 		</div>
+		
+		<div class="col-md-12 col-lg-4">
+		<div class="form-group">
+			<label for="inputext" class="form-label">Keterangan File</label>
+			<textarea class="form-control" id="inputext" name="keterangan_file"></textarea>
+		</div>
+	</div>
 
 		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
 			<button type="submit" class="btn btn-primary" id="MSub" disabled>Submit</button>

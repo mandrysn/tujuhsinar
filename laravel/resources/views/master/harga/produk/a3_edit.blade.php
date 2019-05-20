@@ -128,6 +128,7 @@
                             <th>No</th>
                             <th>Bahan / Supplier</th>
                             <th>Tipe Print</th>
+                            <th>Ukuran</th>
                             <th>Range Qty.</th>
                             <th>Harga Pokok</th>
                             <th>Harga Jual</th>
@@ -141,6 +142,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $detail->barang->nm_barang }} / {{ $detail->barang->supplier->nm_lengkap }}</td>
                             <td>{{ $detail->tipe }}</td>
+                            <td>{{ $detail->ukuran_kertas }}</td>
                             <td>{{ $detail->range_min }} - {{ $detail->range_max }}</td>
                             <td>{{ number_format($detail->harga_pokok) }}</td>
                             <td>{{ number_format($detail->harga_jual) }}</td>

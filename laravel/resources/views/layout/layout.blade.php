@@ -13,7 +13,7 @@
 </head>
 <body>
     <!-- Start Page Loading -->
-    <div class="loading"><img src="{{asset('img/loading.gif')}}" alt="loading-img"></div>
+    <!--<div class="loading"><img src="{{asset('img/loading.gif')}}" alt="loading-img"></div>-->
     <!-- End Page Loading --> 
     <!-- Start Top -->
     <div id="top" class="clearfix"> 

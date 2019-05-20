@@ -31,7 +31,7 @@ class HargaCostumController extends Controller
 
             } else { 
                $data = HargaCostum::where('harga_id', $harga->id)
-                                ->where('nama_produk', '=', $nama_produk)
+                                ->where('barang_id', '=', $nama_produk)
                                 ->where('range_min', '<=', $qty)
                                 ->where('range_max', '>=', $qty)
                                 ->first();

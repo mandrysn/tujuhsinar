@@ -4,7 +4,8 @@
 	{{ Form::hidden('diskon', '', ['id' => 'diskon']) }}
 	{{ Form::hidden('produk_id', '1', ['id' => 'produk']) }}
 	{{ Form::hidden('order', $order->order, ['id' => 'order']) }}
-    {{ Form::hidden('pelanggan_id', $order->pelanggan_id, ['id' => 'pelanggan', 'oninput' => 'get_card_name()']) }}
+	{{ Form::hidden('pelanggan_id', $order->pelanggan_id, ['id' => 'pelanggan', 'oninput' => 'get_card_name()']) }}
+	{{ Form::hidden('member_id', $order->pelanggan->member_id, ['id' => 'pelanggan_outdoor']) }}
 	
 	<div class="row">
 		<div class="col-md-12 col-lg-4">
@@ -53,13 +54,13 @@
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
-				<select class="form-control" name="editor_id" id="editor_id">
-					<option selected>-- Pilih Finishing --</option>
-					@foreach($editors as $editor)
+				<select class="form-control" name="editor_id" id="editor_outdoor">
+					<option disabled>-- Pilih Finishing --</option>
+					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 1)
 							<option value="{{ $editor->id }}">{{ $editor->nama_finishing }} - {{ number_format($editor->tambahan_harga) }}</option>
 						@endif
-					@endforeach
+					@endforeach --}}
 				</select>
 			</div>
 		</div>
@@ -67,13 +68,13 @@
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="" class="form-label">Kaki</label>
-				<select class="form-control" name="kaki_id" id="kaki_id">
-					<option selected>-- Pilih Kaki --</option>
-					@foreach($kakis as $kaki)
+				<select class="form-control" name="kaki_id" id="kaki_outdoor">
+					<option disabled>-- Pilih Kaki --</option>
+					{{-- @foreach($kakis as $kaki)
 						@if($kaki->produk_id == 1)
 							<option value="{{ $kaki->id }}">{{ $kaki->nama_kaki }} - {{ number_format($kaki->tambahan_harga) }}</option>
 						@endif
-					@endforeach
+					@endforeach --}}
 				</select>
 			</div>
 		</div>
@@ -93,8 +94,15 @@
 				<input type="text" class="form-control" name="total" id="total" readonly placeholder="Total" required>
 			</div>
 		</div>
-
+		
 		<div class="col-md-12 col-lg-4">
+			<div class="form-group">
+				<label class="form-label">Keterangan File</label>
+				<textarea class="form-control" id="inputext" name="keterangan_file"></textarea>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
 			<button type="submit" class="btn btn-primary" id="OSub" disabled>Submit</button>
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>
@@ -103,6 +111,45 @@
 </form>
 
 @push('style')
+<script type="text/javascript">
+		var id = document.getElementById("pelanggan_outdoor").value;
+		jQuery.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/transaksi/order/outdoor/kaki') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				jQuery('.outdoorKaki').remove();
+				var tablaDatos = jQuery('#kaki_outdoor');
+				
+				jQuery(data).each(function(key,value){
+					    tablaDatos.append("<option class='outdoorKaki' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+
+		jQuery.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/transaksi/order/outdoor/finishing') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				jQuery('.editorOutdoor').remove();
+				var tablaDatos = jQuery('#editor_outdoor');
+				
+				jQuery(data).each(function(key,value){
+					    tablaDatos.append("<option class='editorOutdoor' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+	
+</script>
 <script type="text/javascript">
 
     function get_card_name() {

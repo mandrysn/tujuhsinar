@@ -21,64 +21,26 @@
 		</div>
 	</div>
 	
-	<div class="col-md-1">
-		<div class="form-group">
-			<label class="form-label"></label>
-			<fieldset>
-				<div class="control-group">
-					<div class="controls">
-						<div class="input-prepend input-group" style="margin-top: -5px;">
-							<div class="radio radio-danger">
-                                <input type="radio" name="deadline_custom" id="besok_custom" value="besok" onclick="$('#pilih_deadline_custom').attr('disabled','disabled');">
-                                <label for="besok_custom"> Besok </label>
-                            </div>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-		</div>
-	</div>  
 
-	<div class="col-md-1">
-		<div class="form-group">
-			<label class="form-label"></label>
-			<fieldset>
-				<div class="control-group">
-					<div class="controls">
-						<div class="input-prepend input-group" style="margin-top: -5px;">
-							<div class="radio radio-danger">
-                                <input type="radio" name="deadline_custom" id="lusa_custom" value="lusa" onclick="$('#pilih_deadline_custom').attr('disabled','disabled');">
-                                <label for="lusa_custom"> Lusa </label>
-                            </div>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-		</div>
-	</div> 
-
-	<div class="col-md-5">
-		<div class="form-group">
-			<label class="form-label"></label>
-			<fieldset>
-				<div class="control-group">
-					<div class="controls">
-						<div class="input-prepend input-group" style="margin-top: 10px;">
-							<div class="radio radio-danger col-lg-12">
-                                <input type="radio" name="deadline_custom" id="pilih_custom" class="pilihan" value="pilih" onclick="$('#pilih_deadline_custom').removeAttr('disabled');">
-                                <label for="pilih_custom"> Pilih </label>
-                                <input type="date" class="form-control col-md-8" id="pilih_deadline_custom" style="display: inline-block;" name="pilih_deadline_custom" disabled="">
-                            </div>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-		</div>
-	</div>  
-	<div class="col-md-12 col-lg-2">
+		<div class="col-md-12 col-lg-3">
+			<div class="form-group">
+				<label class="form-label">Deadline</label>
+				<input type="date" class="form-control" id="pilih_deadline_costum" style="display: inline-block;" name="deadline">
+			</div>
+		</div>  
+		
+	<div class="col-md-12 col-lg-4">
 		<div class="form-group">
 			<label for="input5" class="form-label">Nama Produk</label>
-			<input type="text" class="form-control" name="nama_produk" id="custom_nama_produk" placeholder="Nama Produk" onchange="get_costum()" required>
+			{{-- <input type="text" class="form-control" name="nama_produk" id="custom_nama_produk" placeholder="Nama Produk" onchange="get_costum()" required> --}}
+			<select class="selectpicker form-control" name="barang_id" data-live-search="true" id="custom_nama_produk" onchange="get_costum()" required >
+				<option selected>-- Pilih Produk --</option>
+				@foreach($barangs as $barang)
+					@if($barang->produk_id == 5)
+						<option value="{{ $barang->id }}">{{ $barang->nm_barang }}</option>
+					@endif
+				@endforeach
+			</select>
 		</div>
 	</div>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Editor;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class EditorController extends Controller
@@ -15,7 +16,8 @@ class EditorController extends Controller
     public function index()
     {
         $data = Editor::all();
-        return view('master.tools.finishing.finishing', compact('data'));
+        $member = Member::all();
+        return view('master.tools.finishing.finishing', compact('data', 'member'));
     }
 
     /**
@@ -37,12 +39,13 @@ class EditorController extends Controller
     public function store(Request $request)
     {
         $data = new Editor();
+        $data->member_id = $request->member_id;
         $data->nama_finishing = $request->nama_finishing;
         $data->produk_id = $request->produk_id;
         $data->tambahan_harga = $request->tambahan_harga;
         $data->save();
 
-        return redirect()->route('finishing.index')->with('alert-success', 'Data Berhasil Ditambah');
+        return redirect()->route('editor.index')->with('alert-success', 'Data Berhasil Ditambah');
     }
 
     /**
@@ -79,11 +82,12 @@ class EditorController extends Controller
     {
         $data = Editor::findorfail($id);
         $data->nama_finishing = $request->nama_finishing;
+        $data->member_id = $request->member_id;
         $data->produk_id = $request->produk_id;
         $data->tambahan_harga = $request->tambahan_harga;
         $data->update();
 
-        return redirect()->route('finishing.index')->with('alert-success', 'Data Berhasil Diedit !');
+        return redirect()->route('editor.index')->with('alert-success', 'Data Berhasil Diedit !');
     }
 
     /**
@@ -97,6 +101,6 @@ class EditorController extends Controller
         $data = Editor::findorfail($id);
         $data->delete();
         
-        return redirect()->route('finishing.index')->with('alert-success', 'Data Berhasil Dihapus !');
+        return redirect()->route('editor.index')->with('alert-success', 'Data Berhasil Dihapus !');
     }
 }

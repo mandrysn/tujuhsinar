@@ -25,4 +25,8 @@ class Kaki extends Model
         ];
         return $label[$this->produk_id];
     }
+    public function Member()
+    {
+    	return $this->belongsTo(Member::class);
+    }
 }

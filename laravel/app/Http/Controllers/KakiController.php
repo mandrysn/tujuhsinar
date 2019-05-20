@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kaki;
+use App\Models\Member;
+
 use Illuminate\Http\Request;
 
 class KakiController extends Controller
@@ -15,7 +17,8 @@ class KakiController extends Controller
     public function index()
     {
         $data = Kaki::all();
-        return view('master.tools.kaki.kaki', compact('data'));
+        $member = Member::all();
+        return view('master.tools.kaki.kaki', compact('data', 'member'));
     }
 
     /**
@@ -38,6 +41,7 @@ class KakiController extends Controller
     {
         $data = new Kaki();
         $data->nama_kaki = $request->nama_kaki;
+        $data->member_id = $request->member_id;
         $data->produk_id = $request->produk_id;
         $data->tambahan_harga = $request->tambahan_harga;
         $data->save();
@@ -78,6 +82,7 @@ class KakiController extends Controller
     {
         $kaki->nama_kaki = $request->nama_kaki;
         $kaki->produk_id = $request->produk_id;
+        $kaki->member_id = $request->member_id;
         $kaki->tambahan_harga = $request->tambahan_harga;
         $kaki->save();
 

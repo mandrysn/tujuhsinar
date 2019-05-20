@@ -13,10 +13,10 @@
 		<div class="col-md-12 col-lg-5">
 			<div class="form-group">
 				<label for="select2" class="form-label">Customer</label>
-				<select class="selectpicker form-control" data-live-search="true" name="pelanggan_id" id="pelanggan" onchange="get_card_name()" required>
+				<select class="form-control" data-live-search="true" name="pelanggan_id" id="pelanggan"  onchange="get_card_name()" required>
 					<option disable>-- Pilih Member --</option>
 					@foreach($members as $member)
-					<option value="{{ $member->id }}">{{ sprintf("%06s", $member->id) }} - {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
+					<option value="{{ $member->id }}" data-pid="{{ $member->member_id }}">{{ sprintf("%06s", $member->id) }} - {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
 					@endforeach
 				</select>
 			</div>
@@ -66,41 +66,7 @@
 				<input type="text" name="nama_file" class="form-control" required>
 			</div>
 		</div>
-	{{-- <div class="col-md-1">
-		<div class="form-group">
-			<label class="form-label"></label>
-			<fieldset>
-				<div class="control-group">
-					<div class="controls">
-						<div class="input-prepend input-group" style="margin-top: -5px;">
-							<div class="radio radio-danger">
-                                <input type="radio" name="deadline" id="beosk_outdoor" value="besok" onclick="$('#pilih_deadline_outdoor').attr('disabled','disabled');">
-                                <label for="beosk_outdoor"> Besok </label>
-                            </div>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-		</div>
-	</div>  
-
-	<div class="col-md-1">
-		<div class="form-group">
-			<label class="form-label"></label>
-			<fieldset>
-				<div class="control-group">
-					<div class="controls">
-						<div class="input-prepend input-group" style="margin-top: -5px;">
-							<div class="radio radio-danger">
-                                <input type="radio" name="deadline" id="lusa_outdoor" value="lusa" onclick="$('#pilih_deadline_outdoor').attr('disabled','disabled');">
-                                <label for="lusa_outdoor"> Lusa </label>
-                            </div>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-		</div>
-	</div>  --}}
+	
 	</div>
 
 	<div class="row">
@@ -108,13 +74,13 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
-				<select class="form-control" name="editor_id" id="editor_id">
-					<option value="" selected>-- Pilih Finishing --</option>
-					@foreach($editors as $editor)
+				<select class="form-control" name="editor_id" id="editor_outdoor">
+					<option disabled>-- Pilih Finishing --</option>
+					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 1)
 							<option value="{{ $editor->id }}">{{ $editor->nama_finishing }} - {{ number_format($editor->tambahan_harga) }}</option>
 						@endif
-					@endforeach
+					@endforeach --}}
 				</select>
 			</div>
 		</div>
@@ -122,13 +88,13 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="" class="form-label">Kaki</label>
-				<select class="form-control" name="kaki_id" id="kaki_id">
-					<option value="" selected>-- Pilih Kaki --</option>
-					@foreach($kakis as $kaki)
+				<select class="form-control" name="kaki_id" id="kaki_outdoor">
+					<option disabled>-- Pilih Kaki --</option>
+					{{-- @foreach($kakis as $kaki)
 						@if($kaki->produk_id == 1)
 							<option value="{{ $kaki->id }}">{{ $kaki->nama_kaki }} - {{ number_format($kaki->tambahan_harga) }}</option>
 						@endif
-					@endforeach
+					@endforeach --}}
 				</select>
 			</div>
 		</div>
@@ -149,9 +115,14 @@
 			</div>
 		</div>
 		
-	</div>
-	<div class="row">
 		<div class="col-md-12 col-lg-4">
+			<div class="form-group">
+				<label class="form-label">Keterangan File</label>
+				<textarea class="form-control" id="inputext" name="keterangan_file">{{ floor(0.3) }}</textarea>
+			</div>
+		</div>
+		
+		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
 			<button type="submit" class="btn btn-primary" id="OSub" disabled>Submit</button>
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>
@@ -159,6 +130,49 @@
 </form>
 
 @push('style')
+<script type="text/javascript">
+    jQuery(document).on('change','#pelanggan', function(e){
+		var id = jQuery(this).children(":selected").attr("data-pid");
+		
+		jQuery.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/transaksi/order/outdoor/kaki') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				jQuery('.outdoorKaki').remove();
+				var tablaDatos = jQuery('#kaki_outdoor');
+				
+				jQuery(data).each(function(key,value){
+					    tablaDatos.append("<option class='outdoorKaki' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+
+		jQuery.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/transaksi/order/outdoor/finishing') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				jQuery('.editorOutdoor').remove();
+				var tablaDatos = jQuery('#editor_outdoor');
+				
+				jQuery(data).each(function(key,value){
+					    tablaDatos.append("<option class='editorOutdoor' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+	})
+	
+</script>
+
 <script type="text/javascript">
 
     function get_card_name() {

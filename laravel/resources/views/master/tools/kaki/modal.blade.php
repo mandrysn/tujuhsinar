@@ -14,6 +14,17 @@
                 <div class="col-md-12 col-lg-12">
         		<form method="post" action="{{ route('kaki.store') }}">
                     {!! csrf_field() !!}
+                    <div class="col-lg-12 col-md-12">
+            			<div class="form-group">
+            				<label for="select2" class="form-label">Tipe Member</label>
+            				<select class="form-control" name="member_id" required>
+            					<option value="">-- Pilih Member --</option>
+            					@foreach($member as $tampil)
+            					<option value="{{ $tampil->id }}">{{ $tampil->nm_tipe }}</option>
+            					@endforeach
+            				</select>
+            			</div>
+            		</div>
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="input1" class="form-label">nama kaki</label>

@@ -30,9 +30,7 @@ class HargaMerchantController extends Controller
 
             } else { 
                 $data = HargaMerchant::where('harga_id', $harga->id)
-                                
                                 ->where('barang_id', '=', $barang)
-                                
                                 ->where('range_min', '<=', $qty)
                                 ->where('range_max', '>=', $qty)
                                 ->first();
@@ -47,7 +45,7 @@ class HargaMerchantController extends Controller
                         $total = (($qty * $data->harga_jual) - ( ($qty * $data->harga_jual) * ($data->disc / 100) ));
 
                     } else { 
-                        $total = 'Tidak set';
+                        $total = '0';
                     }
 
                     $diskon = $data->disc;
@@ -58,7 +56,7 @@ class HargaMerchantController extends Controller
 
             }
 
-            $arr = array('diskon' =>$diskon ,'total'=>ceil($total),'harga'=>$harga );
+            $arr = array('diskon'=>$diskon, 'total'=>ceil($total),'harga'=>$harga );
             return $arr;
 
         }

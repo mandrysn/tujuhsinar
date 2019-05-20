@@ -17,7 +17,7 @@
         			{!! csrf_field() !!}
                     {{ method_field('PUT') }}
                     <div class="col-md-12 col-lg-12">
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('barcode') ? ' has-error' : '' }}">
                             <label for="input2" class="form-label">Barcode</label>
                             <input type="text" class="form-control" name="barcode" id="input2" value="{{ $tampil->barcode }}" required>
                         </div>

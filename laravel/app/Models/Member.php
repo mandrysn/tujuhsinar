@@ -17,4 +17,12 @@ class Member extends Model
     {
     	return $this->hasMany('Harga');
     }
+    public function Kaki()
+    {
+    	return $this->hasMany('Kaki');
+    }
+    public function Editor()
+    {
+    	return $this->hasMany('Editor');
+    }
 }

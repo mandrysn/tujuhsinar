@@ -5,7 +5,7 @@
 		<div class="row"> 
 			<div class="col-md-12">
 				@if ( session()->has('alert-success') )
-					<div class="foxlabel-alert foxlabel-alert-icon alert3"> <i class="fa fa-check"></i> <a href="#" class="closed">&times;</a> {{ session()->get('alert-potong') }}</div>
+					<div class="foxlabel-alert foxlabel-alert-icon alert3"> <i class="fa fa-check"></i> <a href="#" class="closed">&times;</a> {{ session()->get('alert-success') }}</div>
 				@endif
 				<div class="panel panel-default">
 					<a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Finishing</a>
@@ -18,6 +18,7 @@
 								<tr>
 									<th>No</th>
 									<th>Tipe Finishing</th>
+									<th>Tipe Member</th>
 									<th>Nama Finishing</th>
 									<th>Harga Tambahan</th>
 									<th>Aksi</th>
@@ -28,6 +29,7 @@
 								<tr>
 									<td>{{ $index + 1 }}</td>
 									<td>{{ $datas->tipe_produk }}</td>
+									<td>{{ $datas->member->nm_tipe }}</td>
 									<td>{{ $datas->nama_finishing }}</td>
 									<td>{{ number_format($datas->tambahan_harga) }}</td>
 									<td>

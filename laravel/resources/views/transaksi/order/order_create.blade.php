@@ -9,7 +9,7 @@
         @endif
         <div class="widget-box">
                         
-            <div class="widget-title"> Data Harga Produk <a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Costumer</a>
+            <div class="widget-title"> <a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Costumer</a>
                     
             </div>
             <div role="tabpanel"> 

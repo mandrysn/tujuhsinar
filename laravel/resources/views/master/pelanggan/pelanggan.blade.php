@@ -8,7 +8,7 @@
 					<div class="foxlabel-alert foxlabel-alert-icon alert3"> <i class="fa fa-check"></i> <a href="#" class="closed">&times;</a> {{ \Illuminate\Support\Facades\Session::get('alert-success') }}</div>
 				@endif
 				<div class="panel panel-default">
-					<a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Pelanggan</a>
+					<a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Costumer</a>
 					<br>
 					<br>
 					<div class="panel-title"> Data Costumer </div>

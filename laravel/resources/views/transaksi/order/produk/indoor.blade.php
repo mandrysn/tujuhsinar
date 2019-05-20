@@ -17,7 +17,7 @@
 				<select class="selectpicker form-control" name="pelanggan_id" data-live-search="true" id="pelanggan_indoor" onchange="get_indoor()" required>
 					<option disable>-- Pilih Member --</option>
 					@foreach($members as $member)
-					<option value="{{ $member->id }}">{{ sprintf("%06s", $member->id) }} - {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
+					<option value="{{ $member->id }}" data-pid="{{ $member->member_id }}">{{ sprintf("%06s", $member->id) }} - {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
 					@endforeach
 				</select>
 			</div>
@@ -69,16 +69,17 @@
 
 	<div class="row">
 		
-		<div class=" col-lg-3">
+		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
 				<select class="form-control" name="editor_id" id="editor_indoor">
-					<option selected>-- Pilih Finishing --</option>
-					@foreach($editors as $editor)
+					<option disabled>-- Pilih Finishing --</option>
+					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 2)
 							<option value="{{ $editor->id }}">{{ $editor->nama_finishing }} - {{ number_format($editor->tambahan_harga) }}</option>
 						@endif
-					@endforeach
+					@endforeach --}}
+					
 				</select>
 			</div>
 		</div>
@@ -86,25 +87,9 @@
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="" class="form-label">Kaki</label>
-				<select class="form-control" name="kaki_id" id="kaki_id">
-					<option selected>-- Pilih Kaki --</option>
-					@foreach($kakis as $kaki)
-						@if($kaki->produk_id == 2)
-							<option value="{{ $kaki->id }}">{{ $kaki->nama_kaki }} - {{ number_format($kaki->tambahan_harga) }}</option>
-						@endif
-					@endforeach
-				</select>
-			</div>
-		</div>
-
-		<div class="col-md-12 col-lg-3" >
-			<div class="form-group">
-				<label for="input4" class="form-label">Tipe Print</label>
-				<select class="form-control" name="tipe_print" id="tipe_print" required onchange="get_indoor()">
-					<option selected>--Pilih Tipe--</option>
-					<option value="1">Print Only</option>
-					<option value="2">Cut Only</option>
-					<option value="3">Print + Cut</option>
+				<select class="form-control" name="kaki_id" id="kaki_indoor">
+					<option disabled>-- Pilih Kaki --</option>
+					
 				</select>
 			</div>
 		</div>
@@ -122,8 +107,15 @@
 				<input type="text" class="form-control" name="total" id="total_indoor" readonly placeholder="Total" required>
 			</div>
 		</div>
-
+		
 		<div class="col-md-12 col-lg-4">
+			<div class="form-group">
+				<label class="form-label">Keterangan File</label>
+				<textarea class="form-control" id="inputext" name="keterangan_file"></textarea>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
 			<button type="submit" class="btn btn-primary" id="ISub" disabled>Submit</button>
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>
@@ -131,8 +123,50 @@
 
 </form>
 
-
 @push('style')
+<script type="text/javascript">
+    $(document).on('change','#pelanggan_indoor', function(e){
+		var id = $(this).children(":selected").attr("data-pid");
+		
+		$.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/transaksi/order/indoor/kaki') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				$('.indoorKaki').remove();
+				var tablaDatos = $('#kaki_indoor');
+				
+					$(data).each(function(key,value){
+					    tablaDatos.append("<option class='indoorKaki' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+
+		$.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/transaksi/order/indoor/finishing') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				$('.editorIndoor').remove();
+				var tablaDatos = $('#editor_indoor');
+				
+					$(data).each(function(key,value){
+					    tablaDatos.append("<option class='editorIndoor' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+	})
+	
+</script>
+
 <script type="text/javascript">
 
     function get_indoor() {
@@ -142,13 +176,12 @@
 			var p_indoor = document.getElementById("panjang_indoor").value;
 			var qty_indoor = document.getElementById("qty_indoor").value;
 			var l_indoor = document.getElementById("lebar_indoor").value;
-			var tipe_print = document.getElementById("tipe_print").value;
 
-			if(produk_indoor != '' && pelanggan_indoor != '' && barang_indoor != '' && editor_indoor != '' && qty_indoor != '' && l_indoor != '' && p_indoor != '' && produk_indoor != null && pelanggan_indoor != null && barang_indoor != null && editor_indoor != null && qty_indoor != null && l_indoor != null && p_indoor != null){
+			if(produk_indoor != '' && pelanggan_indoor != '' && barang_indoor != '' && qty_indoor != '' && l_indoor != '' && p_indoor != '' && produk_indoor != null && pelanggan_indoor != null && barang_indoor != null && qty_indoor != null && l_indoor != null && p_indoor != null){
 
 				jQuery.ajax({
 							
-							url: "{{ url('admin/transaksi/order/indoor/data/') }}/"+barang_indoor+"/"+pelanggan_indoor+"/"+qty_indoor+"/"+p_indoor+"/"+l_indoor+"/"+tipe_print,
+							url: "{{ url('admin/transaksi/order/indoor/data/') }}/"+barang_indoor+"/"+pelanggan_indoor+"/"+qty_indoor+"/"+p_indoor+"/"+l_indoor,
 								type: "GET",
 								success: function(data) {
 										jQuery('#diskon_indoor').val(data.diskon);

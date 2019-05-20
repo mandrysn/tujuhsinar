@@ -40,6 +40,10 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'barcode' => 'unique:barangs'
+        ]);
+        
         $data = new Barang();
         $data->supplier_id = $request->supplier_id;
         $data->barcode = $request->barcode;
@@ -86,6 +90,10 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'barcode' => 'unique:barangs,barcode,'.$id
+        ]);
+        
         $data = Barang::where('id', $id)->first();
         $data->supplier_id = $request->supplier_id;
         $data->barcode = $request->barcode;
