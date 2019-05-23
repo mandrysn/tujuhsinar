@@ -23,14 +23,25 @@
                     </div>
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
-                            <label for="select2" class="form-label">Tipe Cetak</label>
+                            <label for="select2" class="form-label">Tipe Produksi</label>
                             <select class="form-control" name="produk_id" required>
-                                <option>-- Pilih Tipe Cetak --</option>
+                                <option>-- Pilih Tipe Produksi --</option>
                                 <option value="1">Outdoor</option>
                                 <option value="2">Indoor</option>
                                 <option value="3">Merchant</option>
                                 <option value="4">Print A3</option>
                                 <option value="5">Costum</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="select2" class="form-label">Ukuran Bahan</label>
+                            <select class="form-control" name="ukuran_bahan_id" required="">
+                                <option value="">-- Pilih Ukuran Bahan --</option>
+                                @foreach($ukuran as $data)
+                                <option value="{{ $data->id }}">{{ $data->nm_ukuran_bahan }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

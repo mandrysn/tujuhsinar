@@ -15,7 +15,7 @@ class UkuranBahanController extends Controller
     public function index()
     {
         $data = UkuranBahan::all();
-        return view('master.ukuran-bahan.index', compact('data'));
+        return view('master.tools.ukuran-bahan.index', compact('data'));
     }
 
     /**
@@ -36,7 +36,14 @@ class UkuranBahanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new UkuranBahan();
+        $data->nm_ukuran_bahan = $request->nm_ukuran_bahan;
+        $data->range_min = $request->range_min;
+        $data->range_max = $request->range_max;
+        $data->produk_id = $request->produk_id;
+        $data->save();
+
+        return redirect()->route('ukuran-bahan.index')->with('alert-ukuran', 'Data Berhasil Ditambah');
     }
 
     /**
@@ -70,7 +77,13 @@ class UkuranBahanController extends Controller
      */
     public function update(Request $request, UkuranBahan $ukuranBahan)
     {
-        //
+        $ukuranBahan->nm_ukuran_bahan = $request->nm_ukuran_bahan;
+        $ukuranBahan->produk_id = $request->produk_id;
+        $ukuranBahan->range_min = $request->range_min;
+        $ukuranBahan->range_max = $request->range_max;
+        $ukuranBahan->save();
+
+        return redirect()->route('ukuran-bahan.index')->with('alert-ukuran', 'Data Berhasil Diubah');
     }
 
     /**
@@ -81,6 +94,7 @@ class UkuranBahanController extends Controller
      */
     public function destroy(UkuranBahan $ukuranBahan)
     {
-        //
+        $ukuranBahan->delete();
+        return redirect()->route('ukuran-bahan.index')->with('alert-ukuran','Data berhasi dihapus!');
     }
 }

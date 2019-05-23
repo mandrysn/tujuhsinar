@@ -14,7 +14,7 @@
 					<a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Bahan</a>
 					<br>
 					<br>
-					<div class="panel-title"> Data Costumer </div>
+					<div class="panel-title"> Data Bahan </div>
 					<div class="panel-body table-responsive">
 						<table id="example0" class="table display">
 							<thead>

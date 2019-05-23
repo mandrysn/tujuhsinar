@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Supplier;
+use App\Models\UkuranBahan;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -17,8 +18,9 @@ class BarangController extends Controller
     {
         $data = Barang::all();
         $supplier = Supplier::all();
+        $ukuran = UkuranBahan::all();
         
-        return view('master.tools.barang.barang', compact('data', 'supplier'));
+        return view('master.tools.barang.barang', compact('data', 'ukuran', 'supplier'));
     }
 
     /**
@@ -46,6 +48,7 @@ class BarangController extends Controller
         
         $data = new Barang();
         $data->supplier_id = $request->supplier_id;
+        $data->ukuran_bahan_id = $request->ukuran_bahan_id;
         $data->barcode = $request->barcode;
         $data->produk_id = $request->produk_id;
         $data->nm_barang = $request->nm_barang;
@@ -96,6 +99,7 @@ class BarangController extends Controller
         
         $data = Barang::where('id', $id)->first();
         $data->supplier_id = $request->supplier_id;
+        $data->ukuran_bahan_id = $request->ukuran_bahan_id;
         $data->barcode = $request->barcode;
         $data->produk_id = $request->produk_id;
         $data->nm_barang = $request->nm_barang;
