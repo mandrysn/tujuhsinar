@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEditorTable extends Migration
+class CreateUkuranBahansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateEditorTable extends Migration
      */
     public function up()
     {
-        Schema::create('editors', function (Blueprint $table) {
+        Schema::create('ukuran_bahans', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('produk_id', ['1', '2', '3', '4', '5']);
-            $table->integer('member_id')->unsigned()->index();
-            $table->foreign('member_id')->references('id')->on('members')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->string('nama_finishing', 100);
-            $table->double('tambahan_harga', 8, 2);
+            $table->string('nm_ukuran_bahan');
+            $table->double('range_min', 4, 2);
+            $table->double('range_max', 4, 2);
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateEditorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('editors');
+        Schema::dropIfExists('ukuran_bahans');
     }
 }

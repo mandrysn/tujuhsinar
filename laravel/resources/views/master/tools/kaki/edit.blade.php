@@ -21,8 +21,8 @@
             				<label for="select2" class="form-label">Tipe Member</label>
             				<select class="form-control" name="member_id" required>
             					<option value="">-- Pilih Member --</option>
-            					@foreach($member as $tampil)
-            					<option value="{{ $tampil->id }}">{{ $tampil->nm_tipe }}</option>
+            					@foreach($member as $datas)
+            					<option value="{{ $datas->id }}" {{ $tampil->member_id == $datas->id ? "selected" : "" }}>{{ $datas->nm_tipe }}</option>
             					@endforeach
             				</select>
             			</div>

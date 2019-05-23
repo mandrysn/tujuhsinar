@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 			Route::group(['prefix' => 'outdoor'], function() {
 				Route::get('kaki', 'HargaOutdoorController@getKaki');
 				Route::get('finishing', 'HargaOutdoorController@getFinishing');
-				Route::get('data/{barang}/{pelanggan}/{qty}/{p}/{l}', 'HargaOutdoorController@getData');
+				Route::get('data/{barang}/{pelanggan}/{qty}/{p}/{l}/{format_ukuran}', 'HargaOutdoorController@getData');
 			});
 
 			Route::group(['prefix' => 'indoor'], function() {
@@ -184,6 +184,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 		Route::resource('/harga', 'HargaController');
 		Route::resource('/member', 'MemberController');
 		Route::resource('/supplier', 'SupplierController');
+		Route::resource('ukuran-bahan', 'UkuranBahanController');
 		Route::post('harga/indoor/', 'HargaController@indoor')->name('harga.indoor');
 		Route::post('harga/outdoor/', 'HargaController@outdoor')->name('harga.outdoor');
 		Route::post('harga/merchant/', 'HargaController@merchant')->name('harga.merchant');

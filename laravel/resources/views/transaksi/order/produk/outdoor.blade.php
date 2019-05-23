@@ -62,8 +62,14 @@
 
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
-				<label class="form-label">Nama File</label>
-				<input type="text" name="nama_file" class="form-control" required>
+				<label for="input3" class="form-label">Format Ukuran</label>
+				<select class="selectpicker form-control" name="format_ukuran" data-live-search="true" onchange="get_card_name()" id="format_ukuran">
+					<option selected>-- Pilih Format --</option>
+					<option value="4">Tanpa dibulatkan</option>
+					<option value="1">Bulatkan Panjang</option>
+					<option value="2">Bulatkan Lebar</option>
+					<option value="3">Bulatkan Panjang & Lebar</option>
+				</select>
 			</div>
 		</div>
 	
@@ -99,6 +105,13 @@
 			</div>
 		</div>
 
+		<div class="col-md-12 col-lg-4">
+			<div class="form-group">
+				<label class="form-label">Nama File</label>
+				<input type="text" name="nama_file" class="form-control" required>
+			</div>
+		</div>
+
 		<div class="col-md-12 col-lg-2">
 			<div class="form-group">
 				<label for="input6" class="form-label">Qty</label>
@@ -115,12 +128,6 @@
 			</div>
 		</div>
 		
-		<div class="col-md-12 col-lg-4">
-			<div class="form-group">
-				<label class="form-label">Keterangan File</label>
-				<textarea class="form-control" id="inputext" name="keterangan_file">{{ floor(0.3) }}</textarea>
-			</div>
-		</div>
 		
 		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
 			<button type="submit" class="btn btn-primary" id="OSub" disabled>Submit</button>
@@ -181,12 +188,13 @@
 		var p = document.getElementById("panjang").value;
 		var l = document.getElementById("lebar").value;
 		var qty = document.getElementById("qty").value;
+		var format_ukuran = document.getElementById("format_ukuran").value;
 
-		if(pelanggan != '' && barang != '' && qty != '' && l != '' && p != '' && pelanggan != null && barang != null && qty != null && l != null && p != null) {
+		if(pelanggan != '' && barang != '' && qty != '' && l != '' && p != '' && format_ukuran != '' && pelanggan != null && barang != null && qty != null && l != null && p != null && format_ukuran != null) {
 
 			jQuery.ajax({
 	        	
-	            url: "{{ url('admin/transaksi/order/outdoor/data/') }}/"+barang+"/"+pelanggan+"/"+qty+"/"+p+"/"+l,
+	            url: "{{ url('admin/transaksi/order/outdoor/data/') }}/"+barang+"/"+pelanggan+"/"+qty+"/"+p+"/"+l+"/"+format_ukuran,
 	            type: "GET",
 	            success: function(data) {
 	                jQuery('#diskon').val(data.diskon);

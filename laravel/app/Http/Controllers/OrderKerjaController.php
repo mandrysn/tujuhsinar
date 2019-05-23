@@ -37,16 +37,88 @@ class OrderKerjaController extends Controller
      */
     public function create()
     {
-        // $l = '1.30';
-        // $pecah_luas = explode('.', $l);
-        //         if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
-        //             $lebar = $pecah_luas[0] . '.50';
-        //         } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
-        //             $lebar = $pecah_luas[0] + 1 . '.00';
-        //         } else {
+        // $ukuran = '3';
+        // $l = '1.40'; $p = '3.20';
+        // if ($ukuran == 2 || $ukuran == 3) {
+        //     $pecah_luas = explode('.', $l);
+        //     if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
+        //         $lebar = $pecah_luas[0] . '.50';
+        //     } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
+        //         $lebar = $pecah_luas[0] + 1 . '.00';
+        //     } else if ($pecah_luas[1] == '00') {
+        //         $lebar = $l;
+        //     }
+        // } else if ($ukuran != 2 || $ukuran == 4) {
+        //     $lebar = $l;
+        // }
+
+        // if ($ukuran == 1 || $ukuran == 3) {
+        //     $pecah_panjang = explode('.', $p);
+        //     if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50') {
+        //         $panjang = $pecah_panjang[0] . '.50';
+        //     } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
+        //         $panjang = $pecah_panjang[0] + 1 . '.00';
+        //     } else if ($pecah_panjang[1] == '00') {
+        //         $panjang = $p;
+        //     }
+        // } else if ($ukuran != 1 || $ukuran == 4) {
+        //     $panjang = $p;
+        // }
+
+        // if($l <= '0.99' || $l >= '0.01' && $p <= '0.99' || $p >= '0.01' ) {
+        //     $pecah_luas = explode('.', $l);
+        //     $pecah_panjang = explode('.', $p);
+        //     switch ($ukuran) {
+        //         case '1':
+        //                 if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50') {
+        //                     $panjang = $pecah_panjang[0] . '.50';
+        //                 } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
+        //                     $panjang = $pecah_panjang[0] + 1 . '.00';
+        //                 } else if ($pecah_panjang[1] == '00') {
+        //                     $panjang = $p;
+        //                 }
+        //                 $lebar = $l;
+        //             break;
+
+        //         case '2':
+        //                 if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
+        //                     $lebar = $pecah_luas[0] . '.50';
+        //                 } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
+        //                     $lebar = $pecah_luas[0] + 1 . '.00';
+        //                 } else if ($pecah_luas[1] == '00') {
+        //                     $lebar = $l;
+        //                 }
+        //                 $panjang = $p;
+        //             break;
+
+        //         case '3':
+        //                 if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50' ) {
+        //                     $panjang = $pecah_panjang[0] . '.50';
+        //                 } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
+        //                     $panjang = $pecah_panjang[0] + 1 . '.00';
+        //                 } else if ($pecah_panjang[1] == '00') {
+        //                     $panjang = $p;
+        //                 }
+
+        //                 if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
+        //                     $lebar = $pecah_luas[0] . '.50';
+        //                 } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
+        //                     $lebar = $pecah_luas[0] + 1 . '.00';
+        //                 } else if ($pecah_luas[1] == '00') {
+        //                     $lebar = $l;
+        //                 }
+        //             break;
+
+        //         case '4':
         //             $lebar = $l;
-        //         }
-        //         return $lebar;
+        //             $panjang = $p;
+        //             break;
+        //     }
+        // } else {
+        //     $panjang = '1.00';
+        //     $lebar = '1.00';
+        // }
+        // return $panjang . ' ' . $lebar;
         $cari = OrderKerja::count();
         if($cari == 0 ) {
             $add = 1;

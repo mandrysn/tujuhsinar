@@ -16,6 +16,8 @@ class CreateKakisTable extends Migration
         Schema::create('kakis', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('produk_id', ['1', '2', '3', '4', '5']);
+            $table->integer('member_id')->unsigned()->index();
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('nama_kaki', 100);
             $table->double('tambahan_harga', 8, 2);
             $table->timestamps();

@@ -13,8 +13,8 @@ use Illuminate\Http\Request;
 class HargaOutdoorController extends Controller
 {
     
-    public function getData( $barang, $pelanggan, $qty, $p, $l) {
-        if ( is_null($pelanggan) || is_null($barang) || is_null($qty) ) {
+    public function getData( $barang, $pelanggan, $qty, $p, $l, $format_ukuran) {
+        if ( is_null($pelanggan) || is_null($barang) || is_null($qty) || is_null($format_ukuran)) {
             return '';
         } else {
             $diskon = '';
@@ -23,30 +23,93 @@ class HargaOutdoorController extends Controller
             $idPelanggan = Pelanggan::findOrFail($pelanggan);
             $harga = Harga::where('produk_id', '=', '1')->where('member_id', '=', $idPelanggan->member_id)->first();
 
-            if ( is_null($harga) || $p == 0 || $l == 0) {
+            if ( is_null($harga) || $p == 0 || $l == 0 || is_null($format_ukuran)) {
                 $diskon = '';
                 $total = '';
                 $harga = '';
 
             } else {
-                $pecah_luas = explode('.', $l);
-                if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
-                    $lebar = $pecah_luas[0] . '.50';
-                } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
-                    $lebar = $pecah_luas[0] + 1 . '.00';
-                } else if ($pecah_luas[1] == '00') {
-                    $lebar = $l;
-                }
+                    $pecah_luas = explode('.', $l);
+                    $pecah_panjang = explode('.', $p);
+                    switch ($format_ukuran) {
+                        case '1': //pembulatan panjang
+                            if ($p >= '1.00' ) {
+                                if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50') {
+                                    $panjang = $pecah_panjang[0] . '.50';
+                                } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
+                                    $panjang = $pecah_panjang[0] + 1 . '.00';
+                                } else if ($pecah_panjang[1] == '00') {
+                                    $panjang = $p;
+                                }
+                            } else {
+                                $panjang = '1.00';
+                            }
 
-                $pecah_panjang = explode('.', $p);
-                if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50') {
-                    $panjang = $pecah_panjang[0] . '.50';
-                } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
-                    $panjang = $pecah_panjang[0] + 1 . '.00';
-                } else if ($pecah_panjang[1] == '00') {
-                    $panjang = $p;
-                }
+                            if ($l >= '1.00' ) {
+                                $lebar = $l;
+                            } else if ($l < '1.00' ) {
+                                $lebar = '1.00';
+                            }
 
+                            break;
+        
+                        case '2': //pembulatan lebar
+                            if ($l >= '1.00' ) {
+                                if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
+                                    $lebar = $pecah_luas[0] . '.50';
+                                } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
+                                    $lebar = $pecah_luas[0] + 1 . '.00';
+                                } else if ($pecah_luas[1] == '00') {
+                                    $lebar = $l;
+                                }
+                            } else {
+                                $lebar = '1.00';
+                            }
+                            
+                            if ($p >= '1.00' ) {
+                                $panjang = $p;
+                            } else if ($p < '1.00' ) {
+                                $panjang = '1.00';
+                            }
+                            break;
+        
+                        case '3': //pembulatan panjang lebar
+                        //panjang
+                                if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50' ) {
+                                    $panjang = $pecah_panjang[0] . '.50';
+                                } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
+                                    $panjang = $pecah_panjang[0] + 1 . '.00';
+                                } else if ($pecah_panjang[1] == '00') {
+                                    $panjang = $p;
+                                }
+        
+                        //lebar
+                                if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
+                                    $lebar = $pecah_luas[0] . '.50';
+                                } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
+                                    $lebar = $pecah_luas[0] + 1 . '.00';
+                                } else if ($pecah_luas[1] == '00') {
+                                    $lebar = $l;
+                                }
+                            break;
+        
+                        case '4': //tanpa pembulatan
+                            if ($p <= '0.99' && $l <= '0.99') {
+                                $panjang = '1.00';
+                                $lebar = '1.00';
+                            } else if ($p <= '0.99' ) {
+                                $panjang = '1.00';
+                                $lebar = $l;
+                            } else if ($l <= '0.99') {
+                                $panjang = $p;
+                                $lebar = '1.00';
+                            } else {
+                                $panjang = $p;
+                                $lebar = $l;
+                            }
+                            break;
+                    }
+                
                 $data = HargaOutdoor::where('harga_id', $harga->id)
                                 ->where('barang_id', '=', $barang)
                                 ->where('range_min', '<=', $qty)
@@ -71,7 +134,7 @@ class HargaOutdoorController extends Controller
 
             }
 
-            $arr = array('diskon'=>$diskon, 'total'=>$total, 'harga'=>$harga);
+            $arr = array('diskon' => $diskon, 'total' => ceil($total), 'harga'=>ceil($harga));
             return $arr;
           
         }
