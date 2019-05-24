@@ -15,7 +15,7 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label class="form-label">Tanggal Deadline</label>
-				<input type="date" class="form-control" id="pilih_deadline_costum" style="display: inline-block;" name="deadline" required>
+				<input type="date" class="form-control" id="pilih_deadline_costum" style="display: inline-block;" name="deadline_costum" required>
 			</div>
 		</div>  
 		<div class="col-md-12 col-lg-4">

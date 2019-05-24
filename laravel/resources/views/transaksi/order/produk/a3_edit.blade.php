@@ -24,7 +24,7 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label class="form-label">Deadline</label>
-				<input type="date" class="form-control" id="pilih_deadline_print" style="display: inline-block;" name="deadline">
+				<input type="date" class="form-control" id="pilih_deadline_print" style="display: inline-block;" name="deadline_print">
 			</div>
 		</div>  
 

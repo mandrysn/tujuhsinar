@@ -24,7 +24,7 @@
 									<th>Pelanggan</th>
 									<th>Tanggal Order</th>
 									<th>Pembayaran</th>
-									<th colspan="2">Aksi</th>
+									<th>Aksi</th>
 								</tr>
 							</thead>
 							<tbody id="list_order">

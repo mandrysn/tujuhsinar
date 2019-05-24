@@ -126,6 +126,6 @@ class OrderKerjaSub extends Model
 
         return $hari . ', ' . \Carbon\Carbon::parse($tgl_deadline)
             ->format('d-') . $bulan . \Carbon\Carbon::parse($tgl_deadline)
-            ->format('-Y');
+            ->format('-Y') . ' - ' . \Carbon\Carbon::parse($tgl_deadline)->format('H:i');
     }
 }

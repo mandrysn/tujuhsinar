@@ -14,7 +14,7 @@
 					<br>
 					<div class="panel-title"> Data Harga </div>
 					<div class="panel-body table-responsive">
-						<table id="example" class="table display">
+						<table id="example0" class="table display">
 							<thead>
 								<tr>
 									<th>No</th>

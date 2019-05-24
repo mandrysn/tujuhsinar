@@ -68,7 +68,7 @@
                         <div class="form-group">
                             <label for="select2" class="form-label">Supplier</label>
                             <select class="form-control" name="supplier_id" required="">
-                                <option value="">-- Pilih Member --</option>
+                                <option value="">-- Pilih Supplier --</option>
                                 @foreach($supplier as $tampil)
                                 <option value="{{ $tampil->id }}">{{ $tampil->nm_lengkap }}</option>
                                 @endforeach

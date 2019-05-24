@@ -198,7 +198,7 @@ class Helper
         return $hari . ', ' .
             \Carbon\Carbon::parse($tanggal)->format('d-') .
             $bulan .
-            \Carbon\Carbon::parse($tanggal)->format('-Y');
+            \Carbon\Carbon::parse($tanggal)->format('-Y') . ' - ' . \Carbon\Carbon::parse($tanggal)->format('H:i');
     }
 
 }

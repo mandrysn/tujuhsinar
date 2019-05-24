@@ -42,8 +42,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 	Route::group(['prefix' => 'transaksi'], function() {
 
 		Route::group(['prefix' => 'order', 'middleware' => ['order','kasir']], function() {
-			
+
 			Route::post('tambah/{id}', 'OrderKerjaController@detail')->name('order.detail');
+			Route::get('transaksi', 'OrderKerjaController@transaksi')->name('order.transaksi');
 			Route::delete('hapus/{id}', 'OrderKerjaController@destroySubKerja')->name('order.subkerja.hapus');
 
 			Route::group(['prefix' => 'outdoor'], function() {
@@ -83,7 +84,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 				Route::post('print-quarto/', 'OrderKerjaController@storePrintQuarto')->name('storePrintQuarto');
 				Route::post('costum-produk/', 'OrderKerjaController@storeCostumProduk')->name('storeCostumProduk');
 			});
-
+			
 		});
 		Route::resource('/order', 'OrderKerjaController');
 		
