@@ -17,7 +17,7 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="select2" class="form-label">Tipe Produk</label>
-                            <select class="form-control" name="produk_id" required>
+                            <select class="form-control" name="produk_id" id="produk_id" required>
                                 <option>-- Pilih Tipe Produk --</option>
                                 <option value="1">Outdoor</option>
                                 <option value="2">Indoor</option>
@@ -31,6 +31,17 @@
                         <div class="form-group">
                             <label for="input3" class="form-label">Nama Ukuarn Bahana</label>
                             <input type="text" class="form-control" name="nm_ukuran_bahan" placeholder="Bahan Ukuran 1M" id="input3" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="select2" class="form-label">Bahan</label>
+                            <select class="form-control" name="barang_id" id="bahan" required>
+                                <option selected>-- Pilih Bahan --</option>
+                                {{-- @foreach($bahan as $data)
+                                <option value="{{ $data->id }}">{{ $data->nm_barang }}</option>
+                                @endforeach --}}
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-12 col-lg-12">

@@ -17,16 +17,15 @@ class CreateBarangTable extends Migration
             $table->increments('id');
             $table->integer('supplier_id')->unsigned()->index();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->integer('ukuran_bahan_id')->unsigned()->index();
-            $table->foreign('ukuran_bahan_id')->references('id')->on('ukuran_bahans')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->string('barcode', 100);
+            $table->string('barcode', 50);
             $table->enum('produk_id', ['1', '2', '3', '4', '5']);
             $table->string('nm_barang', 100);
             $table->string('kategori', 100);
-            $table->string('satuan', 100);
-            $table->double('hrg_beli', 8, 2);
+            $table->string('satuan', 50);
+            $table->double('hrg_beli', 11, 2);
             $table->integer('min_stok');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

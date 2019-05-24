@@ -184,6 +184,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 		Route::resource('/harga', 'HargaController');
 		Route::resource('/member', 'MemberController');
 		Route::resource('/supplier', 'SupplierController');
+		Route::get('ukuran-bahan/bahan', 'UkuranBahanController@getBahan');
 		Route::resource('ukuran-bahan', 'UkuranBahanController');
 		Route::post('harga/indoor/', 'HargaController@indoor')->name('harga.indoor');
 		Route::post('harga/outdoor/', 'HargaController@outdoor')->name('harga.outdoor');

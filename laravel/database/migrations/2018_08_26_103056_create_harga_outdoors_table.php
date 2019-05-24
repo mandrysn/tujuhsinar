@@ -21,8 +21,8 @@ class CreateHargaOutdoorsTable extends Migration
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->integer('range_min');
             $table->integer('range_max');
-            $table->double('harga_pokok', 8, 2);
-            $table->double('harga_jual', 8, 2);
+            $table->double('harga_pokok', 11, 2);
+            $table->double('harga_jual', 11, 2);
             $table->integer('disc');
             $table->string('keterangan', 50)->nullable();
             $table->timestamps();

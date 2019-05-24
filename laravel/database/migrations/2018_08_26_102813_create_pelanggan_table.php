@@ -19,7 +19,7 @@ class CreatePelangganTable extends Migration
             $table->foreign('member_id')->references('id')->on('members')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('nama', 100);
             $table->text('alamat');
-            $table->string('no_telp');
+            $table->string('no_telp', 25);
             $table->string('email');
             $table->timestamps();
             $table->softDeletes();

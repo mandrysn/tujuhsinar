@@ -36,17 +36,6 @@
                     </div>
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
-                            <label for="select2" class="form-label">Ukuran Bahan</label>
-                            <select class="form-control" name="ukuran_bahan_id" required="">
-                                <option value="">-- Pilih Ukuran Bahan --</option>
-                                @foreach($ukuran as $data)
-                                <option value="{{ $data->id }}">{{ $data->nm_ukuran_bahan }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-12">
-                        <div class="form-group">
                             <label for="input3" class="form-label">Nama Barang</label>
                             <input type="text" class="form-control" name="nm_barang" id="input3" required>
                         </div>

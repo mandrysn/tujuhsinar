@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTmpBelisTable extends Migration
+class CreateUkuranBahansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateTmpBelisTable extends Migration
      */
     public function up()
     {
-        Schema::create('tmp_belis', function (Blueprint $table) {
+        Schema::create('ukuran_bahans', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('barang_id')->unsigned()->index();
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->integer('qty');
-            $table->double('harga', 15, 2);
+            $table->enum('produk_id', ['1', '2', '3', '4', '5']);
+            $table->string('nm_ukuran_bahan');
+            $table->double('range_min', 4, 2);
+            $table->double('range_max', 4, 2);
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateTmpBelisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tmp_belis');
+        Schema::dropIfExists('ukuran_bahans');
     }
 }

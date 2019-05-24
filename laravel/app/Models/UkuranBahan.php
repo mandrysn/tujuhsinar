@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UkuranBahan extends Model
 {
+    protected $guarded = [];
+    
     public static $outdoor = '1';
     public static $indoor      = '2';
     public static $merchant    = '3';

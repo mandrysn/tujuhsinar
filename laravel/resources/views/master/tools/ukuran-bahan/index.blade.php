@@ -55,4 +55,54 @@
 	@include('master.tools.ukuran-bahan.modal')
 	@include('master.tools.ukuran-bahan.edit')
 
+@push('style')
+<script type="text/javascript">
+    jQuery(document).on('change','#produk_id', function(e){
+		var id = jQuery(this).children(":selected").attr("value");
+		
+		jQuery.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/master/ukuran-bahan/bahan') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				jQuery('.ukuranBahan').remove();
+				var tablaDatos = jQuery('#bahan');
+				
+				jQuery(data).each(function(key,value){
+					    tablaDatos.append("<option class='ukuranBahan' value='"+value.id+"'>"+value.nm_barang+"</option>");
+					});
+				
+			}
+		})
+
+	})
+
+	jQuery(document).on('change','#edit_id', function(e){
+		var id = jQuery(this).children(":seleced").attr("value");
+		
+		jQuery.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/master/ukuran-bahan/bahan') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				jQuery('.editBahan').remove();
+				var tablaDatos = jQuery('#edit_bahan');
+				
+				jQuery(data).each(function(key,value){
+					    tablaDatos.append("<option class='editBahan' value='"+value.id+"'>"+value.nm_barang+"</option>");
+					});
+				
+			}
+		})
+
+	})
+	
+</script>
+@endpush
 @endsection

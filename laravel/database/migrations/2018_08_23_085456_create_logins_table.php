@@ -23,6 +23,7 @@ class CreateLoginsTable extends Migration
             $table->integer('role')->default(1);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

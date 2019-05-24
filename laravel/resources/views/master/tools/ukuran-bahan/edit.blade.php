@@ -19,13 +19,24 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="select2" class="form-label">Tipe Produk</label>
-                            <select class="form-control" name="produk_id" required>
+                            <select class="form-control" name="produk_id" id="edit_id" required>
                                 <option>-- Pilih Tipe Produk --</option>
-                                <option value="1" {{ $tampil->produk_id == 1 ? "selected" : "" }}>Outdoor</option>
-                                <option value="2" {{ $tampil->produk_id == 2 ? "selected" : "" }}>Indoor</option>
-                                <option value="3" {{ $tampil->produk_id == 3 ? "selected" : "" }}>Merchant</option>
-                                <option value="4" {{ $tampil->produk_id == 4 ? "selected" : "" }}>Print A3</option>
-                                <option value="5" {{ $tampil->produk_id == 5 ? "selected" : "" }}>Costum</option>
+                                <option value="1" >Outdoor</option>
+                                <option value="2" >Indoor</option>
+                                <option value="3" >Merchant</option>
+                                <option value="4" >Print A3</option>
+                                <option value="5" >Costum</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <label for="select2" class="form-label">Bahan</label>
+                            <select class="form-control" name="barang_id" id="edit_bahan" required>
+                                <option selected>-- Pilih Bahan --</option>
+                                {{-- @foreach($bahan as $data)
+                                <option value="{{ $data->id }}" {{ $tampil->bahan_id == $data->id ? "selected" : "" }}>{{ $data->nm_barang }}</option>
+                                @endforeach --}}
                             </select>
                         </div>
                     </div>

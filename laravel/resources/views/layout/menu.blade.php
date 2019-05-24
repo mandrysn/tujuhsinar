@@ -6,14 +6,14 @@
         </li>
         <li><a href="#"><span class="icon color10"><i class="fa fa-check-square-o" aria-hidden="true"></i></span>Master Data <i class="fa fa-sort-desc caret"></i></a>
             <ul>
-                <li><a href="{{ route('ukuran-bahan.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Ukuran Bahan</a></li>
+                <li><a href="{{ route('supplier.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Supplier</a></li>
                 <li><a href="{{ route('barang.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Bahan</a></li>
+                <li><a href="{{ route('ukuran-bahan.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Ukuran Bahan</a></li>
                 <li><a href="{{ route('kaki.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Kaki</a></li>
                 <li><a href="{{ route('editor.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Finishing</a></li>
                 <li><a href="{{ route('member.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Member</a></li>
                 <li><a href="{{ route('harga.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Harga</a></li>
                 <li><a href="{{ route('pelanggan.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Costumer</a></li>
-                <li><a href="{{ route('supplier.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Supplier</a></li>
                 <li><a href="{{ route('pengguna.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Data Pengguna</a></li>
             </ul>
         </li> 

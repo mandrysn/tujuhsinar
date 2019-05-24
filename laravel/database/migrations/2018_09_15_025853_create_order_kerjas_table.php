@@ -22,6 +22,7 @@ class CreateOrderKerjasTable extends Migration
             $table->enum('status_payment', ['belum bayar', 'tunai', 'transfer', 'invoice', 'down payment'])->default('belum bayar');
             $table->text('keterangan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
