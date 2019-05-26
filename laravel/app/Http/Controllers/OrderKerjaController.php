@@ -26,11 +26,29 @@ class OrderKerjaController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         $data = OrderKerja::orderBy('order', 'desc')->get();
+=======
+        $data = OrderKerja::where('status_payment', '=', 'belum bayar')->orderBy('order', 'desc')->get();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         return view('transaksi.order.order', compact('data'));
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function transaksi()
+    {
+        $data = OrderKerja::where('status_payment', '!=', 'belum bayar')->orderBy('order', 'desc')->get();
+        return view('transaksi.order.transaksi', compact('data'));
+    }
+
+    /**
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -119,9 +137,13 @@ class OrderKerjaController extends Controller
         //     $lebar = '1.00';
         // }
         // return $panjang . ' ' . $lebar;
+<<<<<<< HEAD
         // $cari = OrderKerja::count();
 
         $cari = OrderKerja::orderBy('created_at','DESC')->first()->id;
+=======
+        $cari = OrderKerja::count();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         if($cari == 0 ) {
             $add = 1;
         } else {
@@ -129,7 +151,10 @@ class OrderKerjaController extends Controller
         }
         $kode = sprintf("%05s", $add);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $data = Harga::all();
         $kakis = Kaki::all();
         $member = Member::all();
@@ -137,7 +162,11 @@ class OrderKerjaController extends Controller
         $editors = Editor::all();
         $members = Pelanggan::all();
         $order = OrderKerja::latest('id')->first();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         return view('transaksi.order.order_create', compact('members', 'barangs', 'kode', 'kakis', 'member', 'order','editors'));
     }
 
@@ -149,6 +178,7 @@ class OrderKerjaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function storeOutdoor(Request $request)
+<<<<<<< HEAD
     {   
 
        
@@ -160,6 +190,21 @@ class OrderKerjaController extends Controller
             $orderKerjaBaru = new OrderKerja;
             $orderKerjaBaru->order = $request->order;
             $orderKerjaBaru->tanggal = date('Y-m-d');
+=======
+    {
+        $cekData = OrderKerja::where('order', $request->order)->first();
+        if ( !empty($request->editor_id )) {
+        $editor = Editor::findOrFail($request->editor_id);
+        } 
+        if ( !empty($request->kaki_id )) {
+        $kaki = Kaki::findOrFail($request->kaki_id);
+        } 
+        
+        if ( is_null($cekData) ) {
+            $orderKerjaBaru = new OrderKerja;
+            $orderKerjaBaru->order = $request->order;
+            $orderKerjaBaru->tanggal = \Carbon\Carbon::now();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
             $orderKerjaBaru->pelanggan_id = $request->pelanggan_id;
             $orderKerjaBaru->save();
             $orderKerjaId = $orderKerjaBaru->id;
@@ -171,6 +216,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->order_kerja_id = $orderKerjaId;
         $subOrderKerjaBaru->produk_id = 1;
         $subOrderKerjaBaru->qty = $request->qty;
+<<<<<<< HEAD
         $subOrderKerjaBaru->deadline = $request->deadline;
         $subOrderKerjaBaru->harga = $request->harga;
 
@@ -199,14 +245,28 @@ class OrderKerjaController extends Controller
         
 
         
+=======
+        $subOrderKerjaBaru->deadline = $request->deadline . ' '. \Carbon\Carbon::now()->toTimeString();
+        $subOrderKerjaBaru->harga = $request->harga;
+        $subOrderKerjaBaru->total = $request->total;
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $subOrderKerjaBaru->diskon = $request->diskon;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
+<<<<<<< HEAD
 
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
         $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $kaki->nama_kaki . ', Rp ' . number_format($kaki->tambahan_harga);
         $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
+=======
+        if ( !empty($request->editor_id )) {
+        $subOrderKerjaBaru->keterangan_sub  .= 'Finishing: ' . $editor->nama_finishing . ', Rp ' . number_format($editor->tambahan_harga) . "<br />";
+        }
+        if ( !empty($request->kaki_id )) {
+        $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $kaki->nama_kaki . ', Rp ' . number_format($kaki->tambahan_harga);
+        }
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -221,13 +281,21 @@ class OrderKerjaController extends Controller
     public function storeIndoor(Request $request)
     {
         $cekData = OrderKerja::where('order', $request->order)->first();
+<<<<<<< HEAD
  
+=======
+        $editor = Editor::findOrFail($request->editor_id);
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $kaki = Kaki::findOrFail($request->kaki_id);
         
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;
             $orderKerjaBaru->order = $request->order;
+<<<<<<< HEAD
             $orderKerjaBaru->tanggal = date('Y-m-d');
+=======
+            $orderKerjaBaru->tanggal = \Carbon\Carbon::now();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
             $orderKerjaBaru->pelanggan_id = $request->pelanggan_id;
             $orderKerjaBaru->save();
             $orderKerjaId = $orderKerjaBaru->id;
@@ -239,6 +307,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->order_kerja_id = $orderKerjaId;
         $subOrderKerjaBaru->produk_id = '2';
         $subOrderKerjaBaru->qty = $request->qty;
+<<<<<<< HEAD
         $subOrderKerjaBaru->deadline = $request->deadline_indoor;
         $subOrderKerjaBaru->harga = $request->harga;
         
@@ -262,13 +331,23 @@ class OrderKerjaController extends Controller
         }
         $fnsText .=  "<br />";
 
+=======
+        $subOrderKerjaBaru->deadline = $request->deadline_indoor . ' '. \Carbon\Carbon::now()->toTimeString();
+        $subOrderKerjaBaru->harga = $request->harga;
+        $subOrderKerjaBaru->total = is_null($request->editor_id) ? ($request->total + $kaki->tambahan_harga) : is_null($request->kaki_id) ? $request->total + $editor->tambahan_harga : (is_null($request->editor_id) && is_null($request->kaki_id) ) ? $request->total : $request->total + ($editor->tambahan_harga + $kaki->tambahan_harga);
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $subOrderKerjaBaru->diskon = $request->diskon;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
+<<<<<<< HEAD
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
         $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $kaki->nama_kaki . ', Rp ' . number_format($kaki->tambahan_harga);
         $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
+=======
+        $subOrderKerjaBaru->keterangan_sub  .= 'Finishing: ' . $editor->nama_finishing . ', Rp ' . number_format($editor->tambahan_harga) . "<br />";
+        $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $kaki->nama_kaki . ', Rp ' . number_format($kaki->tambahan_harga);
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -287,7 +366,11 @@ class OrderKerjaController extends Controller
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;
             $orderKerjaBaru->order = $request->order;
+<<<<<<< HEAD
             $orderKerjaBaru->tanggal = date('Y-m-d');
+=======
+            $orderKerjaBaru->tanggal = \Carbon\Carbon::now();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
             $orderKerjaBaru->pelanggan_id = $request->pelanggan_id;
             $orderKerjaBaru->save();
             $orderKerjaId = $orderKerjaBaru->id;
@@ -302,10 +385,16 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
         $subOrderKerjaBaru->diskon = $request->diskon;
+<<<<<<< HEAD
         $subOrderKerjaBaru->deadline = $request->deadline;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = $request->keterangan;
         $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
+=======
+        $subOrderKerjaBaru->deadline = $request->deadline_merchant . ' '. \Carbon\Carbon::now()->toTimeString();
+        $subOrderKerjaBaru->barang_id = $request->barang_id;
+        $subOrderKerjaBaru->keterangan_sub  = $request->keterangan;
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -325,7 +414,11 @@ class OrderKerjaController extends Controller
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;
             $orderKerjaBaru->order = $request->order;
+<<<<<<< HEAD
             $orderKerjaBaru->tanggal = date('Y-m-d');
+=======
+            $orderKerjaBaru->tanggal = \Carbon\Carbon::now();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
             $orderKerjaBaru->pelanggan_id = $request->pelanggan_id;
             $orderKerjaBaru->save();
             $orderKerjaId = $orderKerjaBaru->id;
@@ -356,12 +449,19 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->total = $request->total;
         is_null($request->editor_id) ? $request->total : ($request->total + $editor->tambahan_harga);
         $subOrderKerjaBaru->diskon = $request->diskon;
+<<<<<<< HEAD
         $subOrderKerjaBaru->deadline = $request->deadline;
+=======
+        $subOrderKerjaBaru->deadline = $request->deadline_print . ' '. \Carbon\Carbon::now()->toTimeString();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Ukuran : '.$ukuran . "<br />";
         $subOrderKerjaBaru->keterangan_sub .= 'Finishing : ' . $editor->nama_finishing . ', Rp ' . number_format($editor->tambahan_harga) . "<br />";
         $subOrderKerjaBaru->keterangan_sub .= $request->keterangan;
+<<<<<<< HEAD
         $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 
         $subOrderKerjaBaru->save();
 
@@ -382,7 +482,11 @@ class OrderKerjaController extends Controller
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;
             $orderKerjaBaru->order = $request->order;
+<<<<<<< HEAD
             $orderKerjaBaru->tanggal = date('Y-m-d');
+=======
+            $orderKerjaBaru->tanggal = \Carbon\Carbon::now();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
             $orderKerjaBaru->pelanggan_id = $request->pelanggan_id;
             $orderKerjaBaru->save();
             $orderKerjaId = $orderKerjaBaru->id;
@@ -394,13 +498,20 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->order_kerja_id = $orderKerjaId;
         $subOrderKerjaBaru->produk_id = 5;
         $subOrderKerjaBaru->qty = $request->qty;
+<<<<<<< HEAD
         $subOrderKerjaBaru->deadline = $request->deadline;
+=======
+        $subOrderKerjaBaru->deadline = $request->deadline_costum . ' '. \Carbon\Carbon::now()->toTimeString();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
         $subOrderKerjaBaru->diskon = $request->diskon;
         $subOrderKerjaBaru->keterangan_sub = 'Nama Produk : ' . $request->nama_produk;
         $subOrderKerjaBaru->keterangan_sub .= '<br />Keterangan : ' . nl2br($request->keterangan);
+<<<<<<< HEAD
         $subOrderKerjaBaru->keterangan_file  = $request->keterangan_file;
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);

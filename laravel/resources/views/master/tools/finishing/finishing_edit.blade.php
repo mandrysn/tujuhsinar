@@ -23,6 +23,7 @@
         				<label for="input2" class="form-label">Harga Tambahan</label>
         				<input type="text" class="form-control" name="tambahan_harga" value="{{ $data->tambahan_harga }}" id="input2" required>
                     </div>
+<<<<<<< HEAD
                      <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="select2" class="form-label">Tipe Cetak</label>
@@ -39,6 +40,12 @@
                         <label for="select2" class="form-label">Tipe Produksi</label>
                         <select class="form-control" name="produk_id" required>
                             <option>-- Pilih Tipe Produksi --</option>
+=======
+                    <div class="form-group">
+                        <label for="select2" class="form-label">Tipe Cetak</label>
+                        <select class="form-control" name="produk_id" required>
+                            <option>-- Pilih Tipe Cetak --</option>
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                             <option value="1" {{ $data->produk_id == 1 ? "selected" : "" }}>Outdoor</option>
                             <option value="2" {{ $data->produk_id == 2 ? "selected" : "" }}>Indoor</option>
                             <option value="3" {{ $data->produk_id == 3 ? "selected" : "" }}>Merchant</option>

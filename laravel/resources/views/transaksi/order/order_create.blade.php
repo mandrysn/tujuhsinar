@@ -50,5 +50,8 @@
 </div>
 
 @include('master.pelanggan.modal')
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 @endsection

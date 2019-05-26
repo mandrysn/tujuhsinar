@@ -16,46 +16,82 @@ class KakisTableSeed extends Seeder
         $data = array(
             array(
                 'produk_id' => 1,
+<<<<<<< HEAD
+=======
+                'member_id' => '4',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'Tanpa Tambahan',
                 'tambahan_harga' => '0.00'
                 ),
             array(
                 'produk_id' => 2,
+<<<<<<< HEAD
+=======
+                'member_id' => '4',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'Tanpa Tambahan',
                 'tambahan_harga' => '0.00'
     			),
             array(
                 'produk_id' => 1,
+<<<<<<< HEAD
+=======
+                'member_id' => '4',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'Roll X',
                 'tambahan_harga' => '32000.00'
     			),
             array(
                 'produk_id' => 1,
+<<<<<<< HEAD
+=======
+                'member_id' => '4',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'Roll Y',
                 'tambahan_harga' => '30000.00'
     			),
             array(
                 'produk_id' => 1,
+<<<<<<< HEAD
+=======
+                'member_id' => '4',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'Roll Up',
                 'tambahan_harga' => '12000.00'
     			),
             array(
                 'produk_id' => 2,
+<<<<<<< HEAD
+=======
+                'member_id' => '4',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'Roll Down',
                 'tambahan_harga' => '35000.00'
     			),
             array(
                 'produk_id' => 2,
+<<<<<<< HEAD
+=======
+                'member_id' => '3',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'Roll X',
                 'tambahan_harga' => '38000.00'
     			),
             array(
                 'produk_id' => 2,
+<<<<<<< HEAD
+=======
+                'member_id' => '2',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'Roll Y',
                 'tambahan_harga' => '22000.00'
     			),
             array(
                 'produk_id' => 2,
+<<<<<<< HEAD
+=======
+                'member_id' => '2',
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 'nama_kaki' => 'X-Banner',
                 'tambahan_harga' => '45000.00'
     			)

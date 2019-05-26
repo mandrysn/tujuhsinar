@@ -1,10 +1,17 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
+<<<<<<< HEAD
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "b0edfebbb07c2b7998da0f78efde1932",
+=======
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "018205ea47333c0b9a633ed0c8deec66",
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -96,6 +103,7 @@
             "time": "2014-10-24T07:27:01+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "doctrine/cache",
             "version": "v1.8.0",
             "source": {
@@ -327,6 +335,8 @@
             "time": "2018-06-11T11:59:03+00:00"
         },
         {
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
             "name": "doctrine/inflector",
             "version": "v1.3.0",
             "source": {
@@ -2183,7 +2193,11 @@
                 },
                 {
                     "name": "Gert de Pagter",
+<<<<<<< HEAD
                     "email": "BackEndTea@gmail.com"
+=======
+                    "email": "backendtea@gmail.com"
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                 }
             ],
             "description": "Symfony polyfill for ctype functions",

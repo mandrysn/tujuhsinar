@@ -18,6 +18,10 @@ class CreateMemberTable extends Migration
             $table->string('nm_tipe', 100);
             $table->text('keterangan');
             $table->timestamps();
+<<<<<<< HEAD
+=======
+            $table->softDeletes();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         });
     }
 

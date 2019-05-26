@@ -3,10 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+<<<<<<< HEAD
 
 class OrderKerjaSub extends Model
 {
     protected $guarded = [];
+=======
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class OrderKerjaSub extends Model
+{
+    use SoftDeletes;
+    
+    protected $guarded = [];
+    protected $dates = ['deleted_at'];
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
   
     /*
      * variable static untuk produksi
@@ -122,6 +133,10 @@ class OrderKerjaSub extends Model
 
         return $hari . ', ' . \Carbon\Carbon::parse($tgl_deadline)
             ->format('d-') . $bulan . \Carbon\Carbon::parse($tgl_deadline)
+<<<<<<< HEAD
             ->format('-Y');
+=======
+            ->format('-Y') . ' - ' . \Carbon\Carbon::parse($tgl_deadline)->format('H:i');
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
     }
 }

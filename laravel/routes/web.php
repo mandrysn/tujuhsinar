@@ -44,6 +44,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 		Route::group(['prefix' => 'order', 'middleware' => ['order','kasir']], function() {
 			
 			Route::post('tambah/{id}', 'OrderKerjaController@detail')->name('order.detail');
+<<<<<<< HEAD
+=======
+			Route::get('transaksi', 'OrderKerjaController@transaksi')->name('order.transaksi');
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 			Route::delete('hapus/{id}', 'OrderKerjaController@destroySubKerja')->name('order.subkerja.hapus');
 
 			Route::group(['prefix' => 'outdoor'], function() {
@@ -83,7 +87,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 				Route::post('print-quarto/', 'OrderKerjaController@storePrintQuarto')->name('storePrintQuarto');
 				Route::post('costum-produk/', 'OrderKerjaController@storeCostumProduk')->name('storeCostumProduk');
 			});
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 		});
 		Route::resource('/order', 'OrderKerjaController');
 		
@@ -184,6 +192,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 		Route::resource('/harga', 'HargaController');
 		Route::resource('/member', 'MemberController');
 		Route::resource('/supplier', 'SupplierController');
+<<<<<<< HEAD
+=======
+		Route::get('ukuran-bahan/bahan', 'UkuranBahanController@getBahan');
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 		Route::resource('ukuran-bahan', 'UkuranBahanController');
 		Route::post('harga/indoor/', 'HargaController@indoor')->name('harga.indoor');
 		Route::post('harga/outdoor/', 'HargaController@outdoor')->name('harga.outdoor');

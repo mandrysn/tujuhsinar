@@ -4,11 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+<<<<<<< HEAD
+=======
+use Illuminate\Database\Eloquent\SoftDeletes;
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+<<<<<<< HEAD
+=======
+    use SoftDeletes;
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 
     /**
      * The attributes that are mass assignable.
@@ -26,6 +34,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+<<<<<<< HEAD
+=======
+    protected $dates = ['deleted_at'];
+
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
     public function getTugasAttribute(){
         $role = $this->role;
         if ($role == 1) return 'Admin';

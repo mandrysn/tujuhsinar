@@ -42,7 +42,10 @@ class EditorController extends Controller
         $data->member_id = $request->member_id;
         $data->nama_finishing = $request->nama_finishing;
         $data->produk_id = $request->produk_id;
+<<<<<<< HEAD
         $data->type = $request->type;
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $data->tambahan_harga = $request->tambahan_harga;
         $data->save();
 
@@ -86,7 +89,10 @@ class EditorController extends Controller
         $data->member_id = $request->member_id;
         $data->produk_id = $request->produk_id;
         $data->tambahan_harga = $request->tambahan_harga;
+<<<<<<< HEAD
         $data->type = $request->type;
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         $data->update();
 
         return redirect()->route('editor.index')->with('alert-success', 'Data Berhasil Diedit !');

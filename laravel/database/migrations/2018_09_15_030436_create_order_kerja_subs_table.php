@@ -28,6 +28,10 @@ class CreateOrderKerjaSubsTable extends Migration
             $table->integer('qty');
             $table->string('keterangan_sub')->nullable();
             $table->timestamps();
+<<<<<<< HEAD
+=======
+            $table->softDeletes();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         });
     }
 

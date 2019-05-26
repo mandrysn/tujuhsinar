@@ -54,7 +54,11 @@
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
+<<<<<<< HEAD
 				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_outdoor">
+=======
+				<select class="form-control" name="editor_id" id="editor_outdoor">
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					<option disabled>-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 1)
@@ -113,6 +117,7 @@
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>
 	</div>	
+<<<<<<< HEAD
 	<div class='modal fade bs-example' id='pcs' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
 	    <div class='modal-dialog modal-lg' role='document'>
 	        <div class='modal-content'>
@@ -135,10 +140,14 @@
 	        </div>
 	    </div>
 	</div>
+=======
+
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 </form>
 
 @push('style')
 <script type="text/javascript">
+<<<<<<< HEAD
 	var cur_select = 0;
 	jQuery('#editor_outdoor').on('change', function(e){
 			
@@ -162,6 +171,8 @@
 		  }
 		  cur_select = jQuery(this).children(":selected").val();
 		});
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 		var id = document.getElementById("pelanggan_outdoor").value;
 		jQuery.ajax({
 			type	 : 'get',
@@ -193,7 +204,11 @@
 				var tablaDatos = jQuery('#editor_outdoor');
 				
 				jQuery(data).each(function(key,value){
+<<<<<<< HEAD
 					    tablaDatos.append("<option class='editorOutdoor'  data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
+=======
+					    tablaDatos.append("<option class='editorOutdoor' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					});
 				
 			}

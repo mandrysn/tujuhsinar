@@ -17,10 +17,18 @@ class CreateSupplierTable extends Migration
             $table->increments('id');
             $table->string('nm_lengkap', 100);
             $table->text('alamat');
+<<<<<<< HEAD
             $table->string('no_telp', 12);
             $table->string('email', 100);
             $table->text('keterangan');
             $table->timestamps();
+=======
+            $table->string('no_telp', 22);
+            $table->string('email', 100);
+            $table->text('keterangan');
+            $table->timestamps();
+            $table->softDeletes();
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
         });
     }
 

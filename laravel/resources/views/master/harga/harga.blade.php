@@ -14,7 +14,11 @@
 					<br>
 					<div class="panel-title"> Data Harga </div>
 					<div class="panel-body table-responsive">
+<<<<<<< HEAD
 						<table id="example" class="table display">
+=======
+						<table id="example0" class="table display">
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 							<thead>
 								<tr>
 									<th>No</th>

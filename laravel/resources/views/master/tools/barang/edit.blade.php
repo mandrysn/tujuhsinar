@@ -69,6 +69,7 @@
                         <div class="form-group">
                             <label for="select2" class="form-label">Supplier</label>
                             <select class="form-control" name="supplier_id" required="">
+<<<<<<< HEAD
                                 <option value="">-- Pilih Member --</option>
                                 @foreach($supplier as $tampil2)
                                 @if($tampil2->id == $tampil->supplier_id)
@@ -76,6 +77,11 @@
                                 @else
                                 <option value="{{ $tampil2->id }}">{{ $tampil2->nm_lengkap }}</option>
                                 @endif
+=======
+                                <option value="">-- Pilih Supplier --</option>
+                                @foreach($supplier as $data)
+                                <option value="{{ $data->id }}" {{ $tampil->supplier_id == $data->id ? "selected" : "" }}>{{ $data->nm_lengkap }}</option>
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                                 @endforeach
                             </select>
                         </div>

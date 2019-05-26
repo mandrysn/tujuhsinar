@@ -1,12 +1,15 @@
 $(document).ready(function () {
     'use strict';
     jQuery.noConflict();
+<<<<<<< HEAD
 
 
 
     jQuery('.select2, .select2-multiple').select2({
             placeholder: "Pilih Banyak Data"
         });
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
     /* MetisMenu */
     jQuery('#side-menu').metisMenu();
 

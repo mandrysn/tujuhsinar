@@ -1,5 +1,8 @@
 <form method="post" action="{{ route('storeOutdoor') }}" >
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 	{!! csrf_field() !!}
 	{{ Form::hidden('harga', '', ['id' => 'harga']) }}
 	{{ Form::hidden('diskon', '', ['id' => 'diskon']) }}
@@ -81,7 +84,11 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
+<<<<<<< HEAD
 				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_outdoor">
+=======
+				<select class="form-control" name="editor_id" id="editor_outdoor">
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					<option disabled>-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 1)
@@ -104,9 +111,12 @@
 					@endforeach --}}
 				</select>
 			</div>
+<<<<<<< HEAD
 			<div id="pcsnya" style="display: none;">
 				
 			</div>
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 		</div>
 
 		<div class="col-md-12 col-lg-4">
@@ -134,6 +144,7 @@
 		
 		
 		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
+<<<<<<< HEAD
 			<button type="submit" class="btn btn-primary" id="OSub" disabled >Submit</button>
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>
@@ -161,10 +172,17 @@
 	        </div>
 	    </div>
 	</div>
+=======
+			<button type="submit" class="btn btn-primary" id="OSub" disabled>Submit</button>
+			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
+		</div>
+	</div>
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 </form>
 
 @push('style')
 <script type="text/javascript">
+<<<<<<< HEAD
 	var cur_select = 0;
 
 	// jQuery('#OSub').on('click', function(e){
@@ -192,6 +210,8 @@
 		  }
 		  cur_select = jQuery(this).children(":selected").val();
 		});
+=======
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
     jQuery(document).on('change','#pelanggan', function(e){
 		var id = jQuery(this).children(":selected").attr("data-pid");
 		
@@ -202,16 +222,28 @@
 			typeData : 'json',
 			success:function(data)
 			{
+<<<<<<< HEAD
 				//console.log(data)
+=======
+				console.log(data)
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 				jQuery('.outdoorKaki').remove();
 				var tablaDatos = jQuery('#kaki_outdoor');
 				
 				jQuery(data).each(function(key,value){
+<<<<<<< HEAD
 					    tablaDatos.append("<option class='outdoorKaki' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
 					});
 				
 			}
 		});
+=======
+					    tablaDatos.append("<option class='outdoorKaki' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 
 		jQuery.ajax({
 			type	 : 'get',
@@ -220,11 +252,16 @@
 			typeData : 'json',
 			success:function(data)
 			{
+<<<<<<< HEAD
 				//console.log(data)
+=======
+				console.log(data)
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 				jQuery('.editorOutdoor').remove();
 				var tablaDatos = jQuery('#editor_outdoor');
 				
 				jQuery(data).each(function(key,value){
+<<<<<<< HEAD
 						
 					    tablaDatos.append("<option class='editorOutdoor' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
 					});
@@ -234,6 +271,13 @@
 
 	
 
+=======
+					    tablaDatos.append("<option class='editorOutdoor' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+>>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 	})
 	
 </script>
