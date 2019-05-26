@@ -146,28 +146,37 @@
 @push('style')
 <script type="text/javascript">
 	var cur_select = 0;
-	jQuery('#editor_indoor').on('change', function(e){
-			
-			jQuery("#pcsnya").html('');
-		  if(jQuery(this).children(":selected").data('type') == 3 && cur_select != jQuery(this).children(":selected").val()){
-		  	jQuery("#list-pcs2").html('');
-		  	var opts = jQuery(this).find('option');
-		  	jQuery(opts).each(function(){
-					if(jQuery(this).data('type') == 3 ){
-						jQuery("#list-pcs2").append("<div class='form-group'>"+
-                                "<label for='input1' class='form-label'>Jumlah Pcs Untuk Finishing "+jQuery(this).data('nama')+": </label>"+
-                                "<input type='hidden' id='input2' name='id_pcs[]' class='form-control id_pcs' value='"+jQuery(this).attr('value')+"'  >"+
-                                "<input type='number' id='input1' name='jumlah_pcs[]' class='form-control jumlah_pcs' value='0' required >"+
-                            	"</div>");
+		jQuery('#editor_indoor').on('change', function(e){
+				
+				jQuery("#pcsnya").html('');
+
+			 
+			  	jQuery("#list-pcs2").html('');
+			 
+			  	var opts = jQuery(this).find('option');
+			  	jQuery(opts).each(function(){
+			  		
+						if(jQuery(this).data('type') == 3 && jQuery(this).is(':selected') && jQuery(this).val() != cur_select){
+							jQuery("#list-pcs2").append("<div class='form-group'>"+
+	                                "<label for='input1' class='form-label'>Jumlah Pcs Untuk Finishing "+jQuery(this).data('nama')+": </label>"+
+	                                "<input type='hidden' id='input2' name='id_pcs[]' class='form-control id_pcs' value='"+jQuery(this).attr('value')+"'  >"+
+	                                "<input type='number' id='input1' name='jumlah_pcs[]' class='form-control jumlah_pcs' value='0' required >"+
+	                            	"</div>");
+							console.log(jQuery(jQuery(this).attr('data-target')).hasClass('in'));
+							if(jQuery(jQuery(this).attr('data-target')).hasClass('in') == false){
+								jQuery(jQuery(this).attr('data-target')).modal('show');
+							}
+							
+							
+						}
+						cur_select = jQuery(this).val();
 						
-					}
-					
+				});
+			  	
+			  	
+			  
+			  
 			});
-		  	jQuery(jQuery(this).children(":selected").attr('data-target')).modal('show');
-		  	
-		  }
-		  cur_select = jQuery(this).children(":selected").val();
-		});
     $(document).on('change','#pelanggan_indoor', function(e){
 		var id = $(this).children(":selected").attr("data-pid");
 		
