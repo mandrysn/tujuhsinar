@@ -72,11 +72,7 @@
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
-<<<<<<< HEAD
 				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_indoor">
-=======
-				<select class="form-control" name="editor_id" id="editor_indoor">
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					<option disabled>-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 2)
@@ -124,37 +120,31 @@
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>
 	</div>
-<<<<<<< HEAD
-	<div class='modal fade bs-example' id='pcs2' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-	    <div class='modal-dialog modal-lg' role='document'>
-	        <div class='modal-content'>
-	            <div class='modal-header'>
-	                <h5 class='modal-title' id='exampleModalLabel'>Data Pcs Finishing</h5>
-	                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-	                    <span aria-hidden='true'>&times;</span>
+	<div class="modal fade bs-example" id="pcs2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-dialog modal-lg" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="exampleModalLabel">Data Pcs Finishing</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
 	                </button>
 	            </div>
-	            <div class='row'>
-	                <div class='col-md-12 col-lg-12'>
+	            <div class="row">
+	                <div class="col-md-12 col-lg-12">
 	                    
-	                        <div class='col-md-12 col-lg-12' id='list-pcs2'>
+	                        <div class="col-md-12 col-lg-12" id="list-pcs2">
 	                            
 	                        </div>
 	                        
-	                    </form>
 	                </div>
 	            </div>
 	        </div>
 	    </div>
 	</div>
-=======
-
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 </form>
 
 @push('style')
 <script type="text/javascript">
-<<<<<<< HEAD
 	var cur_select = 0;
 	jQuery('#editor_indoor').on('change', function(e){
 			
@@ -178,8 +168,6 @@
 		  }
 		  cur_select = jQuery(this).children(":selected").val();
 		});
-=======
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
     $(document).on('change','#pelanggan_indoor', function(e){
 		var id = $(this).children(":selected").attr("data-pid");
 		
@@ -209,19 +197,11 @@
 			success:function(data)
 			{
 				console.log(data)
-<<<<<<< HEAD
 				jQuery('.editorIndoor').remove();
 				var tablaDatos = jQuery('#editor_indoor');
 				
 					jQuery(data).each(function(key,value){
 					    tablaDatos.append("<option class='editorIndoor' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs2'  data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
-=======
-				$('.editorIndoor').remove();
-				var tablaDatos = $('#editor_indoor');
-				
-					$(data).each(function(key,value){
-					    tablaDatos.append("<option class='editorIndoor' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					});
 				
 			}

@@ -19,7 +19,8 @@
 								<tr>
 									<th>No.</th>
 									<th>Tipe Produk</th>
-									<th>Nama Ukuran Bahan</th>
+									<th>Ukuran Bahan</th>
+									<th>Bahan</th>
 									<th>Range Ukuran</th>
 									<th>Aksi</th>
 								</tr>
@@ -30,14 +31,15 @@
 									<td>{{ $index + 1 }}</td>
 									<td>{{ $datas->nama_produk }}</td>
 									<td>{{ $datas->nm_ukuran_bahan }}</td>
+									<td>{{ $datas->barang->nm_barang }}</td>
 									<td>{{ number_format($datas->range_min, 2) }} - {{ number_format($datas->range_max, 2) }}</td>
 									<td>
 										<form action="{{ route('ukuran-bahan.destroy', $datas->id) }}" method="post">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-										<a href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
-										<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
+											<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
 										</form>
+										<button href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</button>
 									</td>
 								</tr>
 								@empty

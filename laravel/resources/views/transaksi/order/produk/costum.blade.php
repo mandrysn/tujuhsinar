@@ -25,11 +25,7 @@
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label class="form-label">Deadline</label>
-<<<<<<< HEAD
-				<input type="date" class="form-control" id="pilih_deadline_costum" style="display: inline-block;" name="deadline">
-=======
 				<input type="date" class="form-control" id="pilih_deadline_costum" style="display: inline-block;" name="deadline_costum">
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 			</div>
 		</div>  
 		

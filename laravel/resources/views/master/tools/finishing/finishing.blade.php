@@ -21,6 +21,7 @@
 									<th>Tipe Member</th>
 									<th>Nama Finishing</th>
 									<th>Harga Tambahan</th>
+									<th>Tipe Cetak</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -32,12 +33,13 @@
 									<td>{{ $datas->member->nm_tipe }}</td>
 									<td>{{ $datas->nama_finishing }}</td>
 									<td>{{ number_format($datas->tambahan_harga) }}</td>
+									<td>{{ Helper::get_type($datas->type) }}</td>
 									<td>
 										<form action="{{ route('editor.destroy', $datas->id) }}" method="post">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-										<a href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
-										<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
+											<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
+											<a href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
 										</form>
 									</td>
 								</tr>

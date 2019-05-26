@@ -54,13 +54,8 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
-<<<<<<< HEAD
 				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_indoor">
 					<option disabled>-- Pilih Finishing --</option>
-=======
-				<select class="form-control" name="editor_id" id="editor_indoor">
-					<option selected>-- Pilih Finishing --</option>
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 2)
 							<option value="{{ $editor->id }}">{{ $editor->nama_finishing }} - {{ number_format($editor->tambahan_harga) }}</option>
@@ -74,11 +69,7 @@
 			<div class="form-group">
 				<label for="" class="form-label">Kaki</label>
 				<select class="form-control" name="kaki_id" id="kaki_indoor">
-<<<<<<< HEAD
 					<option disabled>-- Pilih Kaki --</option>
-=======
-					<option selected>-- Pilih Kaki --</option>
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					{{-- @foreach($kakis as $kaki)
 						@if($kaki->produk_id == 2)
 							<option value="{{ $kaki->id }}">{{ $kaki->nama_kaki }} - {{ number_format($kaki->tambahan_harga) }}</option>
@@ -117,38 +108,33 @@
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>
 	</div>
-<<<<<<< HEAD
-	   <div class='modal fade bs-example' id='pcs2' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-	    <div class='modal-dialog modal-lg' role='document'>
-	        <div class='modal-content'>
-	            <div class='modal-header'>
-	                <h5 class='modal-title' id='exampleModalLabel'>Data Pcs Finishing</h5>
-	                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-	                    <span aria-hidden='true'>&times;</span>
+	<div class="modal fade bs-example" id="pcs2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-dialog modal-lg" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="exampleModalLabel">Data Pcs Finishing</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
 	                </button>
 	            </div>
-	            <div class='row'>
-	                <div class='col-md-12 col-lg-12'>
+	            <div class="row">
+	                <div class="col-md-12 col-lg-12">
 	                    
-	                        <div class='col-md-12 col-lg-12' id='list-pcs2'>
+	                        <div class="col-md-12 col-lg-12" id="list-pcs2">
 	                            
 	                        </div>
 	                        
-	                    </form>
 	                </div>
 	            </div>
 	        </div>
 	    </div>
 	</div>
-=======
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 </form>
 
 
 @push('style')
 <script type="text/javascript">
 		var id = document.getElementById("p_indoor").value;
-<<<<<<< HEAD
 		var cur_select = 0;
 	jQuery('#editor_indoor').on('change', function(e){
 		  if(jQuery(this).children(":selected").data('type') == 3 && cur_select != jQuery(this).children(":selected").val()){
@@ -170,9 +156,6 @@
 		  }
 		  cur_select = jQuery(this).children(":selected").val();
 		});
-=======
-		
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 		$.ajax({
 			type	 : 'get',
 			url		 : "{{ url('admin/transaksi/order/indoor/kaki') }}",
@@ -203,11 +186,7 @@
 				var tablaDatos = $('#editor_indoor');
 				
 					$(data).each(function(key,value){
-<<<<<<< HEAD
 					    tablaDatos.append("<option class='editorIndoor'  data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs2' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
-=======
-					    tablaDatos.append("<option class='editorIndoor' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					});
 				
 			}

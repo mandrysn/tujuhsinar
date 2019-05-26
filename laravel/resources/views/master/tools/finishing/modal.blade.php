@@ -38,7 +38,6 @@
                             <input type="text" class="form-control" name="tambahan_harga" id="input2" required>
                         </div>
                     </div>
-<<<<<<< HEAD
 
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
@@ -58,13 +57,6 @@
                             <label for="select2" class="form-label">Tipe Produksi</label>
                             <select class="form-control" name="produk_id" required>
                                 <option>-- Pilih Tipe Produksi --</option>
-=======
-                    <div class="col-md-12 col-lg-12">
-                        <div class="form-group">
-                            <label for="select2" class="form-label">Tipe Cetak</label>
-                            <select class="form-control" name="produk_id" required>
-                                <option>-- Pilih Tipe Cetak --</option>
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                                 <option value="1">Outdoor</option>
                                 <option value="2">Indoor</option>
                                 <option value="3">Merchant</option>

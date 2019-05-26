@@ -14,11 +14,7 @@
 					<br>
 					<div class="panel-title"> Data Harga </div>
 					<div class="panel-body table-responsive">
-<<<<<<< HEAD
-						<table id="example" class="table display">
-=======
 						<table id="example0" class="table display">
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 							<thead>
 								<tr>
 									<th>No</th>
@@ -37,8 +33,8 @@
 										<form action="{{ route('harga.destroy', $harga->id) }}" method="post">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-										<a href="{{ route('harga.show', $harga->id) }}" class="btn btn-option1"><i class="fa fa-ioxhost"></i>Detail</a>
-										<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
+											<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
+											<a href="{{ route('harga.show', $harga->id) }}" class="btn btn-option1"><i class="fa fa-info"></i>Detail</a>
 										</form>
 									</td>
 								</tr>

@@ -25,9 +25,9 @@ class Dashboard extends Controller
 
         $tet = $this->perhari();
         $order = OrderKerja::count();
-        $tagih = Piutang::where('status_pembayaran', 'Utang')->count();
+        $tagih = Piutang::where('status_payment', 'Utang')->count();
         $pel = Pelanggan::count();
-        $trans = Piutang::sum('sudah_bayar');
+        $trans = Piutang::sum('status_payment');
 
         return view('dashboard', compact('order', 'tagih', 'pel', 'trans', 'tet'));
     }

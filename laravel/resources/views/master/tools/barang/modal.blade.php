@@ -23,15 +23,9 @@
                     </div>
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
-<<<<<<< HEAD
-                            <label for="select2" class="form-label">Tipe Cetak</label>
-                            <select class="form-control" name="produk_id" required>
-                                <option>-- Pilih Tipe Cetak --</option>
-=======
                             <label for="select2" class="form-label">Tipe Produksi</label>
                             <select class="form-control" name="produk_id" required>
                                 <option>-- Pilih Tipe Produksi --</option>
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                                 <option value="1">Outdoor</option>
                                 <option value="2">Indoor</option>
                                 <option value="3">Merchant</option>
@@ -74,11 +68,7 @@
                         <div class="form-group">
                             <label for="select2" class="form-label">Supplier</label>
                             <select class="form-control" name="supplier_id" required="">
-<<<<<<< HEAD
-                                <option value="">-- Pilih Member --</option>
-=======
                                 <option value="">-- Pilih Supplier --</option>
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
                                 @foreach($supplier as $tampil)
                                 <option value="{{ $tampil->id }}">{{ $tampil->nm_lengkap }}</option>
                                 @endforeach

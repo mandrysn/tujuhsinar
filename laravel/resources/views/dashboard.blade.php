@@ -31,7 +31,7 @@
 			 <div class="panel panel-defaul">
 				<div class="panel-title"><span class="pull-right"><i class="fa fa-book"></i></span> TAGIHAN </div>
 			 	<div class="panel-body">
-			 		<h1 class="no-margins"><span data-counter="counterup" data-value="{{$tagih}}">0</span></h1>
+			 		<h1 class="no-margins"><span data-counter="counterup" data-value="{{ is_null($tagih) ? 0 : $tagih }}">0</span></h1>
 			 		<small>Total Tagihan</small> </div>
 				</div>
 			</div>

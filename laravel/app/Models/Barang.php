@@ -78,4 +78,8 @@ class Barang extends Model
     {
     	return $this->hasMany('OrderKerjaSub');
     }
+    public function UkuranBahan()
+    {
+    	return $this->hasMany('UkuranBahan');
+    }
 }

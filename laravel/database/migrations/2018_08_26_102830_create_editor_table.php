@@ -16,14 +16,12 @@ class CreateEditorTable extends Migration
         Schema::create('editors', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('produk_id', ['1', '2', '3', '4', '5']);
+            $table->enum('type', ['1', '2', '3'])->default(1);
             $table->integer('member_id')->unsigned()->index();
             $table->foreign('member_id')->references('id')->on('members')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('nama_finishing', 100);
-<<<<<<< HEAD
-            $table->double('tambahan_harga', 8, 2);
-=======
+            $table->string('type', 50);
             $table->double('tambahan_harga', 11, 2);
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
             $table->timestamps();
         });
     }

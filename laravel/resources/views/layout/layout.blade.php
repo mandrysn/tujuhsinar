@@ -10,10 +10,7 @@
     <!-- Css Files -->
     <link href="{{ asset('css/root.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugin/footable/footable.core.css') }}" rel="stylesheet">
-<<<<<<< HEAD
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
-=======
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 </head>
 <body>
     <!-- Start Page Loading -->
@@ -65,11 +62,7 @@
 <!-- jQuery Library --> 
 
 <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script> 
-<<<<<<< HEAD
 <script src="{{ asset('js/select2.js')}}"></script>
-=======
-
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 <!-- Bootstrap Core JavaScript File --> 
 <script type="text/javascript" src="{{asset('js/bootstrap/dist/js/popper.min.js')}}"></script> 
 <script type="text/javascript" src="{{asset('js/bootstrap/dist/js/bootstrap.min.js')}}"></script>
@@ -113,9 +106,5 @@
 <!-- Footable -->
 <script type="text/javascript" src="{{asset('js/footable/footable.all.min.js')}}"></script>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 </body>
 </html>

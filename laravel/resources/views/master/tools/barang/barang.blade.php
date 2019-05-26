@@ -14,11 +14,7 @@
 					<a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Bahan</a>
 					<br>
 					<br>
-<<<<<<< HEAD
-					<div class="panel-title"> Data Costumer </div>
-=======
 					<div class="panel-title"> Data Bahan </div>
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 					<div class="panel-body table-responsive">
 						<table id="example0" class="table display">
 							<thead>
@@ -49,9 +45,9 @@
 										<form action="{{ route('barang.destroy', $datas->id) }}" method="post">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-										<a href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</a>
-										<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
+											<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
 										</form>
+										<button href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</button>
 									</td>
 								</tr>
 								@empty

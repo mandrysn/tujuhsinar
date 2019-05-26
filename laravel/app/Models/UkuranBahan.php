@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UkuranBahan extends Model
 {
-<<<<<<< HEAD
-    //
-=======
     protected $guarded = [];
     
     public static $outdoor = '1';
@@ -28,5 +25,9 @@ class UkuranBahan extends Model
         ];
         return $label[$this->produk_id];
     }
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
+
+    public function Barang()
+    {
+        return $this->belongsTo(Barang::class);
+    }
 }

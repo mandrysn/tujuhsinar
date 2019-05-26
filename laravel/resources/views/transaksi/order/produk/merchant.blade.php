@@ -26,11 +26,7 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="pilih_merchant"> Deadline </label>
-<<<<<<< HEAD
-				<input type="date" class="form-control" id="pilih_deadline_merchant" style="display: inline-block;" name="deadline" required>
-=======
 				<input type="date" class="form-control" id="pilih_deadline_merchant" style="display: inline-block;" name="deadline_merchant" required>
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 			</div>
 		</div>  
 	</div>

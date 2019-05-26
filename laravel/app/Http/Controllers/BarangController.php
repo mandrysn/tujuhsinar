@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Supplier;
-<<<<<<< HEAD
-=======
 use App\Models\UkuranBahan;
->>>>>>> 1182038c58e4e85bf507efbb7a35631dbef94174
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
