@@ -50,12 +50,14 @@
 				</div>
 		</div>
 	</div>
+	<script src="{{ asset('js/app.js')}}"></script>
 <!-- Toastr -->
 <script type="text/javascript" src="{{asset('js/toastr/toastr.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/toastr/toastr-plugin.js')}}"></script>
 <!-- C3 --> 
 <script type="text/javascript" src="{{asset('js/c3/d3.min.js')}}"></script><!-- main file --> 
 <script type="text/javascript" src="{{asset('js/c3/c3.min.js')}}"></script><!-- main file --> 
+
 <script type="text/javascript">
 	$(document).ready(function () {
 	'use strict';
