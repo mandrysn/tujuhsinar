@@ -6,6 +6,7 @@ use App\Models\Kaki;
 use App\Models\Harga;
 use App\Models\Editor;
 use App\Models\Pelanggan;
+use App\Models\UkuranBahan;
 use App\Models\HargaOutdoor;
 
 use Illuminate\Http\Request;
@@ -13,105 +14,25 @@ use Illuminate\Http\Request;
 class HargaOutdoorController extends Controller
 {
     
-    public function getData( $barang, $pelanggan, $qty, $p, $l, $format_ukuran) {
-        if ( is_null($pelanggan) || is_null($barang) || is_null($qty) || is_null($format_ukuran)) {
+    public function getData( $barang, $pelanggan, $qty, $p, $l) {
+        if ( is_null($pelanggan) || is_null($barang) || is_null($qty) ) {
             return '';
         } else {
             $diskon = '';
             $total = '';
             $harga = '';
             $idPelanggan = Pelanggan::findOrFail($pelanggan);
-            $harga = Harga::where('produk_id', '=', '1')->where('member_id', '=', $idPelanggan->member_id)->first();
+            $harga = Harga::where('produk_id', '1')->where('member_id', '=', $idPelanggan->member_id)->first();
 
-            if ( is_null($harga) || $p == 0 || $l == 0 || is_null($format_ukuran)) {
+            if ( is_null($harga) || $p == 0 || $l == 0 ) {
                 $diskon = '';
                 $total = '';
                 $harga = '';
 
             } else {
-                    $pecah_luas = explode('.', $l);
-                    $pecah_panjang = explode('.', $p);
-                    switch ($format_ukuran) {
-                        case '1': //pembulatan panjang
-                            if ($p >= '1.00' ) {
-                                if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50') {
-                                    $panjang = $pecah_panjang[0] . '.50';
-                                } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
-                                    $panjang = $pecah_panjang[0] + 1 . '.00';
-                                } else if ($pecah_panjang[1] == '00') {
-                                    $panjang = $p;
-                                }
-                            } else {
-                                $panjang = '1.00';
-                            }
-
-                            if ($l >= '1.00' ) {
-                                $lebar = $l;
-                            } else if ($l < '1.00' ) {
-                                $lebar = '1.00';
-                            }
-
-                            break;
-        
-                        case '2': //pembulatan lebar
-                            if ($l >= '1.00' ) {
-                                if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
-                                    $lebar = $pecah_luas[0] . '.50';
-                                } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
-                                    $lebar = $pecah_luas[0] + 1 . '.00';
-                                } else if ($pecah_luas[1] == '00') {
-                                    $lebar = $l;
-                                }
-                            } else {
-                                $lebar = '1.00';
-                            }
-                            
-                            if ($p >= '1.00' ) {
-                                $panjang = $p;
-                            } else if ($p < '1.00' ) {
-                                $panjang = '1.00';
-                            }
-                            break;
-        
-                        case '3': //pembulatan panjang lebar
-                        //panjang
-                                if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50' ) {
-                                    $panjang = $pecah_panjang[0] . '.50';
-                                } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
-                                    $panjang = $pecah_panjang[0] + 1 . '.00';
-                                } else if ($pecah_panjang[1] == '00') {
-                                    $panjang = $p;
-                                }
-        
-                        //lebar
-                                if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
-                                    $lebar = $pecah_luas[0] . '.50';
-                                } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
-                                    $lebar = $pecah_luas[0] + 1 . '.00';
-                                } else if ($pecah_luas[1] == '00') {
-                                    $lebar = $l;
-                                }
-                            break;
-        
-                        case '4': //tanpa pembulatan
-                            if ($p <= '0.99' && $l <= '0.99') {
-                                $panjang = '1.00';
-                                $lebar = '1.00';
-                            } else if ($p <= '0.99' ) {
-                                $panjang = '1.00';
-                                $lebar = $l;
-                            } else if ($l <= '0.99') {
-                                $panjang = $p;
-                                $lebar = '1.00';
-                            } else {
-                                $panjang = $p;
-                                $lebar = $l;
-                            }
-                            break;
-                    }
                 
                 $data = HargaOutdoor::where('harga_id', $harga->id)
-                                ->where('barang_id', '=', $barang)
+                                ->where('barang_id', $barang)
                                 ->where('range_min', '<=', $qty)
                                 ->where('range_max', '>=', $qty)
                                 ->first();
@@ -122,14 +43,40 @@ class HargaOutdoorController extends Controller
                     $harga = '';
                 } else {
 
+                    // cek jumlah quantity dengan range harga
                     if ( ( $qty <= $data->range_max ) && ( $qty >= $data->range_min ) ) {
-                        $total = (($panjang * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) ));
+                        // cari ukuran bahan yang sesuai dengan barang dan produk
+                        $cek_ukuran = UkuranBahan::where('barang_id', $barang)->where('produk_id', '1')->get();
+                        // array harga dan total
+                        $total_lebar = [];
+                        $harga_lebar = [];
+                        $total_panjang = [];
+                        $harga_panjang = [];
+                        foreach($cek_ukuran as $key => $tmp) {
+                            // mencari ukuran yg akan digunakan untuk bahan sesuai dengan p atau l pesanan
+                            if ($l >= $tmp->range_min && $l <= $tmp->range_max) {
+                                // mengambil ukuran max untuk lebar dari ukuran bahan yg akan digunakan
+                                $lebar = $tmp->range_max;
+        
+                                array_push($harga_lebar, ( ($data->harga_jual * ($p * $lebar)) - ($data->harga_jual * ($data->disc / 100))) );
+                                array_push($total_lebar, (($p * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+                            }
+                            else if ($p >= $tmp->range_min && $p <= $tmp->range_max) {
+                                // mengambil ukuran max untuk panjang dari ukuran bahan yg akan digunakan
+                                $panjang = $tmp->range_max;
+        
+                                array_push($harga_panjang, ( ($data->harga_jual * ($panjang * $l)) - ($data->harga_jual * ($data->disc / 100))) );
+                                array_push($total_panjang, (($panjang * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+                            }
+                            
+                        }
+                        $diskon = $data->disc;
+                        $total = $total_panjang[0] > $total_lebar[0] ?  $total_lebar[0] : $total_panjang[0];
+                        $harga = $harga_panjang[0] > $harga_lebar[0] ?  $harga_lebar[0] : $harga_panjang[0];
                     } else { 
                         $total = 'Tidak set';
                     }
 
-                    $harga = $data->harga_jual * ($panjang * $lebar);
-                    $diskon = $data->disc;
                 }
 
             }

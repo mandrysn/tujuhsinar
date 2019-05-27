@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BarangSeed::class);
         $this->call(EditorsTableSeed::class);
         $this->call(KakisTableSeed::class);
+        $this->call(UkuranBahanSeeder::class);
         // $this->call(HargaSeed::class);
         // $this->call(HargaOutdoorSeed::class);
         // $this->call(HargaIndoorSeed::class);

@@ -39,7 +39,7 @@
 											{{ method_field('DELETE') }}
 											<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
 										</form>
-										<button href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</button>
+										{{-- <button href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</button> --}}
 									</td>
 								</tr>
 								@empty
@@ -55,7 +55,7 @@
 		</div>
 		<!-- End Row --> 
 	@include('master.tools.ukuran-bahan.modal')
-	@include('master.tools.ukuran-bahan.edit')
+	{{-- @include('master.tools.ukuran-bahan.edit') --}}
 
 @push('style')
 <script type="text/javascript">
@@ -82,28 +82,28 @@
 
 	})
 
-	jQuery(document).on('change','#edit_id', function(e){
-		var id = jQuery(this).children(":seleced").attr("value");
+	// jQuery(document).on('change','#edit_id', function(e){
+	// 	var id = jQuery(this).children(":seleced").attr("value");
 		
-		jQuery.ajax({
-			type	 : 'get',
-			url		 : "{{ url('admin/master/ukuran-bahan/bahan') }}",
-			data	 : {id:id},
-			typeData : 'json',
-			success:function(data)
-			{
-				console.log(data)
-				jQuery('.editBahan').remove();
-				var tablaDatos = jQuery('#edit_bahan');
+	// 	jQuery.ajax({
+	// 		type	 : 'get',
+	// 		url		 : "{{ url('admin/master/ukuran-bahan/bahan') }}",
+	// 		data	 : {id:id},
+	// 		typeData : 'json',
+	// 		success:function(data)
+	// 		{
+	// 			console.log(data)
+	// 			jQuery('.editBahan').remove();
+	// 			var tablaDatos = jQuery('#edit_bahan');
 				
-				jQuery(data).each(function(key,value){
-					    tablaDatos.append("<option class='editBahan' value='"+value.id+"'>"+value.nm_barang+"</option>");
-					});
+	// 			jQuery(data).each(function(key,value){
+	// 				    tablaDatos.append("<option class='editBahan' value='"+value.id+"'>"+value.nm_barang+"</option>");
+	// 				});
 				
-			}
-		})
+	// 		}
+	// 	})
 
-	})
+	// })
 	
 </script>
 @endpush

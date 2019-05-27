@@ -21,6 +21,43 @@ class Dashboard extends Controller
      */
     public function index()
     {
+        // $data = \App\Models\HargaOutdoor::where('harga_id', 1)
+        // ->where('barang_id', 9)
+        // ->where('range_min', '<=', 1)
+        // ->where('range_max', '>=', 15)
+        // ->first();
+
+        // $l = '2.40'; $p = '1.60'; $qty = '2';
+        // $cek_ukuran = \App\Models\UkuranBahan::where('barang_id', '9')->where('produk_id', '1')->get();
+        // $total_panjang = [];
+        // $total_lebar = [];
+        // $harga_lebar = [];
+        // $harga_panjang = [];
+        // foreach($cek_ukuran as $key => $tmp) {
+        //     if ($l >= $tmp->range_min && $l <= $tmp->range_max) {
+                
+        //         $lebar = $tmp->range_max;
+
+        //         echo $l . ' ' . $tmp->nm_ukuran_bahan . ' ' . $lebar . ' ' . $p . '<br />';
+        //         array_push($harga_lebar, ( ($data->harga_jual * ($p * $lebar)) - ($data->harga_jual * ($data->disc / 100))) );
+        //         array_push($total_lebar, (($p * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+        //     }
+        //     else if ($p >= $tmp->range_min && $p <= $tmp->range_max) {
+
+        //         $panjang = $tmp->range_max;
+
+        //         echo $p . ' ' . $tmp->nm_ukuran_bahan . ' ' . $panjang  . ' ' . $l . '<br />';
+        //         array_push($harga_panjang, ( ($data->harga_jual * ($panjang * $l)) - ($data->harga_jual * ($data->disc / 100))) );
+        //         array_push($total_panjang, (($panjang * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+        //     }
+            
+        // }
+        // // return 'L=> ' . $total_lebar[0];
+        // echo '<br /><br /><br />' . $total_panjang[0] . '<=p || l=> ' . $total_lebar[0] . '<br />';
+        // echo '<br /><br /><br />' . $harga_panjang[0] . '<=p || l=> ' . $harga_lebar[0] . '<br />';
+        // return $total = $total_panjang[0] > $total_lebar[0] ?  $total_lebar[0] : $total_panjang[0];
+        //     dd();
+
         Helper::get_username(1);
 
         $tet = $this->perhari();

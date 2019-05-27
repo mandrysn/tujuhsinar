@@ -59,6 +59,7 @@ class EditorsTableSeed extends Seeder
             array(
                 'produk_id' => 2,
                 'member_id' => '2',
+                'type' => '1',
                 'nama_finishing' => 'Laminasi Doft',
                 'tambahan_harga' => '35000.00'
     			),

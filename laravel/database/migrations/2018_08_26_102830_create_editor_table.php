@@ -20,7 +20,6 @@ class CreateEditorTable extends Migration
             $table->integer('member_id')->unsigned()->index();
             $table->foreign('member_id')->references('id')->on('members')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('nama_finishing', 100);
-            $table->string('type', 50);
             $table->double('tambahan_harga', 11, 2);
             $table->timestamps();
         });

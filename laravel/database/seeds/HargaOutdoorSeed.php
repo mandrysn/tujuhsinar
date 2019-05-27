@@ -19,8 +19,8 @@ class HargaOutdoorSeed extends Seeder
     			'barang_id' => '1',
     			'range_min' => '1',
                 'range_max' => '20',
-                'harga_pokok' => '30000.00',
-                'harga_jual' => '33000.00',
+                'harga_pokok' => '20000.00',
+                'harga_jual' => '25000.00',
                 'disc' => '0',
                 'keterangan' => null
     			),

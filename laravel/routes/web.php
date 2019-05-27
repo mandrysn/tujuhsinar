@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 			Route::group(['prefix' => 'outdoor'], function() {
 				Route::get('kaki', 'HargaOutdoorController@getKaki');
 				Route::get('finishing', 'HargaOutdoorController@getFinishing');
-				Route::get('data/{barang}/{pelanggan}/{qty}/{p}/{l}/{format_ukuran}', 'HargaOutdoorController@getData');
+				Route::get('data/{barang}/{pelanggan}/{qty}/{p}/{l}', 'HargaOutdoorController@getData');
 			});
 
 			Route::group(['prefix' => 'indoor'], function() {

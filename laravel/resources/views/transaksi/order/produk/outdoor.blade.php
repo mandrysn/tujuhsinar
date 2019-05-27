@@ -62,17 +62,10 @@
 
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
-				<label for="input3" class="form-label">Format Ukuran</label>
-				<select class="selectpicker form-control" name="format_ukuran" data-live-search="true" onchange="get_card_name()" id="format_ukuran">
-					<option selected>-- Pilih Format --</option>
-					<option value="4">Tanpa dibulatkan</option>
-					<option value="1">Bulatkan Panjang</option>
-					<option value="2">Bulatkan Lebar</option>
-					<option value="3">Bulatkan Panjang & Lebar</option>
-				</select>
+				<label class="form-label">Nama File</label>
+				<input type="text" name="nama_file" class="form-control" value="" required>
 			</div>
 		</div>
-	
 	</div>
 
 	<div class="row">
@@ -105,13 +98,6 @@
 			</div>
 			<div id="pcsnya" style="display: none;">
 				
-			</div>
-		</div>
-
-		<div class="col-md-12 col-lg-4">
-			<div class="form-group">
-				<label class="form-label">Nama File</label>
-				<input type="text" name="nama_file" class="form-control" required>
 			</div>
 		</div>
 
@@ -249,13 +235,12 @@
 		var p = document.getElementById("panjang").value;
 		var l = document.getElementById("lebar").value;
 		var qty = document.getElementById("qty").value;
-		var format_ukuran = document.getElementById("format_ukuran").value;
 
-		if(pelanggan != '' && barang != '' && qty != '' && l != '' && p != '' && format_ukuran != '' && pelanggan != null && barang != null && qty != null && l != null && p != null && format_ukuran != null) {
+		if(pelanggan != '' && barang != '' && qty != '' && l != '' && p != '' && pelanggan != null && barang != null && qty != null && l != null && p != null) {
 
 			jQuery.ajax({
 	        	
-	            url: "{{ url('admin/transaksi/order/outdoor/data/') }}/"+barang+"/"+pelanggan+"/"+qty+"/"+p+"/"+l+"/"+format_ukuran,
+	            url: "{{ url('admin/transaksi/order/outdoor/data/') }}/"+barang+"/"+pelanggan+"/"+qty+"/"+p+"/"+l,
 	            type: "GET",
 	            success: function(data) {
 	                jQuery('#diskon').val(data.diskon);

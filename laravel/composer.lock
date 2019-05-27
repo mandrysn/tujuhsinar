@@ -1,11 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-<<<<<<< HEAD
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-=======
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
->>>>>>> 24668411e2b70f46a421f862905a101d563f19d0
         "This file is @generated automatically"
     ],
     "content-hash": "b0edfebbb07c2b7998da0f78efde1932",
@@ -2187,11 +2183,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-<<<<<<< HEAD
-                    "email": "BackEndTea@gmail.com"
-=======
                     "email": "backendtea@gmail.com"
->>>>>>> 24668411e2b70f46a421f862905a101d563f19d0
                 }
             ],
             "description": "Symfony polyfill for ctype functions",

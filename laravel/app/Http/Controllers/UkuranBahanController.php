@@ -16,7 +16,7 @@ class UkuranBahanController extends Controller
     public function index()
     {
         $bahan = Barang::all();
-        $data = UkuranBahan::all();
+        $data = UkuranBahan::orderby('range_min', 'asc')->get();
         return view('master.tools.ukuran-bahan.index', compact('data', 'bahan'));
     }
 
