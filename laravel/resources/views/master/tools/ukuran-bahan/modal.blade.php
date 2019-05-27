@@ -35,12 +35,12 @@
                     </div>
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
-                            <label for="select2" class="form-label">Bahan</label>
-                            <select class="form-control" name="barang_id" id="bahan" required>
-                                <option selected>-- Pilih Bahan --</option>
-                                {{-- @foreach($bahan as $data)
+                            <label for="bahan" class="form-label">Bahan</label>
+                            <select class="form-control selectpicker" multiple="" name="barang_id[]" id="bahan" required>
+                                <option disabled>-- Pilih Bahan --</option>
+                                @foreach($bahan as $data)
                                 <option value="{{ $data->id }}">{{ $data->nm_barang }}</option>
-                                @endforeach --}}
+                                @endforeach 
                             </select>
                         </div>
                     </div>

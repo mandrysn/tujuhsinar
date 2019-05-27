@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\DetailUkuranBahan;
 use App\Models\UkuranBahan;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class UkuranBahanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        
         $bahan = Barang::all();
         $data = UkuranBahan::orderby('range_min', 'asc')->get();
         return view('master.tools.ukuran-bahan.index', compact('data', 'bahan'));
@@ -40,11 +42,18 @@ class UkuranBahanController extends Controller
     {
         $data = new UkuranBahan();
         $data->nm_ukuran_bahan = $request->nm_ukuran_bahan;
-        $data->barang_id = $request->barang_id;
         $data->range_min = $request->range_min;
         $data->range_max = $request->range_max;
         $data->produk_id = $request->produk_id;
         $data->save();
+
+        $brg = $request->barang_id;
+        for ($i=0; $i < count($brg); $i++) { 
+            $data2 = new DetailUkuranBahan;
+            $data2->ukuran_bahan_id = $data->id;
+            $data2->barang_id = $brg[$i];
+            $data2->save();
+        }
 
         return redirect()->route('ukuran-bahan.index')->with('alert-ukuran', 'Data Berhasil Ditambah');
     }
@@ -79,14 +88,21 @@ class UkuranBahanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, UkuranBahan $ukuranBahan)
-    {
+    {   
         $ukuranBahan->nm_ukuran_bahan = $request->nm_ukuran_bahan;
-        $ukuranBahan->barang_id = $request->barang_id;
         $ukuranBahan->produk_id = $request->produk_id;
         $ukuranBahan->range_min = $request->range_min;
         $ukuranBahan->range_max = $request->range_max;
         $ukuranBahan->save();
 
+        DetailUkuranBahan::where('ukuran_bahan_id',$ukuranBahan->id)->delete();
+        $brg = $request->barang_id;
+        for ($i=0; $i < count($brg); $i++) { 
+            $data2 = new DetailUkuranBahan;
+            $data2->ukuran_bahan_id = $ukuranBahan->id;
+            $data2->barang_id = $brg[$i];
+            $data2->save();
+        }
         return redirect()->route('ukuran-bahan.index')->with('alert-ukuran', 'ukuranBahan Berhasil Diubah');
     }
 
@@ -97,8 +113,10 @@ class UkuranBahanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(UkuranBahan $ukuranBahan)
-    {
+    {   
+        DetailUkuranBahan::where('ukuran_bahan_id',$ukuranBahan->id)->delete();
         $ukuranBahan->delete();
+
         return redirect()->route('ukuran-bahan.index')->with('alert-ukuran','Data berhasi dihapus!');
     }
 

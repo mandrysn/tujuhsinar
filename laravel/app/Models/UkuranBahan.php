@@ -30,4 +30,9 @@ class UkuranBahan extends Model
     {
         return $this->belongsTo(Barang::class);
     }
+
+    public function Detail()
+    {
+        return $this->hasMany(DetailUkuranBahan::class);
+    }
 }

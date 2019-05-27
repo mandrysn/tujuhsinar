@@ -31,7 +31,13 @@
 									<td>{{ $index + 1 }}</td>
 									<td>{{ $datas->nama_produk }}</td>
 									<td>{{ $datas->nm_ukuran_bahan }}</td>
-									<td>{{ $datas->barang->nm_barang }}</td>
+									<td>
+										<ul>
+											@foreach($datas->detail as $detail)
+												<li>{{ $detail->barang->nm_barang }}</li>
+											@endforeach
+										</ul>
+									</td>
 									<td>{{ number_format($datas->range_min, 2) }} - {{ number_format($datas->range_max, 2) }}</td>
 									<td>
 										<form action="{{ route('ukuran-bahan.destroy', $datas->id) }}" method="post">
@@ -39,7 +45,7 @@
 											{{ method_field('DELETE') }}
 											<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
 										</form>
-										{{-- <button href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</button> --}}
+										<button href="#" data-toggle="modal" data-target="#edit-{{ $datas->id }}" class="btn btn-option2"><i class="fa fa-info"></i>Edit</button>
 									</td>
 								</tr>
 								@empty
@@ -55,8 +61,7 @@
 		</div>
 		<!-- End Row --> 
 	@include('master.tools.ukuran-bahan.modal')
-	{{-- @include('master.tools.ukuran-bahan.edit') --}}
-
+	@include('master.tools.ukuran-bahan.edit')
 @push('style')
 <script type="text/javascript">
     jQuery(document).on('change','#produk_id', function(e){
