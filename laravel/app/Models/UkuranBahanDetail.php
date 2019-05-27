@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DetailUkuranBahan extends Model
+class UkuranBahanDetail extends Model
 {
-    
+    protected $guarded = [];
 
     public function Barang()
     {
