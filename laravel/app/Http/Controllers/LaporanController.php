@@ -28,6 +28,18 @@ class LaporanController extends Controller
         }
     }
 
+    public function laporanDetailOrder(Request $request) {
+        if (is_null($request->periode)) {
+            return view('laporan.order.laporan-order');
+        } else {
+            $periode = $request->periode;
+            $tanggal = explode(' / ', $periode);
+            $data = OrderKerja::whereBetween('tanggal', [$tanggal[0], $tanggal[1]])->orderBy('tanggal', 'desc')->get();
+
+            return view('laporan.detail.detail-order', compact('data', 'periode'));
+        }
+    }
+
     /**
      * Print all the specified resource from storage.
      *

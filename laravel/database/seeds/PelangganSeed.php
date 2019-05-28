@@ -28,6 +28,20 @@ class PelangganSeed extends Seeder
                 'no_telp' => '085234322433',
                 'email' => 'mahendrayusril@gmail.com',
                 ),
+            array(
+                'member_id' => 3,
+                'nama' => 'Bagus',
+                'alamat' => 'Jl. Jelawat',
+                'no_telp' => '00000000000',
+                'email' => 'bagus@gmail.com',
+                ),
+            array(
+                'member_id' => 4,
+                'nama' => 'Nokanel',
+                'alamat' => 'Jl. Damanhuri Perum BTI Blok BO Rt 24',
+                'no_telp' => '085348905050',
+                'email' => 'faturfachsandy31@gmail.com',
+                ),
     		);
 
     	DB::table('pelanggans')->insert($data);

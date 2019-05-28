@@ -142,6 +142,13 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 	Route::group(['prefix' => 'laporan'], function() {
 		Route::get('/pembelian', 'BeliController@laporan')->name('lapbeli');
 		Route::get('/order', 'OrderKerjaController@laporanOrder')->name('laporan.order');
+<<<<<<< HEAD
+		Route::get('/hari', 'OrderKerjaController@laporanHari')->name('laporan.hari');
+		Route::get('/indoor', 'OrderKerjaController@laporanIndoor')->name('laporan.indoor');
+		Route::get('/outdoor', 'OrderKerjaController@laporanOutdoor')->name('laporan.outdoor');
+		Route::get('/merchandise', 'OrderKerjaController@laporanMerchandise')->name('laporan.merchandise');
+=======
+>>>>>>> 8cc9d1e8b902669b5a4fd07f9efcf0aa2396031a
 		Route::get('/print', 'OrderKerjaController@laporanPrint')->name('laporan.print');
 		Route::get('/costumer', 'PelangganController@laporan')->name('laporan.costumer');
 		Route::get('/indoor', 'OrderKerjaController@laporanIndoor')->name('laporan.indoor');
@@ -152,7 +159,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 	
 		Route::group(['prefix' => 'detail'], function() {
 			Route::post('/order', 'LaporanController@laporanDetailOrder')->name('laporan.detail.order');
+<<<<<<< HEAD
+			Route::post('/hari', 'LaporanController@laporanDetailHari')->name('laporan.detail.hari');
+=======
 			Route::post('/print', 'LaporanController@laporanDetailPrint')->name('laporan.detail.print');
+>>>>>>> 8cc9d1e8b902669b5a4fd07f9efcf0aa2396031a
 			Route::post('/indoor', 'LaporanController@laporanDetailIndoor')->name('laporan.detail.indoor');
 			Route::post('/custom', 'LaporanController@laporanDetailCustom')->name('laporan.detail.custom');
 			Route::post('/outdoor', 'LaporanController@laporanDetailOutdoor')->name('laporan.detail.outdoor');
