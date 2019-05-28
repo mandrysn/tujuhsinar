@@ -13,7 +13,7 @@ class CreateDetailHargaBahansTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_ukuran_bahans', function (Blueprint $table) {
+        Schema::create('ukuran_bahan_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('barang_id')->unsigned()->index();
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('CASCADE')->onUpdate('CASCADE');
@@ -30,6 +30,6 @@ class CreateDetailHargaBahansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_ukuran_bahans');
+        Schema::dropIfExists('ukuran_bahan_details');
     }
 }
