@@ -13,7 +13,7 @@
                             {!! csrf_field() !!}
                             <div class="form-group">
                                         <div class="input-prepend input-group"> <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <input type="text" id="date-range-picker" name="periode" class="form-control" value="2019-01-01 / {{ date('Y-m-d') }}" />
+                                            <input type="text" id="date-picker" name="periode" class="form-control" value="2019-01-01 / {{ date('Y-m-d') }}" />
                                         </div>
                                 </div>
                                 <div class="form-group">

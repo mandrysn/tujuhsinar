@@ -64,6 +64,16 @@
             </a>
         </div>
     </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="mini-stat clearfix bg-twitter rounded"> 
+            <a href="{{ route('laporan.hari') }}">
+                <span class="mini-stat-icon"><i class="la la-calendar-times-o"></i></span>
+                <div class="mini-stat-info"> 
+                    <span class="counter" data-counter="counterup" data-value="{{ $hari }}">0</span> Order Per Hari & Jam
+                </div>
+            </a>
+        </div>
+    </div>
 </div>
 <!-- End Row --> 
 </div>

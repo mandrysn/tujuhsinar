@@ -494,7 +494,8 @@ class OrderKerjaController extends Controller
         $merchandise = OrderKerjaSub::where('produk_id', '3')->count();
         $print = OrderKerjaSub::where('produk_id', '4')->count();
         $custom = OrderKerjaSub::where('produk_id', '5')->count();
-        return view('laporan.order.index', compact('order', 'indoor', 'outdoor', 'merchandise', 'print', 'custom'));
+        $hari = OrderKerja::count();
+        return view('laporan.order.index', compact('order', 'indoor', 'outdoor', 'merchandise', 'print', 'custom', 'hari'));
     }
 
     /**
@@ -509,6 +510,16 @@ class OrderKerjaController extends Controller
             $tanggal = explode(' / ', $request->periode);
             $data = OrderKerja::whereBetween('tanggal', [$tanggal[0], $tanggal[1]])->orderBy('tanggal', 'desc')->get();
             return view('laporan.order.laporan-order', compact('data'));
+        }
+    }
+
+    public function laporanHari(Request $request) {
+        if ( isset($request)) {
+            return view('laporan.order.laporan-hari');
+        } else {
+            $tanggal = explode(' / ', $request->periode);
+            $data = OrderKerja::whereBetween('tanggal', [$tanggal[0], $tanggal[1]])->orderBy('tanggal', 'desc')->get();
+            return view('laporan.order.laporan-hari', compact('data'));
         }
     }
 

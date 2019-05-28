@@ -311,6 +311,7 @@ $(document).ready(function () {
         // Basic Single Date Picker 
         jQuery('#date-picker').daterangepicker({
             singleDatePicker: true
+
         }, function (start, end, label) {
             console.log(start.toISOString(), end.toISOString(), label);
         });
