@@ -10,7 +10,7 @@
     <!-- Css Files -->
     <link href="{{ asset('css/root.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugin/footable/footable.core.css') }}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css/daterangepicker.css')}}">
 </head>
 <body>
     <!-- Start Page Loading -->
@@ -66,8 +66,7 @@
 <!-- Bootstrap Core JavaScript File --> 
 <script type="text/javascript" src="{{asset('js/bootstrap/dist/js/popper.min.js')}}"></script> 
 <script type="text/javascript" src="{{asset('js/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<!-- Plugin.js - Some Specific JS codes for Plugin Settings --> 
-<script type="text/javascript" src="{{asset('js/plugins.js')}}"></script>
+
 <!-- Bootstrap Toggle --> 
 <script type="text/javascript" src="{{asset('js/bootstrap-toggle/bootstrap-toggle.min.js')}}"></script> 
 <!-- Jvectormap --> 
@@ -90,7 +89,7 @@
 <!-- Moment.js --> 
 <script type="text/javascript" src="{{asset('js/moment/moment.min.js')}}"></script> 
 <!-- Bootstrap Date Range Picker --> 
-<script type="text/javascript" src="{{asset('js/date-range-picker/daterangepicker.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/date-range-picker/daterangepicker.min.js')}}"></script>
 <!-- Flot Chart --> 
 <script type="text/javascript" src="{{asset('js/flot-chart/flot-chart.js')}}"></script><!-- main file --> 
 <script type="text/javascript" src="{{asset('js/flot-chart/flot-chart-time.js')}}"></script><!-- time.js --> 
@@ -106,5 +105,33 @@
 <!-- Footable -->
 <script type="text/javascript" src="{{asset('js/footable/footable.all.min.js')}}"></script>
 
+
+<!-- Plugin.js - Some Specific JS codes for Plugin Settings --> 
+<script type="text/javascript" src="{{asset('js/plugins.js')}}"></script>
+
+<script type="text/javascript">
+    jQuery('#jam').daterangepicker({
+           
+            timePicker: true,
+            timePicker24Hour: true,
+          
+            locale: {
+                format: 'HH'
+            }
+           
+        }).on('show.daterangepicker', function (ev, picker) {
+            picker.container.find(".calendar-table").hide();
+        });
+
+    jQuery('#tanggal').daterangepicker({
+            singleDatePicker: true,
+           
+          
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+           
+        });
+</script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <?php 
-	header("Content-type: application/octet-stream");
-	header("Content-Disposition: attachment; filename=rekap-data-indoor.xls");
-	header("Pragma: no-cache");
-	header("Expires: 0");
+    header("Content-type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=rekap-data-indoor (".$tanggal." ".implode(' - ',$jam).").xls");
+    header("Pragma: no-cache");
+    header("Expires: 0");
  ?>
 <!doctype html>
 <html>
@@ -12,8 +12,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A Components Mix Bootstarp 3 Admin Dashboard Template">
-    <meta name="author" content="Westilian">
-    <title>MatMix - A Components Mix Admin Dashboard Template</title>
+    <meta name="author" content="Greennusa">
+    <title>Laporan Indoor Tanggal {{ $tanggal }} {{ implode(' - ',$jam) }}</title>
     
 </head>
 

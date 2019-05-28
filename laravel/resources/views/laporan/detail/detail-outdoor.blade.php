@@ -9,7 +9,8 @@
                     <div class="panel-title">
 						<form class="form-horizontal"  method="post" action="{{ route('laporan.cetak.outdoor') }}">
 							{!! csrf_field() !!}
-							<input type="hidden" name="periode" value="{{ $periode }}" />
+							<input type="hidden" name="tanggal" value="{{ $tanggal }}" />
+                            <input type="hidden" name="jam" value="{{ implode(' - ',$jam) }}" />
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Cetak</button>
                                     <a href="{{ route('laporan.transaksi') }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
