@@ -13,12 +13,13 @@
 		<div class="col-md-12 col-lg-5">
 			<div class="form-group">
 				<label for="select2" class="form-label">Customer</label>
-				<select class="form-control" data-live-search="true" name="pelanggan_id" id="pelanggan"  onchange="get_card_name()" required>
-					<option disable>-- Pilih Member --</option>
-					@foreach($members as $member)
-					<option value="{{ $member->id }}" data-pid="{{ $member->member_id }}">{{ sprintf("%06s", $member->id) }} - {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
-					@endforeach
-				</select>
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default tombol-pilih" data-produk="outdoor" type="button" data-toggle="modal" data-target="#pilih-pelanggan" >Pilih</button>
+					</span>
+					<input type="text" class="form-control" id="detail-pelanggan-outdoor" disabled="" readonly="">
+					<input type="hidden" class="form-control" id="pelanggan_outdoor" name="pelanggan_id">
+				</div>
 			</div>
 
 		</div>
@@ -147,6 +148,7 @@
 	</div>
 </form>
 
+
 @push('style')
 <script type="text/javascript">
 	var cur_select = 0;
@@ -181,8 +183,9 @@
 		  
 		  
 		});
-    jQuery(document).on('change','#pelanggan', function(e){
-		var id = jQuery(this).children(":selected").attr("data-pid");
+    jQuery(document).on('change','#pelanggan_outdoor', function(e){
+
+		var id = jQuery(this).val();
 		
 		jQuery.ajax({
 			type	 : 'get',
@@ -223,14 +226,14 @@
 
 	
 
-	})
+	});
 	
 </script>
 
 <script type="text/javascript">
 
     function get_card_name() {
-		var pelanggan = document.getElementById("pelanggan").value;
+		var pelanggan = document.getElementById("pelanggan_outdoor").value;
   		var barang = document.getElementById("barang").value;
 		var p = document.getElementById("panjang").value;
 		var l = document.getElementById("lebar").value;

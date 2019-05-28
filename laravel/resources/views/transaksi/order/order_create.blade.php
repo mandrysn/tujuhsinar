@@ -46,8 +46,90 @@
             </div>
         </div>
 
+        
+
     </div>
 </div>
+
+
+@push('style')
+<div class="modal fade bs-example" id="pilih-pelanggan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pilih Pelanggan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            
+                            <!-- Start Panel -->
+                            <div class="col-md-12">
+                       
+                                <div class="panel panel-default">
+                                   
+                                    <div class="panel-body table-responsive">
+                                        <table id="example0" class="table display">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>ID Costumer</th>
+                                                <th>Nama</th>
+                                             
+                                                <th>Tipe Member</th>
+                                              
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse($members as $index => $datanya)
+                                                @php($id_pelanggan = $datanya->id)
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ sprintf("%06s", $datanya->id) }}</td>
+                                                    <td>{{ $datanya->nama }}</td>
+                                               
+                                                    <td>{{ $datanya->member->nm_tipe }}</td>
+                                                  
+                                                    <td>
+                                                        
+                                                        <a href="#" class="btn btn-primary memilih" data-nama="{{ $datanya->nama }}" data-member="{{ $datanya->member->nm_tipe }}" data-id="{{ $datanya->id }}"><i class="fa fa-info memilih"></i>Pilih</a>
+                                                    </td>
+                                                </tr>
+                                                @empty
+                                            @endforelse
+                                        </tbody>
+                                        <tfoot>
+
+                                        </tfoot>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Panel --> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script type="text/javascript">
+        var produk = "outdoor";
+        jQuery('.tombol-pilih').on('click', function(e){
+            produk = jQuery(this).data('produk');
+        });
+
+        jQuery('.memilih').on('click', function(e){
+            
+            jQuery('#detail-pelanggan-'+produk).val(jQuery(this).data('nama')+'('+jQuery(this).data('member')+')');
+            jQuery('#pelanggan_'+produk).val(jQuery(this).data('id'));
+            jQuery('#pilih-pelanggan').modal('hide');
+        });
+
+      
+    </script>
+@endpush
 
 @include('master.pelanggan.modal')
 @endsection
