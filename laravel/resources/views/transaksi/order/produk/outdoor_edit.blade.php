@@ -139,13 +139,15 @@
 @push('style')
 <script type="text/javascript">
 	var cur_select = 0;
+	var total_finishing = 0;
+	var total_harga = 0;
 	jQuery('#editor_outdoor').on('change', function(e){
 			
 			jQuery("#pcsnya").html('');
 
 		 
 		  	jQuery("#list-pcs").html('');
-		 
+		 	total_finishing = 0;
 		  	var opts = jQuery(this).find('option');
 		  	jQuery(opts).each(function(){
 		  		
@@ -162,7 +164,12 @@
 						
 						
 					}
+					if(jQuery(this).is(':selected')){
+						total_finishing += parseInt(jQuery(this).data('harga'));
+					}
+					jQuery("#total").val(total_harga + total_finishing);
 					cur_select = jQuery(this).val();
+					
 					
 			});
 		  	
@@ -226,7 +233,8 @@
 	            type: "GET",
 	            success: function(data) {
 	                jQuery('#diskon').val(data.diskon);
-	                jQuery('#total').val(data.total);
+	                total_harga = data.total;
+	                jQuery("#total").val(total_harga + total_finishing);
 					jQuery('#harga').val(data.harga);
 					
 						if(data.total > 0 || data.total != '') {

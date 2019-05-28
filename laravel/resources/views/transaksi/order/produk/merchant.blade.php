@@ -14,12 +14,13 @@
 		<div class="col-md-12 col-lg-5">
 			<div class="form-group">
 				<label for="select2" class="form-label">Customer</label>
-				<select class="selectpicker form-control" name="pelanggan_id" data-live-search="true" id="merchant_pelanggan" onchange="get_display()" required>
-					<option disable>-- Pilih Member --</option>
-					@foreach($members as $member)
-					<option value="{{ $member->id }}">{{ sprintf("%06s", $member->id) }} - {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
-					@endforeach
-				</select>
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default tombol-pilih" data-produk="merchant" type="button" data-toggle="modal" data-target="#pilih-pelanggan" >Pilih</button>
+					</span>
+					<input type="text" class="form-control" id="detail-pelanggan-merchant" disabled="" readonly="">
+					<input type="hidden" class="form-control" id="pelanggan_merchant" name="pelanggan_id" >
+				</div>
 			</div>
 		</div>
 

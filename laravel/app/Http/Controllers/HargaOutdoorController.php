@@ -8,6 +8,7 @@ use App\Models\Editor;
 use App\Models\Pelanggan;
 use App\Models\UkuranBahan;
 use App\Models\HargaOutdoor;
+use App\Models\UkuranBahanDetail;
 
 use Illuminate\Http\Request;
 
@@ -45,34 +46,38 @@ class HargaOutdoorController extends Controller
 
                     // cek jumlah quantity dengan range harga
                     if ( ( $qty <= $data->range_max ) && ( $qty >= $data->range_min ) ) {
-                        // cari ukuran bahan yang sesuai dengan barang dan produk
-                        $cek_ukuran = UkuranBahan::where('barang_id', $barang)->where('produk_id', '1')->get();
-                        // array harga dan total
-                        $total_lebar = [];
-                        $harga_lebar = [];
+                        $cari_ukuran = UkuranBahanDetail::where('barang_id', $data->barang_id)->get();
+
                         $total_panjang = [];
                         $harga_panjang = [];
-                        foreach($cek_ukuran as $key => $tmp) {
-                            // mencari ukuran yg akan digunakan untuk bahan sesuai dengan p atau l pesanan
-                            if ($l >= $tmp->range_min && $l <= $tmp->range_max) {
-                                // mengambil ukuran max untuk lebar dari ukuran bahan yg akan digunakan
-                                $lebar = $tmp->range_max;
-        
-                                array_push($harga_lebar, ( ($data->harga_jual * ($p * $lebar)) - ($data->harga_jual * ($data->disc / 100))) );
-                                array_push($total_lebar, (($p * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+                        $total_lebar = [];
+                        $harga_lebar = [];
+
+                        foreach($cari_ukuran as $cari) {
+                            $cek_ukuran = UkuranBahan::where('id', $cari->ukuran_bahan_id)->get();
+
+                            foreach ($cek_ukuran as $test) {
+                                
+                                if ($l >= $test->range_min && $l <= $test->range_max && ($l != $p)) {
+                                    $lebar = $test->range_max;
+                                    array_push($harga_lebar, ( ($data->harga_jual * ($p * $lebar)) - ($data->harga_jual * ($data->disc / 100))) );
+                                    array_push($total_lebar, (($p * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+                                } else if ($p >= $test->range_min && $p <= $test->range_max && ($l != $p)) {
+                                    $panjang = $test->range_max;
+                                    array_push($harga_panjang, ( ($data->harga_jual * ($panjang * $l)) - ($data->harga_jual * ($data->disc / 100))) );
+                                    array_push($total_panjang, (($panjang * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+                                } else if ( ($l >= $test->range_min && $l <= $test->range_max) && ($p >= $test->range_min && $p <= $test->range_max) && ($l == $p)) {
+                                    $lebar = $l;
+                                    $panjang = $p;
+                                    array_push($harga_lebar, ( ($data->harga_jual * ($l * $p)) - ($data->harga_jual * ($data->disc / 100))) );
+                                    array_push($total_lebar, (($p * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+                                    array_push($harga_panjang, ( ($data->harga_jual * ($p * $l)) - ($data->harga_jual * ($data->disc / 100))) );
+                                    array_push($total_panjang, (($panjang * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
+                                }
                             }
-                            else if ($p >= $tmp->range_min && $p <= $tmp->range_max) {
-                                // mengambil ukuran max untuk panjang dari ukuran bahan yg akan digunakan
-                                $panjang = $tmp->range_max;
-        
-                                array_push($harga_panjang, ( ($data->harga_jual * ($panjang * $l)) - ($data->harga_jual * ($data->disc / 100))) );
-                                array_push($total_panjang, (($panjang * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) )));
-                            }
-                            
                         }
-                        $diskon = $data->disc;
-                        $total = $total_panjang[0] > $total_lebar[0] ?  $total_lebar[0] : $total_panjang[0];
                         $harga = $harga_panjang[0] > $harga_lebar[0] ?  $harga_lebar[0] : $harga_panjang[0];
+                        $total = $total_panjang[0] > $total_lebar[0] ?  $total_lebar[0] : $total_panjang[0];
                     } else { 
                         $total = 'Tidak set';
                     }
@@ -81,7 +86,7 @@ class HargaOutdoorController extends Controller
 
             }
 
-            $arr = array('diskon' => $diskon, 'total' => ceil($total), 'harga'=>ceil($harga));
+            $arr = array('diskon' => $diskon, 'total' => $total, 'harga' => $harga);
             return $arr;
           
         }

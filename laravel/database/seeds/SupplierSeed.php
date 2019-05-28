@@ -15,18 +15,28 @@ class SupplierSeed extends Seeder
 
     	$data = array(
     		array(
-    			'nm_lengkap' => 'CV. GreenNusa Computindo',
-    			'alamat' => 'Jl. Depan Lembus',
-    			'no_telp' => '085283782723',
-    			'email' => 'donyahmd@gmail.com',
-    			'keterangan' => 'keterangan dawdawaw',
+				'id' => 4,
+    			'nm_lengkap' => 'Media World',
+    			'alamat' => 'Jl. Ir Sutami Kompleks Pergudangan',
+    			'no_telp' => '082388680088',
+    			'email' => 'gias@gmail.com',
+    			'keterangan' => 'suplier bahan baku spanduk,stiker dll',
     			),
     		array(
-    			'nm_lengkap' => 'CV. GreenNusa Computindo 2',
-    			'alamat' => 'Jl. Depan Lembus',
-    			'no_telp' => '0852352355',
-    			'email' => 'dwadwad@gmail.com',
-    			'keterangan' => 'wadiijlk 72878',
+				'id' => 5,
+    			'nm_lengkap' => 'Mapank Samarinda',
+    			'alamat' => 'Jl. D.I Panjaitan Kompleks Ruko Segiri II',
+    			'no_telp' => '081347898982',
+    			'email' => 'adriansyah22@gmail.com',
+    			'keterangan' => 'Supplier Spanduk,',
+				),
+			array(
+				'id' => 7,
+    			'nm_lengkap' => 'Wujud Unggul Sby',
+    			'alamat' => 'Jl. Bendul Merisi Barat',
+    			'no_telp' => '081347898982',
+    			'email' => 'adriansyah22@gmail.com',
+    			'keterangan' => 'Supplier Spanduk,',
     			),
     		);
 

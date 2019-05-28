@@ -136,8 +136,10 @@
 <script type="text/javascript">
 		var id = document.getElementById("p_indoor").value;
 		var cur_select = 0;
+		var total_finishing = 0;
+		var total_harga = 0;
 		jQuery('#editor_indoor').on('change', function(e){
-				
+				total_finishing = 0;
 				jQuery("#pcsnya").html('');
 
 			 
@@ -159,6 +161,10 @@
 							
 							
 						}
+						if(jQuery(this).is(':selected')){
+							total_finishing += parseInt(jQuery(this).data('harga'));
+						}
+						jQuery("#total").val(total_harga + total_finishing);
 						cur_select = jQuery(this).val();
 						
 				});
@@ -222,7 +228,8 @@
 								type: "GET",
 								success: function(data) {
 										jQuery('#diskon_indoor').val(data.diskon);
-										jQuery('#total_indoor').val(data.total);
+										total_harga = data.total;
+	                jQuery("#total").val(total_harga + total_finishing);
 										jQuery('#harga_indoor').val(data.harga);
 										if(data.total > 0 || data.total != '') {
 								jQuery('#ISub').removeAttr('disabled');

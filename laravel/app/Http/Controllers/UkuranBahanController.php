@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\DetailUkuranBahan;
 use App\Models\UkuranBahan;
+use App\Models\UkuranBahanDetail;
+
 use Illuminate\Http\Request;
 
 class UkuranBahanController extends Controller
@@ -49,7 +50,7 @@ class UkuranBahanController extends Controller
 
         $brg = $request->barang_id;
         for ($i=0; $i < count($brg); $i++) { 
-            $data2 = new DetailUkuranBahan;
+            $data2 = new UkuranBahanDetail;
             $data2->ukuran_bahan_id = $data->id;
             $data2->barang_id = $brg[$i];
             $data2->save();
@@ -95,15 +96,15 @@ class UkuranBahanController extends Controller
         $ukuranBahan->range_max = $request->range_max;
         $ukuranBahan->save();
 
-        DetailUkuranBahan::where('ukuran_bahan_id',$ukuranBahan->id)->delete();
+        UkuranBahanDetail::where('ukuran_bahan_id', $ukuranBahan->id)->delete();
         $brg = $request->barang_id;
         for ($i=0; $i < count($brg); $i++) { 
-            $data2 = new DetailUkuranBahan;
+            $data2 = new UkuranBahanDetail;
             $data2->ukuran_bahan_id = $ukuranBahan->id;
             $data2->barang_id = $brg[$i];
             $data2->save();
         }
-        return redirect()->route('ukuran-bahan.index')->with('alert-ukuran', 'ukuranBahan Berhasil Diubah');
+        return redirect()->route('ukuran-bahan.index')->with('alert-ukuran', 'Ukuran Bahan Berhasil Diubah');
     }
 
     /**
@@ -114,10 +115,10 @@ class UkuranBahanController extends Controller
      */
     public function destroy(UkuranBahan $ukuranBahan)
     {   
-        DetailUkuranBahan::where('ukuran_bahan_id',$ukuranBahan->id)->delete();
+        UkuranBahanDetail::where('ukuran_bahan_id',$ukuranBahan->id)->delete();
         $ukuranBahan->delete();
 
-        return redirect()->route('ukuran-bahan.index')->with('alert-ukuran','Data berhasi dihapus!');
+        return redirect()->route('ukuran-bahan.index')->with('alert-ukuran', 'Data berhasi dihapus!');
     }
 
     public function getBahan(Request $r)

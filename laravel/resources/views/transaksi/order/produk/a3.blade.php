@@ -13,12 +13,13 @@
 		<div class="col-md-12 col-lg-5">
 			<div class="form-group">
 				<label for="select2" class="form-label">Customer</label>
-				<select class="selectpicker form-control" name="pelanggan_id" data-live-search="true" id="print_pelanggan" onchange="get_printer()" required>
-					<option disable>-- Pilih Member --</option>
-					@foreach($members as $member)
-					<option value="{{ $member->id }}" data-pid="{{ $member->member_id }}">{{ sprintf("%06s", $member->id) }} -  {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
-					@endforeach
-				</select>
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default tombol-pilih" data-produk="print" type="button" data-toggle="modal" data-target="#pilih-pelanggan" >Pilih</button>
+					</span>
+					<input type="text" class="form-control" id="detail-pelanggan-print" disabled="" readonly="">
+					<input type="hidden" class="form-control" id="pelanggan_print" name="pelanggan_id" >
+				</div>
 			</div>
 		</div>
 
@@ -79,7 +80,7 @@
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
-				<select class="form-control" name="editor_id" id="editor_print">
+				<select class="form-control selectpicker" name="editor_id" id="editor_print">
 					<option disabled>-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 4)
@@ -123,6 +124,8 @@
 
 @push('style')
 <script type="text/javascript">
+	var total_finishing = 0;
+	var total_harga = 0;
     $(document).on('change','#print_pelanggan', function(e){
 		var id = $(this).children(":selected").attr("data-pid");
 		
@@ -148,7 +151,7 @@
 </script>
 <script type="text/javascript">
     function get_printer() {
-			var print_pelanggan = document.getElementById("print_pelanggan").value;
+			var print_pelanggan = document.getElementById("pelanggan_print").value;
 			var tipe_print = document.getElementById("pilih_tipe_print").value;
 			var print_barang = document.getElementById("print_barang").value;
 			var print_qty = document.getElementById("print_qty").value;

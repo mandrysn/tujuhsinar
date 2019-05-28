@@ -95,7 +95,7 @@
                                                   
                                                     <td>
                                                         
-                                                        <a href="#" class="btn btn-primary memilih" data-nama="{{ $datanya->nama }}" data-member="{{ $datanya->member->nm_tipe }}" data-id="{{ $datanya->id }}"><i class="fa fa-info memilih"></i>Pilih</a>
+                                                        <a href="#" class="btn btn-primary memilih" data-nama="{{ $datanya->nama }}" data-member="{{ $datanya->member->nm_tipe }}" data-id="{{ $datanya->id }}" data-memberid="{{ $datanya->member_id }}"><i class="fa fa-info memilih"></i>Pilih</a>
                                                     </td>
                                                 </tr>
                                                 @empty
@@ -115,7 +115,11 @@
             </div>
         </div>
     <script type="text/javascript">
-        var produk = "outdoor";
+        function jsUcfirst(string) 
+        {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        var produk = "indoor";
         jQuery('.tombol-pilih').on('click', function(e){
             produk = jQuery(this).data('produk');
         });
@@ -125,6 +129,45 @@
             jQuery('#detail-pelanggan-'+produk).val(jQuery(this).data('nama')+'('+jQuery(this).data('member')+')');
             jQuery('#pelanggan_'+produk).val(jQuery(this).data('id'));
             jQuery('#pilih-pelanggan').modal('hide');
+
+            var id = jQuery(this).data('memberid');
+        
+            jQuery.ajax({
+                type     : 'get',
+                url      : "{{ url('admin/transaksi/order/outdoor/kaki') }}",
+                data     : {id:id},
+                typeData : 'json',
+                success:function(data)
+                {
+                    //console.log(data)
+                    jQuery('.'+produk+'Kaki').remove();
+                    var tablaDatos = jQuery('#kaki_'+produk);
+                    
+                    jQuery(data).each(function(key,value){
+                            tablaDatos.append("<option class='"+produk+"Kaki' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
+                        });
+                    
+                }
+            });
+
+            jQuery.ajax({
+                type     : 'get',
+                url      : "{{ url('admin/transaksi/order/outdoor/finishing') }}",
+                data     : {id:id},
+                typeData : 'json',
+                success:function(data)
+                {
+                    console.log(data)
+                    jQuery('.editor'+jsUcfirst(produk)).remove();
+                    var tablaDatos = jQuery('#editor_'+produk);
+                    
+                    jQuery(data).each(function(key,value){
+                            
+                            tablaDatos.append("<option class='editorOutdoor' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
+                        });
+                    
+                }
+            });
         });
 
       

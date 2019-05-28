@@ -1,7 +1,7 @@
 <form method="post" action="{{ route('storeOutdoor') }}" >
 	{!! csrf_field() !!}
-	{{ Form::hidden('harga', '', ['id' => 'harga']) }}
-	{{ Form::hidden('diskon', '', ['id' => 'diskon']) }}
+	{{ Form::hidden('harga', '0', ['id' => 'harga']) }}
+	{{ Form::hidden('diskon', '0', ['id' => 'diskon']) }}
 	<div class="row">
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
@@ -18,7 +18,7 @@
 					<button class="btn btn-default tombol-pilih" data-produk="outdoor" type="button" data-toggle="modal" data-target="#pilih-pelanggan" >Pilih</button>
 					</span>
 					<input type="text" class="form-control" id="detail-pelanggan-outdoor" disabled="" readonly="">
-					<input type="hidden" class="form-control" id="pelanggan_outdoor" name="pelanggan_id">
+					<input type="hidden" class="form-control" id="pelanggan_outdoor" name="pelanggan_id" >
 				</div>
 			</div>
 
@@ -74,7 +74,7 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
-				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_outdoor">
+				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_outdoor" data-live-search="true">
 					<option disabled>-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 1)
@@ -88,7 +88,7 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="" class="form-label">Kaki</label>
-				<select class="form-control" name="kaki_id" id="kaki_outdoor">
+				<select class="form-control selectpicker" name="kaki_id" id="kaki_outdoor" data-live-search="true">
 					<option disabled>-- Pilih Kaki --</option>
 					{{-- @foreach($kakis as $kaki)
 						@if($kaki->produk_id == 1)
@@ -114,7 +114,7 @@
 			
 			<div class="form-group">
 				<label for="" class="form-label">Total Harga</label>
-				<input type="text" class="form-control" name="total" id="total" readonly placeholder="Total" required>
+				<input type="text" class="form-control" name="total" id="total" readonly placeholder="Total" value="0" required>
 			</div>
 		</div>
 		
@@ -152,13 +152,25 @@
 @push('style')
 <script type="text/javascript">
 	var cur_select = 0;
+	var total_finishing = 0;
+	var total_harga = 0;
+	var total_kaki = 0;
+	jQuery('#kaki_outdoor').on('change', function(e){
+		
+		total_kaki = parseInt(jQuery(this).children(':selected').data('harga'));
+		jQuery("#total").val(total_harga + total_kaki + total_finishing);
+	
+
+
+	});
 	jQuery('#editor_outdoor').on('change', function(e){
 			
 			jQuery("#pcsnya").html('');
 
 		 
 		  	jQuery("#list-pcs").html('');
-		 
+		 	total_finishing = 0;
+
 		  	var opts = jQuery(this).find('option');
 		  	jQuery(opts).each(function(){
 		  		
@@ -168,65 +180,70 @@
                                 "<input type='hidden' id='input2' name='id_pcs[]' class='form-control id_pcs' value='"+jQuery(this).attr('value')+"'  >"+
                                 "<input type='number' id='input1' name='jumlah_pcs[]' class='form-control jumlah_pcs' value='0' required >"+
                             	"</div>");
-						console.log(jQuery(jQuery(this).attr('data-target')).hasClass('in'));
+						// console.log(jQuery(jQuery(this).attr('data-target')).hasClass('in'));
 						if(jQuery(jQuery(this).attr('data-target')).hasClass('in') == false){
 							jQuery(jQuery(this).attr('data-target')).modal('show');
 						}
 						
 						
 					}
+					if(jQuery(this).is(':selected')){
+						total_finishing += parseInt(jQuery(this).data('harga'));
+					}
+					
 					cur_select = jQuery(this).val();
+					
 					
 			});
 		  	
-		  	
+		  	jQuery("#total").val(total_harga + total_finishing + total_kaki);
 		  
 		  
 		});
-    jQuery(document).on('change','#pelanggan_outdoor', function(e){
+ //    jQuery(document).on('input propertychange','#pelanggan_outdoor', function(e){
 
-		var id = jQuery(this).val();
+	// 	var id = jQuery(this).val();
 		
-		jQuery.ajax({
-			type	 : 'get',
-			url		 : "{{ url('admin/transaksi/order/outdoor/kaki') }}",
-			data	 : {id:id},
-			typeData : 'json',
-			success:function(data)
-			{
-				//console.log(data)
-				jQuery('.outdoorKaki').remove();
-				var tablaDatos = jQuery('#kaki_outdoor');
+	// 	jQuery.ajax({
+	// 		type	 : 'get',
+	// 		url		 : "{{ url('admin/transaksi/order/outdoor/kaki') }}",
+	// 		data	 : {id:id},
+	// 		typeData : 'json',
+	// 		success:function(data)
+	// 		{
+	// 			//console.log(data)
+	// 			jQuery('.outdoorKaki').remove();
+	// 			var tablaDatos = jQuery('#kaki_outdoor');
 				
-				jQuery(data).each(function(key,value){
-					    tablaDatos.append("<option class='outdoorKaki' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
-					});
+	// 			jQuery(data).each(function(key,value){
+	// 				    tablaDatos.append("<option class='outdoorKaki' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
+	// 				});
 				
-			}
-		});
+	// 		}
+	// 	});
 
-		jQuery.ajax({
-			type	 : 'get',
-			url		 : "{{ url('admin/transaksi/order/outdoor/finishing') }}",
-			data	 : {id:id},
-			typeData : 'json',
-			success:function(data)
-			{
-				//console.log(data)
-				jQuery('.editorOutdoor').remove();
-				var tablaDatos = jQuery('#editor_outdoor');
+	// 	jQuery.ajax({
+	// 		type	 : 'get',
+	// 		url		 : "{{ url('admin/transaksi/order/outdoor/finishing') }}",
+	// 		data	 : {id:id},
+	// 		typeData : 'json',
+	// 		success:function(data)
+	// 		{
+	// 			//console.log(data)
+	// 			jQuery('.editorOutdoor').remove();
+	// 			var tablaDatos = jQuery('#editor_outdoor');
 				
-				jQuery(data).each(function(key,value){
+	// 			jQuery(data).each(function(key,value){
 						
-					    tablaDatos.append("<option class='editorOutdoor' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
-					});
+	// 				    tablaDatos.append("<option class='editorOutdoor' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
+	// 				});
 				
-			}
-		});
+	// 		}
+	// 	});
 
 	
 
-	});
+	// });
 	
 </script>
 
@@ -247,14 +264,15 @@
 	            type: "GET",
 	            success: function(data) {
 	                jQuery('#diskon').val(data.diskon);
-	                jQuery('#total').val(data.total);
+	                total_harga = data.total;
+	                jQuery("#total").val(total_harga + total_finishing + total_kaki);
 					jQuery('#harga').val(data.harga);
-					
-						if(data.total > 0 || data.total != '') {
-							jQuery('#OSub').removeAttr('disabled');
-						} else {
-							jQuery('#OSub').attr('disabled', 'disabled');
-						}
+
+					if(data.total > 0 || data.total != '') {
+						jQuery('#OSub').removeAttr('disabled');
+					} else {
+						jQuery('#OSub').attr('disabled', 'disabled');
+					}
 	            }
 			});
 		

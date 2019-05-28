@@ -33,6 +33,6 @@ class UkuranBahan extends Model
 
     public function Detail()
     {
-        return $this->hasMany(DetailUkuranBahan::class);
+        return $this->hasMany(UkuranBahanDetail::class);
     }
 }

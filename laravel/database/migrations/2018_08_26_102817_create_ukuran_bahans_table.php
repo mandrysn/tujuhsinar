@@ -15,8 +15,6 @@ class CreateUkuranBahansTable extends Migration
     {
         Schema::create('ukuran_bahans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('barang_id')->unsigned()->index();
-            $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->enum('produk_id', ['1', '2', '3', '4', '5']);
             $table->string('nm_ukuran_bahan');
             $table->double('range_min', 4, 2);

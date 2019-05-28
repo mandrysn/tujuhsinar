@@ -1,7 +1,7 @@
 <form method="post" action="{{ route('storeIndoor') }}" >
 	{!! csrf_field() !!}
-	{{ Form::hidden('harga', '', ['id' => 'harga_indoor']) }}
-	{{ Form::hidden('diskon', '', ['id' => 'diskon_indoor']) }}
+	{{ Form::hidden('harga', '0', ['id' => 'harga_indoor']) }}
+	{{ Form::hidden('diskon', '0', ['id' => 'diskon_indoor']) }}
 	{{ Form::hidden('produk_id', '2', ['id' => 'produk_indoor']) }}
 	<div class="row">
 		<div class="col-md-12 col-lg-3">
@@ -14,12 +14,13 @@
 		<div class="col-md-12 col-lg-5">
 			<div class="form-group">
 				<label for="select2" class="form-label">Customer</label>
-				<select class="selectpicker form-control" name="pelanggan_id" data-live-search="true" id="pelanggan_indoor" onchange="get_indoor()" required>
-					<option disable>-- Pilih Member --</option>
-					@foreach($members as $member)
-					<option value="{{ $member->id }}" data-pid="{{ $member->member_id }}">{{ sprintf("%06s", $member->id) }} - {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
-					@endforeach
-				</select>
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default tombol-pilih" data-produk="indoor" type="button" data-toggle="modal" data-target="#pilih-pelanggan" >Pilih</button>
+					</span>
+					<input type="text" class="form-control" id="detail-pelanggan-indoor" disabled="" readonly="">
+					<input type="hidden" class="form-control" id="pelanggan_indoor" name="pelanggan_id" >
+				</div>
 			</div>
 		</div>
 
@@ -146,8 +147,10 @@
 @push('style')
 <script type="text/javascript">
 	var cur_select = 0;
+	var total_finishing = 0;
+	var total_harga = 0;
 		jQuery('#editor_indoor').on('change', function(e){
-				
+				total_finishing = 0;
 				jQuery("#pcsnya").html('');
 
 			 
@@ -169,7 +172,12 @@
 							
 							
 						}
+						if(jQuery(this).is(':selected')){
+							total_finishing += parseInt(jQuery(this).data('harga'));
+						}
+						jQuery("#total").val(total_harga + total_finishing);
 						cur_select = jQuery(this).val();
+
 						
 				});
 			  	
@@ -237,8 +245,10 @@
 								type: "GET",
 								success: function(data) {
 										jQuery('#diskon_indoor').val(data.diskon);
-										jQuery('#total_indoor').val(data.total);
+										total_harga = data.total;
+	                jQuery("#total").val(total_harga + total_finishing);
 										jQuery('#harga_indoor').val(data.harga);
+										
 										if(data.total > 0 || data.total != '') {
 								jQuery('#ISub').removeAttr('disabled');
 							} else {

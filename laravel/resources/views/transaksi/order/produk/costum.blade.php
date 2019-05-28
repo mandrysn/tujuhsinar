@@ -12,12 +12,13 @@
 	<div class="col-md-12 col-lg-3">
 		<div class="form-group">
 			<label for="select2" class="form-label">Customer</label>
-			<select class="selectpicker form-control" name="pelanggan_id" data-live-search="true" id="custom_pelanggan" onchange="get_costum()" required>
-				<option disable>-- Pilih Member --</option>
-				@foreach($members as $member)
-				<option value="{{ $member->id }}">{{ $member->id }} - {{ $member->nama }} [{{ $member->member->nm_tipe }}] - {{ $member->no_telp }}</option>
-				@endforeach
-			</select>
+			<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default tombol-pilih" data-produk="costum" type="button" data-toggle="modal" data-target="#pilih-pelanggan" >Pilih</button>
+					</span>
+					<input type="text" class="form-control" id="detail-pelanggan-costum" disabled="" readonly="">
+					<input type="hidden" class="form-control" id="pelanggan_costum" name="pelanggan_id" >
+				</div>
 		</div>
 	</div>
 	
@@ -82,7 +83,7 @@
 
     function get_costum() {
         var custom_produk = document.getElementById("custom_produk").value;
-		var custom_pelanggan = document.getElementById("custom_pelanggan").value;
+		var custom_pelanggan = document.getElementById("pelanggan_costum").value;
         var custom_nama_produk = document.getElementById("custom_nama_produk").value;
 		var custom_qty = document.getElementById("custom_qty").value;
 
