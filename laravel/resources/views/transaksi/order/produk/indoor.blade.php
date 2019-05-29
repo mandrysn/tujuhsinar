@@ -109,12 +109,6 @@
 			</div>
 		</div>
 		
-		<div class="col-md-12 col-lg-4">
-			<div class="form-group">
-				<label class="form-label">Keterangan File</label>
-				<textarea class="form-control" id="inputext" name="keterangan_file"></textarea>
-			</div>
-		</div>
 
 		<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
 			<button type="submit" class="btn btn-primary" id="ISub" disabled>Submit</button>

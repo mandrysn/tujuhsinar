@@ -25,10 +25,10 @@ class HargaOutdoorController extends Controller
             $idPelanggan = Pelanggan::findOrFail($pelanggan);
             $harga = Harga::where('produk_id', '1')->where('member_id', '=', $idPelanggan->member_id)->first();
 
-            if ( is_null($harga) || $p == 0 || $l == 0 ) {
-                $diskon = '';
-                $total = '';
-                $harga = '';
+            if ( $p == 0 || $l == 0 ) {
+                $diskon = '0';
+                $total = '0';
+                $harga = '0';
 
             } else {
                 
@@ -39,9 +39,9 @@ class HargaOutdoorController extends Controller
                                 ->first();
 
                 if ( is_null($data) ) {
-                    $diskon = '';
-                    $total = '';
-                    $harga = '';
+                    $diskon = '0';
+                    $total = '0';
+                    $harga = '0';
                 } else {
 
                     // cek jumlah quantity dengan range harga
@@ -115,7 +115,7 @@ class HargaOutdoorController extends Controller
 
             }
 
-            $arr = array('diskon' => $diskon, 'total' => $total, 'harga' => $harga);
+            $arr = array('diskon' => $diskon, 'total' => round($total), 'harga' => round($harga));
             return $arr;
           
         }
