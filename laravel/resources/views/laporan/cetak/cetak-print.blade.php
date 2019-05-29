@@ -1,6 +1,6 @@
 <?php 
     header("Content-type: application/octet-stream");
-    header("Content-Disposition: attachment; filename=rekap-data-print (".$tanggal." ".implode(' - ',$jam).").xls");
+    header("Content-Disposition: attachment; filename=rekap-data-print.xls");
     header("Pragma: no-cache");
     header("Expires: 0");
  ?>
@@ -12,15 +12,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A Components Mix Bootstarp 3 Admin Dashboard Template">
-    <meta name="author" content="Greennusa">
-    <title>Laporan Print Tanggal {{ $tanggal }} {{ implode(' - ',$jam) }}</title>
+    <meta name="author" content="Westilian">
+    <title>MatMix - A Components Mix Admin Dashboard Template</title>
     
 </head>
 
 <body>
     <table>
-				<thead>
-					<tr>
+                <thead>
+                    <tr>
                             <th data-toggle="true">No</th>
                             <th data-hide="all">No Order</th>
                             <th data-hide="phone">Costumer</th>
@@ -29,9 +29,9 @@
                             <th data-hide="phone" >Bahan</th>
                             <th data-hide="phone" >Estimasi</th>
                             <th data-hide="phone" >Qty</th>
-								</tr>
-				</thead>
-				<tbody>
+                                </tr>
+                </thead>
+                <tbody>
                         @forelse($data as $index => $datas)
                         <tr>
                             <td>{{ $index + 1 }}</td>
@@ -45,10 +45,10 @@
                         </tr>
                         @empty
                         @endforelse
-				</tbody>
-				<tfoot>
+                </tbody>
+                <tfoot>
 
-				</tfoot>
+                </tfoot>
     </table>
 </body>
 

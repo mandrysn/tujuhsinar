@@ -12,23 +12,14 @@
                         <form class="form-horizontal"  method="post" action="{{ route('laporan.detail.custom') }}">
                             {!! csrf_field() !!}
                             <div class="form-group">
-                                <div class="controls">
-                                    <div class="input-prepend input-group"> <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        <input type="text" id="tanggal" class="form-control span4" name="tanggal" >
-                                    </div>
+                                        <div class="input-prepend input-group"> <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input type="text" id="date-range-picker" name="periode" class="form-control" value="2019-01-01 / {{ date('Y-m-d') }}" />
+                                        </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="controls">
-                                    <div class="input-prepend input-group"> <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        <input type="text" id="jam" class="form-control span4" name="jam" >
-                                    </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
-                            </div>
                         </form>
                     </div>
                 </div>

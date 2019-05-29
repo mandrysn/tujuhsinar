@@ -1,25 +1,24 @@
 @extends('layout.layout')
 @section('title', 'Pembelian')
 @section('content')
-	<div class="container-padding animated fadeInRight"> 
-		<div class="row"> 
-			<!-- Start Panel -->
-			<div class="col-md-12">
-				<div class="panel panel-default">
+    <div class="container-padding animated fadeInRight"> 
+        <div class="row"> 
+            <!-- Start Panel -->
+            <div class="col-md-12">
+                <div class="panel panel-default">
                     <div class="panel-title">
-						<form class="form-horizontal"  method="post" action="{{ route('laporan.cetak.merchandise') }}">
-							{!! csrf_field() !!}
-							<input type="hidden" name="tanggal" value="{{ $tanggal }}" />
-                            <input type="hidden" name="jam" value="{{ implode(' - ',$jam) }}" />
+                        <form class="form-horizontal"  method="post" action="{{ route('laporan.cetak.merchandise') }}">
+                            {!! csrf_field() !!}
+                            <input type="hidden" name="periode" value="{{ $periode }}" />
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Cetak</button>
                                     <a href="{{ route('laporan.transaksi') }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
                                 </div>
                         </form>
-					</div>
-					<div class="panel-body table-responsive">
+                    </div>
+                    <div class="panel-body table-responsive">
     
-						<table id="example0" class="table display">
+                        <table id="example0" class="table display">
                             <thead>
                                 <tr>
                                         <th>No</th>
@@ -47,15 +46,15 @@
                                     @empty
                                     @endforelse
                             </tbody>
-				<tfoot>
+                <tfoot>
 
-				</tfoot>
+                </tfoot>
     </table>
-					</div>
-				</div>
-			</div>
-			<!-- End Panel --> 
-		</div>
-		<!-- End Row --> 
-	</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Panel --> 
+        </div>
+        <!-- End Row --> 
+    </div>
 @endsection

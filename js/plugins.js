@@ -305,7 +305,10 @@ $(document).ready(function () {
     if (jQuery("#date-range-picker").length) {
 
         // Basic Date Range Picker
-        jQuery('#date-range-picker').daterangepicker(null, function (start, end, label) {
+        jQuery('#date-range-picker').daterangepicker({
+           
+            format: 'YYYY-MM-DD'
+        }, function (start, end, label) {
             console.log(start.toISOString(), end.toISOString(), label);
         });
         // Basic Single Date Picker 

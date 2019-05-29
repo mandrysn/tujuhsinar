@@ -64,7 +64,7 @@
             </a>
         </div>
     </div>
-   <!--  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="mini-stat clearfix bg-twitter rounded"> 
             <a href="{{ route('laporan.hari') }}">
                 <span class="mini-stat-icon"><i class="la la-calendar-times-o"></i></span>
@@ -73,7 +73,7 @@
                 </div>
             </a>
         </div>
-    </div> -->
+    </div>
 </div>
 <!-- End Row --> 
 </div>
