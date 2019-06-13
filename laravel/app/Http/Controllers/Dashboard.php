@@ -21,7 +21,7 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $l = '2.30'; $p = '3.00'; $qty = '1';
+        $l = '1.50'; $p = '1.00'; $qty = '1';
         $data = \App\Models\HargaOutdoor::where('harga_id', 1)
         ->where('barang_id', 10)
         ->where('range_min', '<=', 1)
