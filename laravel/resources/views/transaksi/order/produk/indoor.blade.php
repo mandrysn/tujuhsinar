@@ -114,12 +114,14 @@
 			<button type="submit" class="btn btn-primary" id="ISub" disabled>Submit</button>
 			<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 		</div>
+		
 	</div>
-	<div class="modal fade bs-example" id="pcs2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	    <div class="modal-dialog modal-lg" role="document">
+	
+	<div class="modal fade " id="pcs-indoor" >
+	    <div class="modal-dialog modal-lg" style="z-index:999;">
 	        <div class="modal-content">
 	            <div class="modal-header">
-	                <h5 class="modal-title" id="exampleModalLabel">Data Pcs Finishing</h5>
+	                <h5 class="modal-title" >Data Pcs Finishing</h5>
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                    <span aria-hidden="true">&times;</span>
 	                </button>
@@ -143,81 +145,63 @@
 	var cur_select = 0;
 	var total_finishing = 0;
 	var total_harga = 0;
-		jQuery('#editor_indoor').on('change', function(e){
-				total_finishing = 0;
-				jQuery("#pcsnya").html('');
-
-			 
-			  	jQuery("#list-pcs2").html('');
-			 
-			  	var opts = jQuery(this).find('option');
-			  	jQuery(opts).each(function(){
-			  		
-						if(jQuery(this).data('type') == 3 && jQuery(this).is(':selected') && jQuery(this).val() != cur_select){
-							jQuery("#list-pcs2").append("<div class='form-group'>"+
-	                                "<label for='input1' class='form-label'>Jumlah Pcs Untuk Finishing "+jQuery(this).data('nama')+": </label>"+
-	                                "<input type='hidden' id='input2' name='id_pcs[]' class='form-control id_pcs' value='"+jQuery(this).attr('value')+"'  >"+
-	                                "<input type='number' id='input1' name='jumlah_pcs[]' class='form-control jumlah_pcs' value='0' required >"+
-	                            	"</div>");
-							console.log(jQuery(jQuery(this).attr('data-target')).hasClass('in'));
-							if(jQuery(jQuery(this).attr('data-target')).hasClass('in') == false){
-								jQuery(jQuery(this).attr('data-target')).modal('show');
-							}
-							
-							
-						}
-						if(jQuery(this).is(':selected')){
-							total_finishing += parseInt(jQuery(this).data('harga'));
-						}
-						jQuery("#total").val(total_harga + total_finishing);
-						cur_select = jQuery(this).val();
-
-						
-				});
-			  	
-			  	
-			  
-			  
-			});
-    $(document).on('change','#pelanggan_indoor', function(e){
-		var id = $(this).children(":selected").attr("data-pid");
+	var total_kaki = 0;
+	
+	jQuery('#kaki_indoor').on('change', function(e){
 		
-		$.ajax({
-			type	 : 'get',
-			url		 : "{{ url('admin/transaksi/order/indoor/kaki') }}",
-			data	 : {id:id},
-			typeData : 'json',
-			success:function(data)
-			{
-				console.log(data)
-				$('.indoorKaki').remove();
-				var tablaDatos = $('#kaki_indoor');
-				
-					$(data).each(function(key,value){
-					    tablaDatos.append("<option class='indoorKaki' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>");
-					});
-				
-			}
-		})
+		total_kaki = parseInt(jQuery(this).children(':selected').data('harga'));
+		jQuery("#total").val(total_harga + total_kaki + total_finishing);
+	
 
-		$.ajax({
-			type	 : 'get',
-			url		 : "{{ url('admin/transaksi/order/indoor/finishing') }}",
-			data	 : {id:id},
-			typeData : 'json',
-			success:function(data)
-			{
-				console.log(data)
-				jQuery('.editorIndoor').remove();
-				var tablaDatos = jQuery('#editor_indoor');
+
+	});
+	var list_pcs = [];
+	jQuery(document).on('change','.jumlah_pcs', function(e){
+			total_finishing = 0;
+			var pcsnya = jQuery('.jumlah_pcs');
+		  	jQuery(pcsnya).each(function(){
+				total_finishing += (jQuery(this).data('harga') * jQuery(this).val());
+			});
+		  	jQuery("#total_indoor").val(total_harga + total_finishing + total_kaki);
+		  
+	});
+	jQuery('#editor_indoor').on('change', function(e){
+			
+		
+		jQuery("#list-pcs2").html('');
+		total_finishing = 0;
+		var pcsnya = jQuery('.jumlah_pcs');
+		jQuery(pcsnya).each(function(){
+			total_finishing += (jQuery(this).data('harga') * jQuery(this).val());
+		});
+		var opts = jQuery(this).find('option');
+		jQuery(opts).each(function(){
 				
-					jQuery(data).each(function(key,value){
-					    tablaDatos.append("<option class='editorIndoor' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs2'  data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
-					});
+			if(jQuery(this).data('type') == 3 && jQuery(this).is(':selected') && jQuery(this).val() != cur_select){
+				jQuery("#list-pcs2").append("<div class='form-group'>"+
+						"<label for='input1' class='form-label'>Jumlah Pcs Untuk Finishing "+jQuery(this).data('nama')+": </label>"+
+						"<input type='hidden' id='input2' name='id_pcs[]' class='form-control id_pcs' value='"+jQuery(this).attr('value')+"'  >"+
+						"<input type='number' id='input1' name='jumlah_pcs[]' data-harga='"+jQuery(this).data('harga')+"' class='form-control jumlah_pcs' value='1' required >"+
+						"</div>");
+				// console.log(jQuery(jQuery(this).attr('data-target')).hasClass('in'));
+				if(jQuery(jQuery(this).attr('data-target')).hasClass('in') == false){
+					
+					jQuery(jQuery(this).attr('data-target')).modal('show');
+				}
+				
 				
 			}
-		})
-	})
+			if(jQuery(this).is(':selected')){
+				total_finishing += parseInt(jQuery(this).data('harga'));
+			}
+			cur_select = jQuery(this).val();
+		});
+		
+		jQuery("#total_indoor").val(total_harga + total_finishing + total_kaki);
+		
+		
+	});
+   
 	
 </script>
 
