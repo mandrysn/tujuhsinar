@@ -24,10 +24,10 @@ class HargaIndoorController extends Controller
             $idPelanggan = Pelanggan::findOrFail($pelanggan);
             $harga = Harga::where('produk_id', '=', '2')->where('member_id', '=', $idPelanggan->member_id)->first();
 
-            if ( is_null($harga) ) {
-                $diskon = '-';
-                $total = '-';
-                $harga = '-';
+            if ( is_null($harga) || $p == 0 || $l == 0 ) {
+                $diskon = '0';
+                $total = '0';
+                $harga = '0';
 
             } else { 
                 $data = HargaIndoor::where('harga_id', $harga->id)
@@ -37,42 +37,83 @@ class HargaIndoorController extends Controller
                                 ->first();
 
                 if ( is_null($data) ) {
-                    $diskon = '-';
-                    $total = '-';
-                    $harga = '-';
+                    $diskon = '0';
+                    $total = '0';
+                    $harga = '0';
                 } else {
-                    $pecah_luas = explode('.', $l);
-                    if ($pecah_luas[1] >= '01' && $pecah_luas[1] <= '50') {
-                        $lebar = $pecah_luas[0] . '.50';
-                    } else if ($pecah_luas[1] >= '51' && $pecah_luas[1] <= '99') {
-                        $lebar = $pecah_luas[0] + 1 . '.00';
-                    } else if ($pecah_luas[1] == '00') {
-                        $lebar = $l;
-                    }
 
-                    $pecah_panjang = explode('.', $p);
-                    if ($pecah_panjang[1] >= '01' && $pecah_panjang[1] <= '50') {
-                        $panjang = $pecah_panjang[0] . '.50';
-                    } else if ($pecah_panjang[1] >= '51' && $pecah_panjang[1] <= '99') {
-                        $panjang = $pecah_panjang[0] + 1 . '.00';
-                    } else if ($pecah_panjang[1] == '00') {
-                        $panjang = $p;
-                    }
+                    if ( ( $qty <= $data->range_max ) && ( $qty >= $data->range_min ) ) {
+                        $cari_ukuran = UkuranBahanDetail::where('barang_id', $data->barang_id)->orderBy('ukuran_bahan_id', 'ASC')->get();
+                        $total_panjang = [];
+                        $harga_panjang = [];
+                        $total_lebar = [];
+                        $harga_lebar = [];
 
-                    if( ( $qty <= $data->range_max ) && ( $qty >= $data->range_min ) ) {
-                        $total = ((($qty * $data->harga_jual) - ( ($qty * $data->harga_jual) * ($data->disc / 100) )) * ($panjang * $lebar));
+                        foreach($cari_ukuran as $key => $cari) {
 
+                            $cek_ukuran = UkuranBahan::where('id', $cari->ukuran_bahan_id)->orderBy('range_min', 'ASC')->get();
+                
+                            foreach ($cek_ukuran as $test) {
+                
+                                if ( $l <= $test->range_max && $p <= $test->range_max ) {
+                
+                                    if ($l >= $test->range_min && $l <= $test->range_max && ($l != $p)) {
+                                        $lebar = $test->range_max;
+                                        $harga_lebar = ( ($data->harga_jual * ($p * $lebar)) - ($data->harga_jual * ($data->disc / 100)));
+                                        $total_lebar = (($p * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) ));
+                                    } else if ($p >= $test->range_min && $p <= $test->range_max && ($l != $p)) {
+                                        $panjang = $test->range_max;
+                                        $harga_panjang = ( ($data->harga_jual * ($panjang * $l)) - ($data->harga_jual * ($data->disc / 100)));
+                                        $total_panjang = (($panjang * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) ));
+                                    } else if ( ($l >= $test->range_min && $l <= $test->range_max) && ($p >= $test->range_min && $p <= $test->range_max) && ($l == $p)) {
+                                        $lebar = $l;
+                                        $panjang = $p;
+                
+                                        $harga_lebar = ( ($data->harga_jual * ($l * $p)) - ($data->harga_jual * ($data->disc / 100)) );
+                                        $total_lebar = (($p * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) ));
+                
+                                        $harga_panjang = ( ($data->harga_jual * ($p * $l)) - ($data->harga_jual * ($data->disc / 100)));
+                                        $total_panjang = (($panjang * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) ));
+                                    }
+                                } else if ( $p > $test->range_max && $l <= $test->range_max ) {
+
+                                    $lebar = $test->range_max;
+                                    $panjang = $p;
+                                    
+                                    $harga_lebar = ($data->harga_jual * ($lebar * $panjang)) - ($data->harga_jual * ($data->disc / 100));
+                                    $total_lebar = ($panjang * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) );
+                                    
+                                    $harga_panjang = ($data->harga_jual * ($panjang * $lebar)) - ($data->harga_jual * ($data->disc / 100));
+                                    $total_panjang = ($panjang * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) );
+                                } else if ( $l > $test->range_max && $p <= $test->range_max ) {
+                                    
+                                    $panjang = $test->range_max;
+                                    $lebar = $l;
+                                    
+                                    $harga_lebar = ($data->harga_jual * ($lebar * $panjang)) - ($data->harga_jual * ($data->disc / 100));
+                                    $total_lebar = ($panjang * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) );
+                                    
+                                    $harga_panjang = ($data->harga_jual * ($panjang * $lebar)) - ($data->harga_jual * ($data->disc / 100));
+                                    $total_panjang = ($panjang * $lebar) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) );
+                                } else if ( $p > $test->range_max && $l > $test->range_max) {
+                
+                                    $harga_lebar = ($data->harga_jual * ($l * $p)) - ($data->harga_jual * ($data->disc / 100));
+                                    $total_lebar = ($p * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) );
+                
+                                    $harga_panjang = ($data->harga_jual * ($p * $l)) - ($data->harga_jual * ($data->disc / 100));
+                                    $total_panjang = ($p * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) );
+                                }
+                            }
+                        }
+                        $harga = $harga_panjang > $harga_lebar ?  $harga_lebar : $harga_panjang;
+                        $total = $total_panjang > $total_lebar ?  $total_lebar : $total_panjang;
                     } else { 
                         $total = 'Tidak set';
                     }
-
-                    $diskon = $data->disc;
-                    $harga = $data->harga_jual * ($panjang * $lebar);
-   
                 }
             }
 
-            $arr = array('diskon'=>$diskon, 'total'=>$total, 'harga'=>$harga);
+            $arr = array('diskon' => $diskon, 'total'=> round($total), 'harga' => round($harga));
             return $arr;
           
         }
