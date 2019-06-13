@@ -136,7 +136,7 @@
 	jQuery('#kaki_indoor').on('change', function(e){
 		
 		total_kaki = parseInt(jQuery(this).children(':selected').data('harga'));
-		jQuery("#total").val(total_harga + total_kaki + total_finishing);
+		jQuery("#total_indoor").val(total_harga + total_kaki + total_finishing);
 	
 
 
@@ -188,6 +188,42 @@
 		
 	});
    
+	var id = document.getElementById("pelanggan_indoor").value;
+		jQuery.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/transaksi/order/indoor/kaki') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				jQuery('.indoorKaki').remove();
+				var tablaDatos = jQuery('#kaki_indoor');
+				
+				jQuery(data).each(function(key,value){
+					    tablaDatos.append("<option class='indoorKaki' data-pid='"+value.id+"' value='"+value.id+"' data-harga='"+value.tambahan_harga+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>");
+					});
+				
+			}
+		})
+
+		jQuery.ajax({
+			type	 : 'get',
+			url		 : "{{ url('admin/transaksi/order/indoor/finishing') }}",
+			data	 : {id:id},
+			typeData : 'json',
+			success:function(data)
+			{
+				console.log(data)
+				jQuery('.editorindoor').remove();
+				var tablaDatos = jQuery('#editor_indoor');
+				
+				jQuery(data).each(function(key,value){
+					    tablaDatos.append("<option class='editorIndoor'  data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-harga='"+value.tambahan_harga+"' data-target='#pcs' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
+					});
+				
+			}
+		})
 	
 	
 </script>

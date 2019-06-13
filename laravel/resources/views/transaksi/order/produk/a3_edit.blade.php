@@ -103,10 +103,91 @@
 		</div>
 
 	</div>
+	<div class="modal fade " id="pcs-print" >
+	    <div class="modal-dialog modal-lg" style="z-index:999;">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" >Data Pcs Finishing</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-12 col-lg-12">
+	                    
+	                        <div class="col-md-12 col-lg-12" id="list-pcs3">
+	                            
+	                        </div>
+	                        
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </form>
 
 @push('style')
 <script type="text/javascript">
+var cur_select = 0;
+	var total_finishing = 0;
+	var total_harga = 0;
+	var total_kaki = 0;
+	
+	jQuery('#kaki_print').on('change', function(e){
+		
+		total_kaki = parseInt(jQuery(this).children(':selected').data('harga'));
+		jQuery("#print_total").val(total_harga + total_kaki + total_finishing);
+	
+
+
+	});
+	var list_pcs = [];
+	jQuery(document).on('change','.jumlah_pcs', function(e){
+			total_finishing = 0;
+			var pcsnya = jQuery('.jumlah_pcs');
+		  	jQuery(pcsnya).each(function(){
+				total_finishing += (jQuery(this).data('harga') * jQuery(this).val());
+			});
+		  	jQuery("#print_total").val(total_harga + total_finishing + total_kaki);
+		  
+	});
+	jQuery('#editor_print').on('change', function(e){
+			
+		
+		jQuery("#list-pcs3").html('');
+		total_finishing = 0;
+		var pcsnya = jQuery('.jumlah_pcs');
+		jQuery(pcsnya).each(function(){
+			total_finishing += (jQuery(this).data('harga') * jQuery(this).val());
+		});
+		var opts = jQuery(this).find('option');
+		jQuery(opts).each(function(){
+				
+			if(jQuery(this).data('type') == 3 && jQuery(this).is(':selected') && jQuery(this).val() != cur_select){
+				jQuery("#list-pcs3").append("<div class='form-group'>"+
+						"<label for='input1' class='form-label'>Jumlah Pcs Untuk Finishing "+jQuery(this).data('nama')+": </label>"+
+						"<input type='hidden' id='input2' name='id_pcs[]' class='form-control id_pcs' value='"+jQuery(this).attr('value')+"'  >"+
+						"<input type='number' id='input1' name='jumlah_pcs[]' data-harga='"+jQuery(this).data('harga')+"' class='form-control jumlah_pcs' value='1' required >"+
+						"</div>");
+				// console.log(jQuery(jQuery(this).attr('data-target')).hasClass('in'));
+				if(jQuery(jQuery(this).attr('data-target')).hasClass('in') == false){
+					
+					jQuery(jQuery(this).attr('data-target')).modal('show');
+				}
+				
+				
+			}
+			if(jQuery(this).is(':selected')){
+				total_finishing += parseInt(jQuery(this).data('harga'));
+			}
+			cur_select = jQuery(this).val();
+		});
+		
+		jQuery("#print_total").val(total_harga + total_finishing + total_kaki);
+		
+		
+	});
+   
 	var pr_pelanggan = document.getElementById("pr_pelanggan").value;
 	$.ajax({
 		type	 : 'get',
@@ -120,7 +201,7 @@
 			var tablaDatos = $('#editor_print');
 			
 				$(data).each(function(key,value){
-						tablaDatos.append("<option class='editorPrint' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
+						tablaDatos.append("<option class='editorPrint' data-nama='"+value.nama_finishing+"' data-target='#pcs-print'  data-harga='"+value.tambahan_harga+"' data-pid='"+value.id+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>");
 				});
 			
 		}

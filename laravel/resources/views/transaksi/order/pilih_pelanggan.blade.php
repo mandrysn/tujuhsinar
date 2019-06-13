@@ -111,7 +111,7 @@
                     
                     jQuery(data).each(function(key,value){
                             
-                            tablaDatos.append("<option class='editorOutdoor' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs-"+produk+"' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
+                            tablaDatos.append("<option class='editor"+jsUcfirst(produk)+"' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs-"+produk+"' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
                         });
                     
                 }

@@ -150,10 +150,10 @@
 	var total_harga = 0;
 	var total_kaki = 0;
 	
-	jQuery('#kaki_indoor').on('change', function(e){
+	jQuery('#kaki_print').on('change', function(e){
 		
 		total_kaki = parseInt(jQuery(this).children(':selected').data('harga'));
-		jQuery("#total").val(total_harga + total_kaki + total_finishing);
+		jQuery("#print_total").val(total_harga + total_kaki + total_finishing);
 	
 
 
