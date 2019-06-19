@@ -379,9 +379,9 @@ class HargaController extends Controller
 
         $data = new HargaCostum;
         $data->harga_id = $harga_id;
-        $data->nama_produk = $request->nama_produk;
-        $data->range_min = $request->range_min;
-        $data->range_max = $request->range_max;
+        $data->barang_id = $request->barang_id;
+        // $data->range_min = $request->range_min;
+        // $data->range_max = $request->range_max;
         $data->harga_pokok = $request->harga_pokok;
         $data->harga_jual = $request->harga_jual;
         $data->disc = $request->disc;
@@ -413,9 +413,9 @@ class HargaController extends Controller
 
         $data = new HargaCostum;
         $data->harga_id = $harga_id;
-        $data->nama_produk = $request->nama_produk;
-        $data->range_min = $request->range_min;
-        $data->range_max = $request->range_max;
+        $data->barang_id = $request->barang_id;
+        // $data->range_min = $request->range_min;
+        // $data->range_max = $request->range_max;
         $data->harga_pokok = $request->harga_pokok;
         $data->harga_jual = $request->harga_jual;
         $data->disc = $request->disc;

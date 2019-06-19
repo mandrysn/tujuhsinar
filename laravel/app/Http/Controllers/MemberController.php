@@ -93,4 +93,16 @@ class MemberController extends Controller
         $data = Member::where('id', $id)->delete();
         return redirect()->route('member.index')->with('alert-success', 'Data Berhasil Dihapus');
     }
+
+    public function load_data()
+    {
+        $data = Member::orderBy('created_at', 'desc')->get();
+        $index = 0;
+        $json = [];
+        foreach ($data as $member) {
+            $json[] = [$index + 1,$member->nm_tipe,$member->keterangan,'<a href="#" class="btn btn-primary memilih" data-nama="'.$member->nm_tipe.'"  data-id="'.$member->id.'"><i class="fa fa-info memilih"></i>Pilih</a>'];
+            
+        }
+        return ['data'=>$json];
+    }
 }

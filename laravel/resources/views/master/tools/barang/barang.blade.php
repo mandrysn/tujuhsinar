@@ -63,6 +63,8 @@
 		</div>
 		<!-- End Row --> 
 	@include('master.tools.barang.modal')
+	
 	@include('master.tools.barang.edit')
+	@include('master.tools.barang.pilih_supplier')
 
 @endsection

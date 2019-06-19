@@ -10,7 +10,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="row">
+            <div class="row" style="max-height: 80vh;overflow-y: scroll;width: 100%;">
                 <div class="col-md-12 col-lg-12">
         		<form method="post" action="{{ route('barang.store') }}">
                     {!! csrf_field() !!}
@@ -23,8 +23,8 @@
                     </div>
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
-                            <label for="select2" class="form-label">Tipe Produksi</label>
-                            <select class="form-control" name="produk_id" required>
+                            <label for="produk_id" class="form-label">Tipe Produksi</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="produk_id" id="produk_id" multiple required>
                                 <option>-- Pilih Tipe Produksi --</option>
                                 <option value="1">Outdoor</option>
                                 <option value="2">Indoor</option>
@@ -66,14 +66,17 @@
                     </div>
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
-                            <label for="select2" class="form-label">Supplier</label>
-                            <select class="form-control" name="supplier_id" required="">
-                                <option value="">-- Pilih Supplier --</option>
-                                @foreach($supplier as $tampil)
-                                <option value="{{ $tampil->id }}">{{ $tampil->nm_lengkap }}</option>
-                                @endforeach
-                            </select>
+                            <label for="input6" class="form-label">Pilih Supplier</label>
+                           
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default tombol-pilih"  type="button" data-toggle="modal" data-target="#pilih-supplier" id="tombol-pilih-supplier">Pilih</button>
+                                </span>
+                                <input type="text" class="form-control" id="detail-supplier" disabled="" readonly="">
+                                <input type="hidden" class="form-control" id="supplier-id" name="supplier_id" >
+                            </div>
                         </div>
+                            
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>

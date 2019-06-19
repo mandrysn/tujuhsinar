@@ -230,6 +230,7 @@
 	            url: "{{ url('admin/transaksi/order/outdoor/data/') }}/"+barang+"/"+pelanggan+"/"+qty+"/"+p+"/"+l,
 	            type: "GET",
 	            success: function(data) {
+					console.log("{{ url('admin/transaksi/order/outdoor/data/') }}/"+barang+"/"+pelanggan+"/"+qty+"/"+p+"/"+l);
 	                jQuery('#diskon').val(data.diskon);
 	                total_harga = data.total;
 	                jQuery("#total").val(total_harga + total_finishing + total_kaki);

@@ -17,9 +17,8 @@ class CreateHargaCostumsTable extends Migration
             $table->increments('id');
             $table->integer('harga_id')->unsigned()->index();
             $table->foreign('harga_id')->references('id')->on('hargas')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->string('nama_produk', 50);
-            $table->integer('range_min');
-            $table->integer('range_max');
+            $table->integer('barang_id')->unsigned()->index();
+            $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->double('harga_pokok', 11, 2);
             $table->double('harga_jual', 11, 2);
             $table->integer('disc');

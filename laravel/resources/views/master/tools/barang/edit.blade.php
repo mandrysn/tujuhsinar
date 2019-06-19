@@ -11,7 +11,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="row">
+            <div class="row" style="max-height: 80vh;overflow-y: scroll;width: 100%;">
                 <div class="col-md-12 col-lg-12">
         		    <form method="post" action="{{ route('barang.update', $tampil->id) }}">
         			{!! csrf_field() !!}
@@ -68,12 +68,14 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="select2" class="form-label">Supplier</label>
-                            <select class="form-control" name="supplier_id" required="">
-                                <option value="">-- Pilih Supplier --</option>
-                                @foreach($supplier as $data)
-                                <option value="{{ $data->id }}" {{ $tampil->supplier_id == $data->id ? "selected" : "" }}>{{ $data->nm_lengkap }}</option>
-                                @endforeach
-                            </select>
+                           
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default tombol-pilih-supplier-edit"  type="button" data-toggle="modal" data-target="#pilih-supplier" data-id="{{ $tampil->id }}" >Pilih</button>
+                                </span>
+                                <input type="text" class="form-control" id="detail-supplier-{{ $tampil->id }}" disabled="" readonly="" value="{{ $tampil->supplier->nm_lengkap }}">
+                                <input type="hidden" class="form-control" id="supplier-id-{{ $tampil->id }}" name="supplier_id" value="{{ $tampil->supplier_id }}">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

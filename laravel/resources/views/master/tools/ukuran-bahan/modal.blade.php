@@ -17,7 +17,7 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="select2" class="form-label">Tipe Produk</label>
-                            <select class="form-control" name="produk_id" id="produk_id" required>
+                            <select class="form-control selectpicker" data-live-search="true" name="produk_id" id="produk_id" multiple required>
                                 <option>-- Pilih Tipe Produk --</option>
                                 <option value="1">Outdoor</option>
                                 <option value="2">Indoor</option>
@@ -36,7 +36,7 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="bahan" class="form-label">Bahan</label>
-                            <select class="form-control selectpicker" multiple="" name="barang_id[]" id="bahan" required>
+                            <select class="form-control selectpicker" multiple="" data-live-search="true" name="barang_id[]" id="bahan" required>
                                 <option disabled>-- Pilih Bahan --</option>
                                 @foreach($bahan as $data)
                                 <option value="{{ $data->id }}">{{ $data->nm_barang }}</option>

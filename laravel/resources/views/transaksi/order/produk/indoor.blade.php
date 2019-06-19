@@ -226,7 +226,7 @@
 										total_harga = data.total;
 	                jQuery("#total").val(total_harga + total_finishing);
 										jQuery('#harga_indoor').val(data.harga);
-										
+										console.log("{{ url('admin/transaksi/order/indoor/data/') }}/"+barang_indoor+"/"+pelanggan_indoor+"/"+qty_indoor+"/"+p_indoor+"/"+l_indoor);
 										if(data.total > 0 || data.total != '') {
 								jQuery('#ISub').removeAttr('disabled');
 							} else {

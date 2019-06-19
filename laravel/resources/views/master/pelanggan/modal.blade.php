@@ -10,7 +10,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="row">
+            <div class="row" style="max-height: 80vh;overflow-y: scroll;width: 100%;">
                 <div class="col-md-12 col-lg-12">
                     <form method="post" action="{{ route('costumer.storeModal') }}">
                         {!! csrf_field() !!}
@@ -47,11 +47,13 @@
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
                                 <label for="input6" class="form-label">Tipe Member</label>
-                                <select class="form-control" name="member_id" id="input6" required="">
-                                    @foreach($member as $tampil)
-                                        <option value="{{ $tampil->id }}">{{ $tampil->nm_tipe }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-default tombol-pilih"  type="button" data-toggle="modal" data-target="#pilih-member" id="tombol-pilih-member">Pilih</button>
+                                    </span>
+                                    <input type="text" class="form-control" id="detail-member" disabled="" readonly="">
+                                    <input type="hidden" class="form-control" id="member-id" name="member_id" >
+                                </div>
                             </div>
                         </div>
 

@@ -11,7 +11,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="row">
+            <div class="row" style="max-height: 80vh;overflow-y: scroll;width: 100%;">
                 <div class="col-md-12 col-lg-12">
         		    <form method="post" action="{{ route('member.update', $pelanggan->id) }}">
         			{!! csrf_field() !!}
@@ -49,15 +49,13 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="input6" class="form-label">Tipe Member</label>
-                            <select class="form-control" name="member_id" id="input6" required="">
-                                @foreach($member as $tampil)
-                                    @if($tampil->id == $pelanggan->member_id)
-                                    <option value="{{ $tampil->id }}" selected>{{ $tampil->nm_tipe }}</option>
-                                    @else
-                                    <option value="{{ $tampil->id }}">{{ $tampil->nm_tipe }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default tombol-pilih-member-edit"  type="button" data-toggle="modal" data-target="#pilih-member" data-id="{{ $pelanggan->id }}" >Pilih</button>
+                                </span>
+                                <input type="text" class="form-control" id="detail-member-{{ $pelanggan->id }}" disabled="" readonly="" value="{{ $pelanggan->member->nm_tipe }}">
+                                <input type="hidden" class="form-control" id="member-id-{{ $pelanggan->id }}" name="member_id" value="{{ $pelanggan->member_id }}">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

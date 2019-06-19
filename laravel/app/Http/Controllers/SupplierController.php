@@ -99,4 +99,16 @@ class SupplierController extends Controller
         $data = Supplier::where('id', $id)->delete();
         return redirect()->route('supplier.index')->with('alert-success', 'Data Berhasil Dihapus');
     }
+
+    public function load_data()
+    {
+        $data = Supplier::orderBy('created_at', 'desc')->get();
+        $index = 0;
+        $json = [];
+        foreach ($data as $supplier) {
+            $json[] = [$index + 1,$supplier->nm_lengkap,$supplier->keterangan,'<a href="#" class="btn btn-primary memilih" data-nama="'.$supplier->nm_lengkap.'"  data-id="'.$supplier->id.'"><i class="fa fa-info memilih"></i>Pilih</a>'];
+            
+        }
+        return ['data'=>$json];
+    }
 }

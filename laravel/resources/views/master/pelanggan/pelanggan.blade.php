@@ -67,5 +67,7 @@
 		
 		<!-- End Row --> 
 		@include('master.pelanggan.modal')
+		
 		@include('master.pelanggan.edit')
+		@include('master.pelanggan.pilih_member')
 @endsection

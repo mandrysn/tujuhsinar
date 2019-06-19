@@ -72,7 +72,7 @@
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
                                 <label for="select2" class="form-label">Sebagai</label>
-                                <select class="selectpicker form-control" name="role" id="select2" required>
+                                <select class="selectpicker form-control" data-live-search="true" name="role" id="select2" required>
                                     <option disable>-- Pilih Role --</option>
                                     <option value="2">Order</option>
                                     <option value="3">Kasir</option>

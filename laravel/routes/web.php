@@ -14,7 +14,11 @@
 //api
 	Route::group(['middleware' => 'auth', 'prefix' => 'api'], function() {
 		Route::get('/data_order', 'OrderKerjaController@load_data');
+		Route::get('/data_supplier', 'SupplierController@load_data');
+		Route::get('/data_member', 'MemberController@load_data');
 	});
+
+
 	
 //api
 Route::get('', 'AntrianController@indexAntrian')->name('antrian');

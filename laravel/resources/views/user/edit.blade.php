@@ -94,7 +94,7 @@
                         @if(Auth::user()->id == 1)
                         <div class="form-group">
                             <label for="select2" class="form-label">Sebagai</label>
-                            <select class="selectpicker form-control" name="role" id="select2" required>
+                            <select class="selectpicker form-control" data-live-search="true" name="role" id="select2" required>
                                     <option value="2" {{ ($data->role == 2) ? 'selected' : '' }}>Order</option>
                                     <option value="3" {{ ($data->role == 3) ? 'selected' : '' }}>Kasir</option>
                                     <option value="5" {{ ($data->role == 5) ? 'selected' : '' }}>Owner</option>

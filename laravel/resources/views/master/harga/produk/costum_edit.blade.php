@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                             
-                                <div class="col-md-12 col-lg-3">
+                               <!--  <div class="col-md-12 col-lg-3">
                                     <div class="form-group">
                                         <label for="" class="form-label">Range Quantity</label>
                                         <div class="row">
@@ -79,7 +79,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             
                                 <div class="col-md-12 col-lg-4" style="margin-top: 28px">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -104,7 +104,7 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Produk</th>
-                            <th>Range Qty.</th>
+                           
                             <th>Harga Pokok</th>
                             <th>Harga Jual</th>
                             <th>Diskon</th>
@@ -115,8 +115,8 @@
                         @forelse($data as $index => $detail)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $detail->nama_produk }}</td>
-                            <td>{{ $detail->range_min }} - {{ $detail->range_max }}</td>
+                            <td>{{ $detail->Barang->nm_barang }}</td>
+                            
                             <td>{{ number_format($detail->harga_pokok) }}</td>
                             <td>{{ number_format($detail->harga_jual) }}</td>
                             <td>{{ $detail->disc }} %</td>

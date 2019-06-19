@@ -23,8 +23,8 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="input5" class="form-label">Nama Produk</label>
-				{{-- <input type="text" class="form-control" name="nama_produk" id="input_kn" placeholder="Nama Produk" required> --}}
-				<select class="form-control" name="nama_produk" id="input_kn" required="">
+				{{-- <input type="text" class="form-control" name="barang_id" id="input_kn" placeholder="Nama Produk" required> --}}
+				<select class="form-control" name="barang_id" id="input_kn" required="">
 					<option selected>-- Pilih produk --</option>
 					@foreach($barangs as $barang)
 						@if($barang->produk_id == 5)
@@ -64,7 +64,7 @@
 				<input type="text" class="form-control" name="disc" id="input_kn" value="0" min="0" placeholder="%" required>
 			</div>
 		</div>
-	
+	<!-- 
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="" class="form-label">Range Quantity</label>
@@ -77,7 +77,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	
 		<div class="col-md-12 col-lg-4" style="margin-top: 28px">
 			<button type="submit" class="btn btn-primary">Submit</button>

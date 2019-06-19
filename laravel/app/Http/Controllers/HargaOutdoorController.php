@@ -77,7 +77,7 @@ class HargaOutdoorController extends Controller
                                         $harga_panjang = ( ($data->harga_jual * ($p * $l)) - ($data->harga_jual * ($data->disc / 100)));
                                         $total_panjang = (($panjang * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) ));
                                     }
-                                } else if ( $p > $test->range_max && $l <= $test->range_max ) {
+                                } else if ( $p > $test->range_max && $l <= $test->range_max && $l >= $test->range_min) {
 
                                     $lebar = $test->range_max;
                                     $panjang = $p;

@@ -16,4 +16,9 @@ class HargaCostum extends Model
     {
     	return $this->belongsTo(Harga::class);
     }
+
+    public function Barang()
+    {
+    	return $this->belongsTo(Barang::class);
+    }
 }

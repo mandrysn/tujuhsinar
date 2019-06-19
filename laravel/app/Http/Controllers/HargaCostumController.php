@@ -32,8 +32,6 @@ class HargaCostumController extends Controller
             } else { 
                $data = HargaCostum::where('harga_id', $harga->id)
                                 ->where('barang_id', '=', $nama_produk)
-                                ->where('range_min', '<=', $qty)
-                                ->where('range_max', '>=', $qty)
                                 ->first();
 
                 if ( is_null($data) ) {
@@ -45,12 +43,7 @@ class HargaCostumController extends Controller
 
                    
 
-                    if( ( $qty <= $data->range_max ) && ( $qty >= $data->range_min ) ) {
-                        $total = (($qty * $data->harga_jual) - ( ($qty * $data->harga_jual) * ($data->disc / 100) ));
-
-                    } else { 
-                        $total = 'Tidak set';
-                    }
+                    $total = (($qty * $data->harga_jual) - ( ($qty * $data->harga_jual) * ($data->disc / 100) ));
 
                     $harga = $data->harga_jual;
 
@@ -82,8 +75,7 @@ class HargaCostumController extends Controller
             } else { 
                 $data = HargaCostum::where('harga_id', $harga->id)
                                 ->where('nama_produk', '=', $nama_produk)
-                                ->where('range_min', '<=', $qty)
-                                ->where('range_max', '>=', $qty)
+                                
                                 ->first();
 
                 if ( is_null($data) ) {
@@ -107,19 +99,13 @@ class HargaCostumController extends Controller
             } else { 
                 $data = HargaCostum::where('harga_id', $harga->id)
                                 ->where('nama_produk', '=', $nama_produk)
-                                ->where('range_min', '<=', $qty)
-                                ->where('range_max', '>=', $qty)
+                               
                                 ->first();
 
                 if ( is_null($data) ) {
                     return '-';
                 } else {
-                    if( ( $qty <= $data->range_max ) && ( $qty >= $data->range_min ) ) {
-                        return ($qty * $data->harga_jual) - ( ($qty * $data->harga_jual) * ($data->disc / 100) );
-
-                    } else { 
-                        return 'Tidak set';
-                    }
+                    return ($qty * $data->harga_jual) - ( ($qty * $data->harga_jual) * ($data->disc / 100) );
                 }
             }
         }
@@ -137,8 +123,7 @@ class HargaCostumController extends Controller
             } else { 
                 $data = HargaCostum::where('harga_id', $harga->id)
                                 ->where('nama_produk', '=', $nama_produk)
-                                ->where('range_min', '<=', $qty)
-                                ->where('range_max', '>=', $qty)
+                              
                                 ->first();
 
                 if ( is_null($data) ) {

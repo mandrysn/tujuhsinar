@@ -17,7 +17,7 @@
                     <div class="col-lg-12 col-md-12">
             			<div class="form-group">
             				<label for="select2" class="form-label">Tipe Member</label>
-            				<select class="form-control" name="member_id" required>
+            				<select class="form-control selectpicker" data-live-search="true" name="member_id" id="member_id" multiplerequired>
             					<option value="">-- Pilih Member --</option>
             					@foreach($member as $tampil)
             					<option value="{{ $tampil->id }}">{{ $tampil->nm_tipe }}</option>
@@ -40,7 +40,7 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="select2" class="form-label">Tipe Cetak</label>
-                            <select class="form-control" name="produk_id" required>
+                            <select class="form-control selectpicker" data-live-search="true" name="produk_id" id="produk_id" multiplerequired>
                                 <option>-- Pilih Tipe Cetak --</option>
                                 <option value="1">Outdoor</option>
                                 <option value="2">Indoor</option>
