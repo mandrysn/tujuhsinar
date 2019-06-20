@@ -95,6 +95,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 		Route::group(['prefix' => 'produksi'], function() {
 
 			Route::get('print/{id}', 'OrderKerjaController@print')->name('order.print');
+			Route::get('print-spk/{id}', 'OrderKerjaController@print2')->name('order.print-spk');
+			Route::get('spk/{id}', 'OrderKerjaController@print3')->name('order.spk');
 			Route::get('update_status/{id}', 'ProduksiController@update_status')->name('produksi.update_status');
 
 			Route::group(['middleware' => 'outdoor'], function() {

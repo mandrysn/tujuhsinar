@@ -7,10 +7,11 @@
     <meta name="description" content="NOTA KASIR TUJUH SINAR">
     <meta name="author" content="MAndrySN.GreenNusa">
     <link href="{{ asset('css/styles_cetak.css') }}" rel="stylesheet" type="text/css">
-    <title>NOTA KASIR TUJUH SINAR</title>
+    <title>SURAT JALAN TUJUH SINAR</title>
     <script type="text/javascript">
+        window.open("{{ route('order.print', $order->id) }}");
         window.print();
-        
+
     </script>
 </head>
 
@@ -23,13 +24,15 @@
                 <br>
                 M Yamin
                 </td>
-                <td width="20%"></td>
+                
+                
                 <td width="10%">
                     <br /><br />
                     <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($order->order, 'CODABAR') }}" height="30" width="110">
                 </td>
                 <td width="5%"></td>
                 <td width="60%" colspan="5" align="left" valign="top">
+                    
                     <br ><br />
                     No. Invoice/Nota : {{ $order->order }} <br>
                     Kepada Yth <br>
@@ -41,9 +44,13 @@
                 </td>
                 
             </tr>
+            
             <tr>
-                <td width="40%"></td>
+                <td width="40%" ></td>
                 <td rowspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="10" style="text-align: center;"><h1>NOTA SURAT JALAN </h1></td>
             </tr>
             <tr>
                 <td colspan="5" align="left" valign="top">
@@ -62,19 +69,19 @@
             <tr><th colspan="5" align="left">Bahan</th></tr>
             <tr> 
                 <td  width="5%" align="center">
-                    Qty
+                    No
                 </td>
                 <td  width="20%" class="border-left" align="center">
                     Nama File
                 </td>
                 <td  width="10%" class="border-left" align="center">
-                    Tipe Produk
+                    Qty
                 </td>
-                <td  width="15%" class="border-left" align="center">
-                    Harga Satuan
+                <td  width="20%" class="border-left" align="center">
+                    Ukuran
                 </td>
-                <td  width="12%" class="border-left" align="right">
-                    Total
+                <td  width="20%" class="border-left" align="center">
+                    Keterangan
                 </td>
             </tr>
         </table>
@@ -82,28 +89,24 @@
         <table class="table-list" width="100%">
 
             @forelse($data as $index => $datas)
-
+        
             <tr>
-                <td colspan="5" valign="top">
-                    {{ $index + 1 }}.&nbsp;{{ $datas->Barang->nm_barang }}
+                <td width="5%" valign="top">
+                    {{ $index + 1 }}.&nbsp;
                 </td>
-            </tr>
-            <tr>
-                <td  width="5%" align="center" valign="top">
+                <td  width="20%" align="center" valign="top">
+                    {{ $datas->barang->nm_barang }}
+                </td>
+                <td width="10%" align="center" valign="top">
                     <strong>{{ $datas->qty }}</strong>
+                </td>
+                <td width="20%" align="center" valign="top">
+                    <strong>{{ $datas->ukuran }}</strong>
                 </td>
                 <td width="20%" align="center" valign="top">
                     <strong>{!! $datas->keterangan_sub !!}</strong>
                 </td>
-                <td width="10%" align="center" valign="top">
-                    <strong>{{ $datas->nama_produk }}</strong>
-                </td>
-                <td width="15%" align="center" valign="top">
-                    <strong>{{ number_format($datas->harga) }}</strong>
-                </td>
-                <td  width="12%" align="right" valign="top">
-                    <strong>{{ number_format($datas->total) }}</strong>
-                </td>
+                
             </tr>
             @empty
             @endforelse

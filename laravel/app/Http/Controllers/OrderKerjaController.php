@@ -120,7 +120,7 @@ class OrderKerjaController extends Controller
         
         $fnsText .=  "<br />";
 
-        $subOrderKerjaBaru->diskon = $request->diskon;
+        $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
@@ -181,7 +181,7 @@ class OrderKerjaController extends Controller
         }
         $fnsText .=  "<br />";
 
-        $subOrderKerjaBaru->diskon = $request->diskon;
+        $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
@@ -219,7 +219,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->qty = $request->qty;
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
-        $subOrderKerjaBaru->diskon = $request->diskon;
+        $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->deadline = $request->deadline_merchant . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = $request->keterangan;
@@ -272,7 +272,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
         is_null($request->editor_id) ? $request->total : ($request->total + $editor->tambahan_harga);
-        $subOrderKerjaBaru->diskon = $request->diskon;
+        $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->deadline = $request->deadline_print . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Ukuran : '.$ukuran . "<br />";
@@ -311,10 +311,12 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->produk_id = 5;
         $subOrderKerjaBaru->qty = $request->qty;
         $subOrderKerjaBaru->deadline = $request->deadline_costum . ' '. \Carbon\Carbon::now()->toTimeString();
+        $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
-        $subOrderKerjaBaru->diskon = $request->diskon;
-        $subOrderKerjaBaru->keterangan_sub = 'Nama Produk : ' . $request->nama_produk;
+        $db = Barang::find($request->barang_id);
+        $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
+        $subOrderKerjaBaru->keterangan_sub = 'Nama Produk : ' . $db->nm_barang;
         $subOrderKerjaBaru->keterangan_sub .= '<br />Keterangan : ' . nl2br($request->keterangan);
         $subOrderKerjaBaru->save();
 
@@ -372,7 +374,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->pekerjaan_id = $request->pekerjaan;
         $subOrderKerjaBaru->finishing = $request->finishing;
         $subOrderKerjaBaru->file = $request->namafile;
-        $subOrderKerjaBaru->diskon = $request->diskon;
+        $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->qty = $request->qty;
         $subOrderKerjaBaru->panjang = $request->panjang;
         $subOrderKerjaBaru->lebar = $request->lebar;
@@ -472,7 +474,7 @@ class OrderKerjaController extends Controller
      */
     public function print($id)
     {
-        $data = OrderKerjaSub::where('order_kerja_id', $id)->get();
+        $data = OrderKerjaSub::with('Barang')->where('order_kerja_id', $id)->get();
         $order = OrderKerja::find($id);
         $totalan = OrderKerjaSub::select(DB::raw('SUM(total) AS total'))->where('order_kerja_id', '=', $id)->first();
         $editors = Editor::all();
@@ -480,6 +482,40 @@ class OrderKerjaController extends Controller
         return view('transaksi.nota.nota',  compact('data', 'order', 'totalan', 'editors'));
 		// $pdf = PDF::loadview('transaksi.nota.nota',  compact('data', 'order', 'totalan', 'editors'));
 		// return $pdf->setPaper('a6', 'landscape')->download('nota-'.$order->order.'.pdf');
+    }
+
+    public function print2($id)
+    {
+        $data = OrderKerjaSub::where('order_kerja_id', $id)->get();
+        $order = OrderKerja::find($id);
+        $totalan = OrderKerjaSub::select(DB::raw('SUM(total) AS total'))->where('order_kerja_id', '=', $id)->first();
+        $editors = Editor::all();
+
+        return view('transaksi.nota.nota-spk',  compact('data', 'order', 'totalan', 'editors'));
+        // $pdf = PDF::loadview('transaksi.nota.nota',  compact('data', 'order', 'totalan', 'editors'));
+        // return $pdf->setPaper('a6', 'landscape')->download('nota-'.$order->order.'.pdf');
+    }
+
+    public function print3($id)
+    {
+        $data = OrderKerjaSub::where('order_kerja_id', $id)->get();
+        $order = OrderKerja::find($id);
+        $totalan = OrderKerjaSub::select(DB::raw('SUM(total) AS total'))->where('order_kerja_id', '=', $id)->first();
+        $editors = Editor::all();
+
+        try {
+            
+            $dataGroup = OrderKerjaSub::where('order_kerja_id', $id)->groupBy('produk_id')->get();
+        } catch (\Illuminate\Database\QueryException $e) {
+            dd("Ada Masalah Silahkan Hubungin Admin");
+            // ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+            
+        }
+        
+
+        return view('transaksi.nota.spk',  compact('data', 'order', 'totalan', 'editors','dataGroup'));
+        // $pdf = PDF::loadview('transaksi.nota.nota',  compact('data', 'order', 'totalan', 'editors'));
+        // return $pdf->setPaper('a6', 'landscape')->download('nota-'.$order->order.'.pdf');
     }
 
     /**

@@ -44,7 +44,7 @@ class OrderKerjaSub extends Model
     }
     public function Barang()
     {
-        return $this->belongsTo(Barang::class);
+        return $this->belongsTo(Barang::class,'barang_id','id');
     }
     public function getNamaProdukAttribute()
     {

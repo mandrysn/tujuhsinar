@@ -257,6 +257,10 @@ $(document).ready(function () {
     }
 
     /* Datatable */
+    if (jQuery("#example1").length) {
+
+        jQuery('#example1').DataTable();
+    }
     if (jQuery("#example0").length) {
 
         jQuery('#example0').DataTable();

@@ -32,10 +32,10 @@
 		
 	<div class="col-md-12 col-lg-4">
 		<div class="form-group">
-			<label for="input5" class="form-label">Nama Produk</label>
+			<label for="barang_id" class="form-label">Nama Produk</label>
 			{{-- <input type="text" class="form-control" name="nama_produk" id="custom_nama_produk" placeholder="Nama Produk" onchange="get_costum()" required> --}}
-			<select class="selectpicker form-control" name="barang_id" data-live-search="true" id="custom_nama_produk" onchange="get_costum()" required >
-				<option selected>-- Pilih Produk --</option>
+			<select class="selectpicker form-control" name="barang_id" data-live-search="true" id="barang_id" onchange="get_costum()" required >
+				<option selected disabled>-- Pilih Produk --</option>
 				@foreach($barangs as $barang)
 					@if($barang->produk_id == 5)
 						<option value="{{ $barang->id }}">{{ $barang->nm_barang }}</option>
