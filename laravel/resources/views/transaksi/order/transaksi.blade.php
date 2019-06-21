@@ -16,6 +16,7 @@
 									<th>Pelanggan</th>
 									<th>Tanggal Order</th>
 									<th>Pembayaran</th>
+									<th>Aksi</th>
 								</tr>
 							</thead>
 							<tbody id="list_order">
@@ -26,6 +27,7 @@
 									<td>{{ $datas->pelanggan->nama }}</td>
 									<td>{{ Helper::tanggalId($datas->tanggal) }}</td>
 									<td>{{ $datas->status_payment }}</td>
+									<td><a href="{{ route('order.show', $datas->id) }}" class="btn btn-option2"><i class="fa fa-info"></i>Detail</a></td>
 								</tr>
 								@empty
 								@endforelse
