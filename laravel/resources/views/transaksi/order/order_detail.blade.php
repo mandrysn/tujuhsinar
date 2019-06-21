@@ -80,7 +80,7 @@
                 @endif
 
                 @if (Auth::user()->role == 3 || Auth::user()->role == 1)
-                    <a href="#" data-toggle="modal" data-target="#edit-data{{ $id }}" class="btn btn-option2"><i class="fa fa-money"></i> Pembayaran</a>
+                    <a href="#total" class="btn btn-option2"><i class="fa fa-money"></i> Pembayaran</a>
                 @endif
             @else
                 <a href="{{ route('order.print', $id) }}" target="_blank" class="btn btn-option2"><i class="fa fa-money"></i> Print Nota</a>
@@ -146,12 +146,28 @@
                     </tfoot>
                 </table>
             </div>
+            <div class="row" >
+                <div class="col-md-8">
+                    
+                </div>
+                <div class="col-md-4">
+                    <br>
+                    <br>
+                    @if ($order->status_payment == 'belum bayar')
+                        @include('transaksi.order.pembayaran')
+                    @endif
+                </div>
+                    
+
+            </div>
         </div>
     </div>
     <!-- End Panel --> 
 </div>
 
-@include('transaksi.order.pembayaran')
+
+
+
 
 
 

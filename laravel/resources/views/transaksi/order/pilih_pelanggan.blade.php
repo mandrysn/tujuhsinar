@@ -40,7 +40,7 @@
                                                   
                                                     <td>
                                                         
-                                                        <a href="#" class="btn btn-primary memilih" data-nama="{{ $datanya->nama }}" data-member="{{ $datanya->member->nm_tipe }}" data-id="{{ $datanya->id }}" data-memberid="{{ $datanya->member_id }}"><i class="fa fa-info memilih"></i>Pilih</a>
+                                                        <a href="#" class="btn btn-primary memilih" data-nama="{{ $datanya->nama }}" data-member="{{ $datanya->member->nm_tipe }}" data-id="{{ $datanya->id }}" data-memberid="{{ $datanya->member_id }}" data-dismiss="modal"><i class="fa fa-info memilih"></i>Pilih</a>
                                                     </td>
                                                 </tr>
                                                 @empty
@@ -76,8 +76,10 @@
             
             jQuery('#detail-pelanggan-'+produk).val(jQuery(this).data('nama')+'('+jQuery(this).data('member')+')');
             jQuery('#pelanggan_'+produk).val(jQuery(this).data('id'));
-            jQuery('#pilih-pelanggan').modal('hide');
+            //jQuery('#pilih-pelanggan').modal('hide');
 
+            // $('body').removeClass('modal-open');
+            // $('.modal-backdrop').remove();
             var id = jQuery(this).data('memberid');
         
             jQuery.ajax({

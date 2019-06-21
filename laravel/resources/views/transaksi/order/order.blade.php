@@ -12,6 +12,7 @@
 					@if (Auth::user()->role == 2 || Auth::user()->role == 1)
 					<a href="{{ route('order.create') }}" class="btn btn-default"><i class="fa fa-plus-circle"></i>Tambah Order</a>
 					@endif
+					<a href="{{ route('order.cancel.view') }}" class="btn btn-warning"><i class="fa fa-remove"></i>Order Yang Di Cancel</a>
 					<br>
 					<br>
 					<div class="panel-title"> Data Pembelian </div>
@@ -42,10 +43,12 @@
 											{{ method_field('DELETE') }}
 
 										<a href="{{ route('order.show', $datas->id) }}" class="btn btn-option2"><i class="fa fa-info"></i>Detail</a>
+
 										@if (Auth::user()->role == 2 || Auth::user()->role == 1)
 										<button class="btn btn-danger" @if($datas->status_payment != 'belum bayar') disabled @endif onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-check"></i>Delete</button>
 										@endif
 										</form>
+										<a href="{{ route('order.cancel', $datas->id) }}" class="btn btn-option1" @if($datas->status_payment != 'belum bayar') disabled @endif onclick="return confirm('Yakin ingin membatalkan orderan ?')"><i class="fa fa-check"></i>Cancel</a>
 									</td>
 								</tr>
 								@empty
@@ -64,7 +67,7 @@
 	</div>
 	<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script> 
 	<script type="text/javascript">
-		
+		var role = <?php echo Auth::user()->role; ?>;
 		
 		setInterval(function() {
 			console.log("test");
@@ -77,7 +80,20 @@
 						}
 						jQuery.each(data, function(index, val) {
 							if(!jQuery("#order-"+val.id).length){
-								jQuery("#list_order").append('<tr id="order-'+val.id+'"><td>'+(index+1)+'</td><td>'+val.order+'</td><td>'+val.pelanggan.nama+'</td><td>'+val.tanggal_ord+'</td><td>'+val.status_payment+'</td><td><form action="<?php echo  url('order') ?>/'+val.id+'" class="form-horizontal" method="post"><?php echo  csrf_field() ?><?php echo  method_field("DELETE") ?><a href="<?php echo  url('transaksi/order') ?>/'+val.id+'" class="btn btn-option2"><i class="fa fa-info"></i>Detail</a><button class="btn btn-danger" onclick="return confirm("Yakin ingin menghapus data ?")"><i class="fa fa-check"></i>Delete</button></form></td></tr>')
+								var disabled = null;
+								if(val.status_payment != 'belum bayar'){
+									disabled = 'disabled';
+								}
+								var button_delete = '<button class="btn btn-danger" '+disabled+' onclick="return confirm("Yakin ingin menghapus data ?")"><i class="fa fa-check"></i>Delete</button>';
+								var button_cancel = '<a href="<?= url('admin/transaksi/order/cancel') ?>/'+val.id+'" class="btn btn-option1" '+disabled+' onclick="return confirm("Yakin ingin membatalkan orderan ?")"><i class="fa fa-check"></i>Cancel</a>';
+
+								var tr = '<tr id="order-'+val.id+'"><td>'+(index+1)+'</td><td>'+val.order+'</td><td>'+val.pelanggan.nama+'</td><td>'+val.tanggal+'</td><td>'+val.status_payment+'</td><td><form action="<?php echo  url('order') ?>/'+val.id+'" class="form-horizontal" method="post"><?php echo  csrf_field() ?><?php echo  method_field("DELETE") ?><a href="<?php echo  url('transaksi/order') ?>/'+val.id+'" class="btn btn-option2"><i class="fa fa-info"></i>Detail</a>';
+								if(role == 2 || role == 1){
+									tr += button_delete;
+								}
+								tr += button_cancel;
+								tr += '</form></td></tr>';
+								jQuery("#list_order").append(tr);
 							}
 						});
 					}

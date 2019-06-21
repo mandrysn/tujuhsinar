@@ -84,7 +84,7 @@
     function get_costum() {
         var custom_produk = document.getElementById("custom_produk").value;
 		var custom_pelanggan = document.getElementById("pelanggan_costum").value;
-        var custom_nama_produk = document.getElementById("custom_nama_produk").value;
+        var custom_nama_produk = document.getElementById("barang_id").value;
 		var custom_qty = document.getElementById("custom_qty").value;
 
         jQuery.ajax({

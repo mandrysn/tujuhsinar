@@ -46,7 +46,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 	Route::group(['prefix' => 'transaksi'], function() {
 
 		Route::group(['prefix' => 'order', 'middleware' => ['order','kasir']], function() {
-			
+			Route::get('cancel', 'OrderKerjaController@lihatCancel')->name('order.cancel.view');
+			Route::get('cancel/{id}', 'OrderKerjaController@cancel')->name('order.cancel');
 			Route::post('tambah/{id}', 'OrderKerjaController@detail')->name('order.detail');
 			Route::get('transaksi', 'OrderKerjaController@transaksi')->name('order.transaksi');
 			Route::delete('hapus/{id}', 'OrderKerjaController@destroySubKerja')->name('order.subkerja.hapus');
@@ -154,6 +155,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 		Route::get('/outdoor', 'OrderKerjaController@laporanOutdoor')->name('laporan.outdoor');
 		Route::get('/merchandise', 'OrderKerjaController@laporanMerchandise')->name('laporan.merchandise');
 
+		Route::get('/invoice', 'OrderKerjaController@laporanInvoice')->name('laporan.invoice');
+		Route::get('/dp', 'OrderKerjaController@laporanDp')->name('laporan.dp');
+		Route::get('/tunai', 'OrderKerjaController@laporanTunai')->name('laporan.tunai');
+
 		Route::get('/print', 'OrderKerjaController@laporanPrint')->name('laporan.print');
 		Route::get('/costumer', 'PelangganController@laporan')->name('laporan.costumer');
 		Route::get('/indoor', 'OrderKerjaController@laporanIndoor')->name('laporan.indoor');
@@ -174,6 +179,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 			Route::post('/outdoor', 'LaporanController@laporanDetailOutdoor')->name('laporan.detail.outdoor');
 			Route::post('/merchandise', 'LaporanController@laporanDetailMerchandise')->name('laporan.detail.merchandise');
 
+			Route::post('/invoice', 'LaporanController@laporanDetailInvoice')->name('laporan.detail.invoice');
+			Route::post('/dp', 'LaporanController@laporanDetailDp')->name('laporan.detail.dp');
+			Route::post('/tunai', 'LaporanController@laporanDetailTunai')->name('laporan.detail.tunai');
+
 			Route::get('/order', 'LaporanController@laporanDetailOrder')->name('laporan.detail.order');
 			Route::get('/print', 'LaporanController@laporanDetailPrint')->name('laporan.detail.print');
 			Route::get('/indoor', 'LaporanController@laporanDetailIndoor')->name('laporan.detail.indoor');
@@ -191,6 +200,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 			Route::post('/indoor', 'LaporanController@laporanIndoor')->name('laporan.cetak.indoor');
 			Route::post('/outdoor', 'LaporanController@laporanOutdoor')->name('laporan.cetak.outdoor');
 			Route::post('/merchandise', 'LaporanController@laporanMerchandise')->name('laporan.cetak.merchandise');
+
+			Route::post('/invoice', 'LaporanController@laporanInvoice')->name('laporan.cetak.invoice');
+			Route::post('/dp', 'LaporanController@laporanDp')->name('laporan.cetak.dp');
+			Route::post('/tunai', 'LaporanController@laporanTunai')->name('laporan.cetak.tunai');
 		});
 	});
 

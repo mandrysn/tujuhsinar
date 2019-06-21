@@ -19,8 +19,9 @@ class CreateOrderKerjasTable extends Migration
             $table->dateTime('tanggal');
             $table->integer('pelanggan_id')->unsigned()->index();
             $table->foreign('pelanggan_id')->references('id')->on('pelanggans')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->enum('status_payment', ['belum bayar', 'tunai', 'transfer', 'invoice', 'down payment'])->default('belum bayar');
+            $table->enum('status_payment', ['belum bayar', 'tunai', 'transfer', 'invoice', 'down payment','cancel'])->default('belum bayar');
             $table->text('keterangan')->nullable();
+           
             $table->timestamps();
             $table->softDeletes();
         });

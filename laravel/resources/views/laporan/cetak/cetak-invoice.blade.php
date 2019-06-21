@@ -1,6 +1,6 @@
 <?php 
     header("Content-type: application/octet-stream");
-    header("Content-Disposition: attachment; filename=rekap-data-outdoor.xls");
+    header("Content-Disposition: attachment; filename=rekap-data-invoice.xls");
     header("Pragma: no-cache");
     header("Expires: 0");
  ?>
@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="A Components Mix Bootstarp 3 Admin Dashboard Template">
     <meta name="author" content="Westilian">
-    <title>Tujuh Sinar - Laporan Outdoor</title>
+    <title>Laporan Invoice</title>
     
 </head>
 

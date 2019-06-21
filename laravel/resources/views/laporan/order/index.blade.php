@@ -74,6 +74,40 @@
             </a>
         </div>
     </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="mini-stat clearfix bg-twitter rounded"> 
+            <a href="{{ route('laporan.invoice') }}">
+                <span class="mini-stat-icon"><i class="la la-calendar-times-o"></i></span>
+                <div class="mini-stat-info"> 
+                    <span class="counter" data-counter="counterup" data-value="{{ $invoice }}">0</span> Order Invoice 
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="mini-stat clearfix bg-twitter rounded"> 
+            <a href="{{ route('laporan.dp') }}">
+                <span class="mini-stat-icon"><i class="la la-calendar-times-o"></i></span>
+                <div class="mini-stat-info"> 
+                    <span class="counter" data-counter="counterup" data-value="{{ $dp }}">0</span> Order DP 
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="mini-stat clearfix bg-twitter rounded"> 
+            <a href="{{ route('laporan.tunai') }}">
+                <span class="mini-stat-icon"><i class="la la-calendar-times-o"></i></span>
+                <div class="mini-stat-info"> 
+                    <span class="counter" data-counter="counterup" data-value="{{ $tunai }}">0</span> Order Tunai 
+                </div>
+            </a>
+        </div>
+    </div>
+
 </div>
 <!-- End Row --> 
 </div>

@@ -132,6 +132,50 @@ class LaporanController extends Controller
     }
 
 
+
+    public function laporanDetailInvoice(Request $request) {
+        if (is_null($request->periode)) {
+            return view('laporan.order.laporan-invoice');
+        } else {
+            $periode = $request->periode;
+            $tanggal = explode(' - ', $periode);
+            $data = OrderKerjaSub::whereHas('OrderKerja',function ($q)
+            {
+                $q->where('status_payment', 'invoice');
+            })->whereBetween('deadline', [date('Y-m-d',strtotime($tanggal[0])), date('Y-m-d',strtotime($tanggal[1]))])->orderBy('id', 'desc')->get();
+            return view('laporan.detail.detail-invoice', compact('data', 'periode'));
+        }
+    }
+
+    public function laporanDetailDp(Request $request) {
+        if (is_null($request->periode)) {
+            return view('laporan.order.laporan-dp');
+        } else {
+            $periode = $request->periode;
+            $tanggal = explode(' - ', $periode);
+            $data = OrderKerjaSub::whereHas('OrderKerja',function ($q)
+            {
+                $q->where('status_payment', 'down payment');
+            })->whereBetween('deadline', [date('Y-m-d',strtotime($tanggal[0])), date('Y-m-d',strtotime($tanggal[1]))])->orderBy('id', 'desc')->get();
+            return view('laporan.detail.detail-dp', compact('data', 'periode'));
+        }
+    }
+
+    public function laporanDetailTunai(Request $request) {
+        if (is_null($request->periode)) {
+            return view('laporan.order.laporan-tunai');
+        } else {
+            $periode = $request->periode;
+            $tanggal = explode(' - ', $periode);
+            $data = OrderKerjaSub::whereHas('OrderKerja',function ($q)
+            {
+                $q->where('status_payment', 'tunai');
+            })->whereBetween('deadline', [date('Y-m-d',strtotime($tanggal[0])), date('Y-m-d',strtotime($tanggal[1]))])->orderBy('id', 'desc')->get();
+            return view('laporan.detail.detail-tunai', compact('data', 'periode'));
+        }
+    }
+
+
     /**
      * Print all the specified resource from storage.
      *
@@ -200,5 +244,33 @@ class LaporanController extends Controller
         $tanggal = explode(' - ', $request->periode);
         $data = OrderKerjaSub::where('produk_id', '5')->whereBetween('deadline', [date('Y-m-d',strtotime($tanggal[0])), date('Y-m-d',strtotime($tanggal[1]))])->orderBy('id', 'desc')->get();
         return view('laporan.cetak.cetak-custom', compact('data'));
+    }
+
+
+    public function laporanInvoice(Request $request) {
+        $tanggal = explode(' - ', $request->periode);
+        $data = OrderKerjaSub::whereHas('OrderKerja',function ($q)
+            {
+                $q->where('status_payment', 'invoice');
+            })->whereBetween('deadline', [date('Y-m-d',strtotime($tanggal[0])), date('Y-m-d',strtotime($tanggal[1]))])->orderBy('id', 'desc')->get();
+        return view('laporan.cetak.cetak-invoice', compact('data'));
+    }
+
+    public function laporanDp(Request $request) {
+        $tanggal = explode(' - ', $request->periode);
+        $data = OrderKerjaSub::whereHas('OrderKerja',function ($q)
+            {
+                $q->where('status_payment', 'down payment');
+            })->whereBetween('deadline', [date('Y-m-d',strtotime($tanggal[0])), date('Y-m-d',strtotime($tanggal[1]))])->orderBy('id', 'desc')->get();
+        return view('laporan.cetak.cetak-dp', compact('data'));
+    }
+
+    public function laporanTunai(Request $request) {
+        $tanggal = explode(' - ', $request->periode);
+        $data = OrderKerjaSub::whereHas('OrderKerja',function ($q)
+            {
+                $q->where('status_payment', 'tunai');
+            })->whereBetween('deadline', [date('Y-m-d',strtotime($tanggal[0])), date('Y-m-d',strtotime($tanggal[1]))])->orderBy('id', 'desc')->get();
+        return view('laporan.cetak.cetak-tunai', compact('data'));
     }
 }

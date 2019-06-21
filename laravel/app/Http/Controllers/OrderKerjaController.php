@@ -419,7 +419,10 @@ class OrderKerjaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function storePayment(Request $request, $id)
-    {
+    {   
+        if($request->type_pembayaran == null || $request->type_pembayaran == ''){
+            return redirect('admin/transaksi/order/' . $id)->with('alert-danger', 'Silahkan Pilih Type Pembayaran!');
+        }
         $totalan = OrderKerjaSub::select(DB::raw('SUM(total) AS total'))->where('order_kerja_id', '=', $id)->first();
 
         $data = OrderKerja::findOrFail($id);
@@ -427,6 +430,8 @@ class OrderKerjaController extends Controller
         if ($request->type_pembayaran == "tunai") {
             $data->keterangan  = "Tunai";
             $data->keterangan .= "<br />Total bayar : " . number_format($request->jumlah_bayar);
+            $data->keterangan .= "<br />Diskon : " . number_format($request->diskon);
+            $data->keterangan .= "<br />Total Akhir : " . number_format($request->total_akhir);
             $data->keterangan .= "<br />Kembalian : " . number_format($request->jumlah_bayar - $totalan->total);
 
         } else if ( $request->type_pembayaran == "transfer") {
@@ -448,22 +453,25 @@ class OrderKerjaController extends Controller
         } else if ( $request->type_pembayaran == "invoice") {
             $data->keterangan  = "Invoice.";
             $data->keterangan .= "<br />Total bayar : "  . number_format($request->jumlah_invoice);
+            $data->keterangan .= "<br />Diskon : " . number_format($request->diskon);
+            $data->keterangan .= "<br />Total Akhir : " . number_format($request->total_akhir);
             $data->keterangan .= "<br />Nama Penangggung jawab : " . $request->penanggung_jawab;
             $data->keterangan .= "<br />Nama Perusahaan : " . $request->nama_perusahaan;
 
         } else if ( $request->type_pembayaran == "down payment") {
+
             $data->keterangan  = "Jumlah DP : Rp " . number_format($request->jumlah_dp);
-            $data->keterangan .= "<br />Sisa DP : Rp " . number_format($totalan->total - $request->jumlah_dp);
+            $data->keterangan .= "<br />Sisa DP : Rp " . number_format($request->sisa_dp);
 
         }
         $data->update();
 
-        return redirect('admin/transaksi/order/' . $id);
+        return redirect()->route('order.print', $id);
     }
 
     public function load_data(){
         
-        return $data = OrderKerja::with('pelanggan')->orderBy('order', 'desc')->get();
+        return $data = OrderKerja::with('pelanggan')->where('status_payment', '=', 'belum bayar')->orderBy('order', 'desc')->get();
     }
 
     /**
@@ -531,7 +539,10 @@ class OrderKerjaController extends Controller
         $print = OrderKerjaSub::where('produk_id', '4')->count();
         $custom = OrderKerjaSub::where('produk_id', '5')->count();
         $hari = OrderKerja::count();
-        return view('laporan.order.index', compact('order', 'indoor', 'outdoor', 'merchandise', 'print', 'custom', 'hari'));
+        $invoice = OrderKerja::where('status_payment','invoice')->count();
+        $dp = OrderKerja::where('status_payment','down payment')->count();
+        $tunai = OrderKerja::where('status_payment','tunai')->count();
+        return view('laporan.order.index', compact('order', 'indoor', 'outdoor', 'merchandise', 'print', 'custom', 'hari','invoice','dp','tunai'));
     }
 
     /**
@@ -603,4 +614,51 @@ class OrderKerjaController extends Controller
     public function laporanCustom() {
         return view('laporan.order.laporan-custom');
     }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function laporanInvoice() {
+        return view('laporan.order.laporan-invoice');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function laporanDp() {
+        return view('laporan.order.laporan-dp');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function laporanTunai() {
+        return view('laporan.order.laporan-tunai');
+    }
+
+    public function cancel($id)
+    {
+        
+        $order = OrderKerja::find($id);
+        $order->update([
+            'status_payment'=>'cancel'
+        ]);
+        return redirect()->back();
+
+        
+    }
+
+    public function lihatCancel()
+    {
+        $data = OrderKerja::where('status_payment', 'cancel')->orderBy('order', 'desc')->get();
+        return view('transaksi.order.cancel', compact('data'));
+    }
+
 }
