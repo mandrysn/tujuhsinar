@@ -21,7 +21,7 @@
                             <div class="form-group">
                                 <label for="total2" class="form-label">Harga Akhir</label>
                                 <input type="text" id="total2" name="total2" value="{{ number_format($totalan->total) }}" class="form-control form-control-line" disabled>
-                                <input type="hidden" id="total_akhir" name="total_akhir" value="{{ number_format($totalan->total) }}" >
+                                <input type="hidden" id="total_akhir" name="total_akhir" value="{{ $totalan->total }}" >
                             </div>
 
                         <div class="form-group">

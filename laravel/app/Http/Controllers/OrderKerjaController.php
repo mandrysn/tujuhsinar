@@ -106,13 +106,13 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->qty = $request->qty;
         $subOrderKerjaBaru->deadline = $request->deadline . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->harga = $request->harga;
-
+        $subOrderKerjaBaru->total = $request->total;
         //finishing
         $fnsText = "Finishing: ";
         $fnsReq = $request->editor_id;
         for ($i=0; $i < count($fnsReq); $i++) { 
             $editor = Editor::findOrFail($fnsReq[$i]);
-            $subOrderKerjaBaru->total = is_null($fnsReq[$i]) ? ($request->total + $tambahan_harga) : is_null($request->kaki_id) ? $request->total + $editor->tambahan_harga : (is_null($fnsReq[$i]) && is_null($request->kaki_id) ) ? $request->total : $request->total + ($editor->tambahan_harga + $tambahan_harga);
+            
             $typenya = \Helper::get_type($editor->type);
             $pcsnya = "";
             if(isset($request->id_pcs)){
@@ -174,13 +174,13 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->qty = $request->qty;
         $subOrderKerjaBaru->deadline = $request->deadline_indoor . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->harga = $request->harga;
-        
+        $subOrderKerjaBaru->total = $request->total;
         //finishing
         $fnsText = "Finishing: ";
         $fnsReq = $request->editor_id;
         for ($i=0; $i <count($fnsReq) ; $i++) { 
             $editor = Editor::findOrFail($fnsReq[$i]);
-            $subOrderKerjaBaru->total = is_null($fnsReq[$i]) ? ($request->total + $tambahan_harga) : is_null($request->kaki_id) ? $request->total + $editor->tambahan_harga : (is_null($fnsReq[$i]) && is_null($request->kaki_id) ) ? $request->total : $request->total + ($editor->tambahan_harga + $tambahan_harga);
+           
             $typenya = \Helper::get_type($editor->type);
             $pcsnya = "";
             if(isset($request->id_pcs)){
