@@ -222,8 +222,9 @@ var cur_select = 0;
 					type: "GET",
 					success: function(data) {
 							jQuery('#print_diskon').val(data.diskon);
+							total_harga = data.total;
+        					jQuery("#print_total").val(total_harga + total_finishing + total_kaki);
 							jQuery('#print_harga').val(data.harga);
-							jQuery('#print_total').val(data.total);
 							if(data.total > 0 || data.total != '') {
 								jQuery('#PSub').removeAttr('disabled');
 							} else {

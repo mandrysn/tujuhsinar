@@ -44,10 +44,10 @@ class HargaIndoorController extends Controller
 
                     if ( ( $qty <= $data->range_max ) && ( $qty >= $data->range_min ) ) {
                         $cari_ukuran = UkuranBahanDetail::where('barang_id', $data->barang_id)->orderBy('ukuran_bahan_id', 'ASC')->get();
-                        $total_panjang = [];
-                        $harga_panjang = [];
-                        $total_lebar = [];
-                        $harga_lebar = [];
+                        $total_panjang = (($p * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) ));
+                        $harga_panjang = ( ($data->harga_jual * ($p * $l)) - ($data->harga_jual * ($data->disc / 100)));
+                        $total_lebar = (($p * $l) * ( ($qty * $data->harga_jual) - (($qty * $data->harga_jual) * ($data->disc / 100)) ));
+                        $harga_lebar = ( ($data->harga_jual * ($p * $l)) - ($data->harga_jual * ($data->disc / 100)));
 
                         foreach($cari_ukuran as $key => $cari) {
 

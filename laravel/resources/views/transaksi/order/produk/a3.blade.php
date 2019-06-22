@@ -79,8 +79,8 @@
 		
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
-				<label for="" class="form-label">Finishing</label>
-				<select class="form-control selectpicker" name="editor_id" id="editor_print">
+				<label for="editor_print" class="form-label">Finishing</label>
+				<select class="form-control selectpicker" name="editor_id" data-live-search="true" id="editor_print">
 					<option disabled>-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 4)
@@ -220,9 +220,14 @@
 					url: "{{ url('admin/transaksi/order/print/data/') }}/"+print_barang+"/"+print_pelanggan+"/"+print_qty+"/"+ukuran+"/"+tipe_print,
 					type: "GET",
 					success: function(data) {
+							// jQuery('#print_diskon').val(data.diskon);
+							// jQuery('#print_harga').val(data.harga);
+							// jQuery('#print_total').val(data.total);
+
 							jQuery('#print_diskon').val(data.diskon);
+							total_harga = data.total;
+        					jQuery("#print_total").val(total_harga + total_finishing + total_kaki);
 							jQuery('#print_harga').val(data.harga);
-							jQuery('#print_total').val(data.total);
 							if(data.total > 0 || data.total != '') {
 								jQuery('#PSub').removeAttr('disabled');
 							} else {

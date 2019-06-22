@@ -74,7 +74,7 @@
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
 				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_indoor">
-					<option disabled>-- Pilih Finishing --</option>
+					<option disabled >-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 2)
 							<option value="{{ $editor->id }}">{{ $editor->nama_finishing }} - {{ number_format($editor->tambahan_harga) }}</option>
@@ -89,7 +89,7 @@
 			<div class="form-group">
 				<label for="" class="form-label">Kaki</label>
 				<select class="form-control" name="kaki_id" id="kaki_indoor">
-					<option disabled>-- Pilih Kaki --</option>
+					<option disabled selected>-- Pilih Kaki --</option>
 					
 				</select>
 			</div>
@@ -224,14 +224,14 @@
 								success: function(data) {
 										jQuery('#diskon_indoor').val(data.diskon);
 										total_harga = data.total;
-	                jQuery("#total").val(total_harga + total_finishing);
+	                					jQuery("#total_indoor").val(total_harga + total_finishing+ total_kaki;
 										jQuery('#harga_indoor').val(data.harga);
 										console.log("{{ url('admin/transaksi/order/indoor/data/') }}/"+barang_indoor+"/"+pelanggan_indoor+"/"+qty_indoor+"/"+p_indoor+"/"+l_indoor);
 										if(data.total > 0 || data.total != '') {
-								jQuery('#ISub').removeAttr('disabled');
-							} else {
-								jQuery('#ISub').attr('disabled', 'disabled');
-							}
+											jQuery('#ISub').removeAttr('disabled');
+										} else {
+											jQuery('#ISub').attr('disabled', 'disabled');
+										}
 								}
 				});
 				

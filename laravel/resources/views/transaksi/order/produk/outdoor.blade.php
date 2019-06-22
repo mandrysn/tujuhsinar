@@ -75,7 +75,7 @@
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
 				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_outdoor" data-live-search="true">
-					<option disabled>-- Pilih Finishing --</option>
+					<option disabled >-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 1)
 							<option value="{{ $editor->id }}">{{ $editor->nama_finishing }} - {{ number_format($editor->tambahan_harga) }}</option>
@@ -89,7 +89,7 @@
 			<div class="form-group">
 				<label for="" class="form-label">Kaki</label>
 				<select class="form-control selectpicker" name="kaki_id" id="kaki_outdoor" data-live-search="true">
-					<option disabled>-- Pilih Kaki --</option>
+					<option disabled selected>-- Pilih Kaki --</option>
 					{{-- @foreach($kakis as $kaki)
 						@if($kaki->produk_id == 1)
 							<option value="{{ $kaki->id }}">{{ $kaki->nama_kaki }} - {{ number_format($kaki->tambahan_harga) }}</option>
