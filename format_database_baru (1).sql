@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 18 Jun 2019 pada 08.50
+-- Waktu pembuatan: 24 Jun 2019 pada 03.16
 -- Versi server: 5.7.24
 -- Versi PHP: 7.2.11
 
@@ -36,6 +36,14 @@ CREATE TABLE `antrians` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `antrians`
+--
+
+INSERT INTO `antrians` (`id`, `nomor`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 0, '2019-06-24 02:04:29', '2019-06-24 02:04:29'),
+(2, 2, 0, '2019-06-24 02:43:44', '2019-06-24 02:43:44');
+
 -- --------------------------------------------------------
 
 --
@@ -62,7 +70,7 @@ CREATE TABLE `barangs` (
 --
 
 INSERT INTO `barangs` (`id`, `supplier_id`, `barcode`, `produk_id`, `nm_barang`, `kategori`, `satuan`, `hrg_beli`, `min_stok`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(9, 5, 'FL001', '1', 'Spanduk 280 gr', 'test', 'lembar', 1568000.00, 264, '2019-05-16 13:08:01', '2019-05-16 15:06:18', NULL),
+(9, 11, 'FL001', '1', 'Spanduk 280 gr', 'test', 'lembar', 1568000.00, 264, '2019-05-16 13:08:01', '2019-06-19 02:49:17', NULL),
 (10, 7, 'FL002', '1', 'Korcin 440 gr', 'Spanduk', 'lembar', 2400000.00, 160, '2019-05-16 15:07:56', '2019-05-16 15:07:56', NULL),
 (11, 7, 'FL003', '1', 'Backlite 610 gr', 'Spanduk', 'lembar', 4000000.00, 160, '2019-05-16 15:09:29', '2019-05-16 15:09:29', NULL),
 (12, 4, 'FL004', '1', 'Cloth Banner', 'Umbul - umbul', 'lembar', 1440000.00, 126, '2019-05-16 15:11:12', '2019-05-16 15:11:12', NULL),
@@ -101,7 +109,8 @@ INSERT INTO `barangs` (`id`, `supplier_id`, `barcode`, `produk_id`, `nm_barang`,
 (46, 6, 'MC010', '3', 'Id card', 'Kertas', 'lembar', 5000.00, 100, '2019-05-16 16:36:59', '2019-05-16 16:36:59', NULL),
 (47, 6, 'ACC001', '5', 'Tiang Xbanner 160', 'aksesories', 'pcs', 30000.00, 200, '2019-05-16 16:38:31', '2019-05-16 16:38:31', NULL),
 (48, 5, 'ACC002', '5', 'Tiang Roll Banner 160', 'aksesories', 'pcs', 115000.00, 200, '2019-05-16 16:39:30', '2019-05-16 16:39:30', NULL),
-(49, 7, 'ACC003', '5', 'Tinta Stempel', 'aksesories', 'pcs', 10000.00, 50, '2019-05-16 16:40:06', '2019-05-16 16:40:06', NULL);
+(49, 7, 'ACC003', '5', 'Tinta Stempel', 'aksesories', 'pcs', 10000.00, 50, '2019-05-16 16:40:06', '2019-05-16 16:40:06', NULL),
+(50, 10, '1234567880', '5', 'Barang Test', 'Test', 'Pcs', 1000.00, 10, '2019-06-19 02:05:14', '2019-06-19 02:05:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -385,8 +394,9 @@ CREATE TABLE `order_kerjas` (
   `order` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal` datetime NOT NULL,
   `pelanggan_id` int(10) UNSIGNED NOT NULL,
-  `status_payment` enum('belum bayar','tunai','transfer','invoice','down payment') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'belum bayar',
+  `status_payment` enum('belum bayar','tunai','transfer','invoice','down payment','cancel') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'belum bayar',
   `keterangan` text COLLATE utf8mb4_unicode_ci,
+  `diskon` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -396,10 +406,10 @@ CREATE TABLE `order_kerjas` (
 -- Dumping data untuk tabel `order_kerjas`
 --
 
-INSERT INTO `order_kerjas` (`id`, `order`, `tanggal`, `pelanggan_id`, `status_payment`, `keterangan`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '00001', '2019-05-30 13:19:44', 1, 'tunai', 'Tunai<br />Total bayar : 0<br />Kembalian : 0', '2019-05-30 05:19:44', '2019-05-30 05:39:59', NULL),
-(2, '00002', '2019-05-30 20:06:50', 1, 'belum bayar', NULL, '2019-05-30 12:06:50', '2019-05-30 12:06:50', NULL),
-(3, '00003', '2019-05-31 13:21:31', 1, 'belum bayar', NULL, '2019-05-31 05:21:31', '2019-05-31 05:21:31', NULL);
+INSERT INTO `order_kerjas` (`id`, `order`, `tanggal`, `pelanggan_id`, `status_payment`, `keterangan`, `diskon`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '00001', '2019-06-21 20:59:45', 1, 'tunai', 'Tunai<br />Total bayar : 2,300,000<br />Diskon : 0<br />Total Akhir : 2,277,500<br />Kembalian : 22,500', '0', '2019-06-21 12:59:45', '2019-06-21 13:00:20', NULL),
+(2, '00002', '2019-06-21 21:25:23', 1, 'tunai', 'Tunai<br />Total bayar : 1,200,000<br />Diskon : 0<br />Total Akhir : 1,185,000<br />Kembalian : 15,000', '0', '2019-06-21 13:25:23', '2019-06-24 02:09:42', NULL),
+(3, '00003', '2019-06-24 10:24:44', 1, 'cancel', NULL, '0', '2019-06-24 02:24:44', '2019-06-24 02:34:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -423,6 +433,17 @@ CREATE TABLE `order_kerja_subs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `order_kerja_subs`
+--
+
+INSERT INTO `order_kerja_subs` (`id`, `order_kerja_id`, `deadline`, `barang_id`, `produk_id`, `status_produksi`, `harga`, `total`, `diskon`, `qty`, `keterangan_sub`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, '2019-06-21 20:59:45', 10, '1', '1', 700000.00, 2277500.00, 0, 3, 'Nama File: design.png<br />Ukuran: 5.00x1.50<br />Finishing: Lipat Keliling (Meter : ), Rp 2,500 - <br />Kaki: Roll Banner 200 x 80, Rp 175,000', '2019-06-21 12:59:45', '2019-06-21 12:59:45', NULL),
+(2, 2, '2019-06-21 21:25:23', 12, '1', '1', 130000.00, 385000.00, 0, 2, 'Nama File: banner.jpg<br />Ukuran: 2.00x0.50<br />Finishing: Mata Ayam (Meter : ), Rp 0 - <br />Kaki: Roll Banner 160 x 60, Rp 125,000', '2019-06-21 13:25:23', '2019-06-21 13:25:23', NULL),
+(3, 2, '2019-06-21 21:28:21', 9, '1', '1', 400000.00, 800000.00, 0, 2, 'Nama File: test<br />Ukuran: 4.00x4.00<br />Finishing: Mata Ayam (Meter : ), Rp 0 - <br />Kaki: Tanpa kaki, Rp 0', '2019-06-21 13:28:21', '2019-06-21 13:28:21', NULL),
+(4, 3, '2019-06-24 10:24:44', 9, '1', '1', 50000.00, 175000.00, 0, 1, 'Nama File: design.png<br />Ukuran: 2.00x1.00<br />Finishing: Mata Ayam (Meter : ), Rp 0 - <br />Kaki: Roll Banner 160 x 60, Rp 125,000', '2019-06-24 02:24:44', '2019-06-24 02:24:44', NULL),
+(5, 3, '2019-06-24 10:32:41', 9, '1', '1', 18750.00, 37500.00, 0, 2, 'Nama File: test<br />Ukuran: 1.50x0.50<br />Finishing: Mata Ayam (Meter : ), Rp 0 - <br />Kaki: Tanpa kaki, Rp 0', '2019-06-24 02:32:41', '2019-06-24 02:32:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -704,9 +725,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama`, `alamat`, `no_telp`, `username`, `password`, `role`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', 'Lambung Mangkurat', '0836367333', 'admin', '$2y$10$8SZTOXjZjIIwqDB4L/Q.kOiERrheHctF809U2AP/4Cd0mk6ySc1iy', 1, 'F8i82lxqO29Bg3XPia9t6tHF0kHPZEqvOR4u9Zki3gy0tntgoAcPlhYBYZrv', NULL, NULL, NULL),
-(2, 'Petugas order', 'Lambung Mangkurat', '0836367333', 'order', '$2y$10$okm4mU.TO9ZSl.tP7rLdSeT8ajJPkHc0iHTTgQgZAulzcLJl8Y60O', 2, 'Sz0OeuT7V2YID7f7jK463vH49X3OLlnsZ7a3QTJqs0Lyf8KkdmhgibXMBtQ4', NULL, NULL, NULL),
-(3, 'Kasir', 'Lambung Mangkurat', '0836367333', 'kasir', '$2y$10$gHsThtq78NiZBm8PS6p.euDzinAt9ivTk.F3LoQO4SReZRLlwRnWa', 3, 'kYNQm8qXgURcuwqT2HREXYBiEu0NknIhHwCcHOEOmVkpE98gg8c2YOAafGSF', NULL, NULL, NULL),
+(1, 'admin', 'Lambung Mangkurat', '0836367333', 'admin', '$2y$10$8SZTOXjZjIIwqDB4L/Q.kOiERrheHctF809U2AP/4Cd0mk6ySc1iy', 1, '7RS8cV1QYRCLERSIFO2wacukVAyImxxJvm43Ww1kGXyHqeaFUiVY8XRfaC8M', NULL, NULL, NULL),
+(2, 'Petugas order', 'Lambung Mangkurat', '0836367333', 'order', '$2y$10$okm4mU.TO9ZSl.tP7rLdSeT8ajJPkHc0iHTTgQgZAulzcLJl8Y60O', 2, 'KkUHGcw9tfqUrtF4wLThXY5jIbOysIHz9BMO5y61JRZrOjL7xvFNYleBttxV', NULL, NULL, NULL),
+(3, 'Kasir', 'Lambung Mangkurat', '0836367333', 'kasir', '$2y$10$gHsThtq78NiZBm8PS6p.euDzinAt9ivTk.F3LoQO4SReZRLlwRnWa', 3, 'nbh5sHA9mwK4vY5GCuy0Rb6zjeIOGeCMcK7WD32sUPmA8QhIqhNUXQjrYJXT', NULL, NULL, NULL),
 (4, 'Owner', 'Lambung Mangkurat', '0836367333', 'owner', '$2y$10$fO8RRbf5sxUElbMUDNZJ0evQ45q2CMjk8Q5IJdT/13qB600bH/c.a', 5, 'eMdIWvb83IALoiK6FSDrm7j9CEKPhD1mVxvKTzum9AkdnyKaKpxDWT2U21EV', NULL, NULL, NULL),
 (5, 'Outdoor', 'Lambung Mangkurat', '0836367333', 'outdoor', '$2y$10$ADX.2A1Z.rtJT/Pcyvbk5eHkkZaEjdcFn07D2p8iazDZgVLp9FO0i', 6, NULL, NULL, '2019-05-14 03:28:53', NULL),
 (6, 'Indoor', 'Lambung Mangkurat', '0836367333', 'indoor', '$2y$10$hYA0NxvX/B3QZnjB2xB4fOkBjG1r4HtPe64hwCKYmUeMd2vrtLvJu', 7, NULL, NULL, '2019-05-14 03:29:11', NULL),
@@ -901,13 +922,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `antrians`
 --
 ALTER TABLE `antrians`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `barangs`
 --
 ALTER TABLE `barangs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT untuk tabel `editors`
@@ -979,7 +1000,7 @@ ALTER TABLE `order_kerjas`
 -- AUTO_INCREMENT untuk tabel `order_kerja_subs`
 --
 ALTER TABLE `order_kerja_subs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `pelanggans`
