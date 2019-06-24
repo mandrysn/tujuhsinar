@@ -118,6 +118,7 @@ class Dashboard extends Controller
         // return $total;
         // dd();
 
+     
         Helper::get_username(1);
 
         $tet = $this->perhari();

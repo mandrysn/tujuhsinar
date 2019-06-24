@@ -12,7 +12,7 @@
 */
 
 //api
-	Route::group(['middleware' => 'auth', 'prefix' => 'api'], function() {
+	Route::group(['prefix' => 'api'], function() {
 		Route::get('/data_order', 'OrderKerjaController@load_data');
 		Route::get('/data_supplier', 'SupplierController@load_data');
 		Route::get('/data_member', 'MemberController@load_data');
@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
 	Route::group(['prefix' => 'transaksi'], function() {
 
-		Route::group(['prefix' => 'order', 'middleware' => ['order','kasir']], function() {
+		Route::group(['prefix' => 'order', 'middleware' => 'auth'], function() {
 			Route::get('cancel', 'OrderKerjaController@lihatCancel')->name('order.cancel.view');
 			Route::get('cancel/{id}', 'OrderKerjaController@cancel')->name('order.cancel');
 			Route::post('tambah/{id}', 'OrderKerjaController@detail')->name('order.detail');

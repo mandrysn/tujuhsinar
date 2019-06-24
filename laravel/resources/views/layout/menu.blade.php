@@ -43,8 +43,8 @@
 </ul>
 </li>
 @elseif(Auth::user()->role == 3)
-<li class="active"><a href="{{ url('/admin/dashboard') }}"><span class="icon color5"><i class="fa fa-home" aria-hidden="true"></i></span><span class="nav-title">Dashboard</span></a>
-</li>
+<!-- <li class="active"><a href="{{ url('/admin/dashboard') }}"><span class="icon color5"><i class="fa fa-home" aria-hidden="true"></i></span><span class="nav-title">Dashboard</span></a>
+</li> -->
 <li><a href="#"><span class="icon color5"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span><span class="nav-title">Transaksi</span><i class="fa fa-sort-desc caret"></i></a>
     <ul>
      <li><a href="{{ route('order.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Order Kerja</a></li>

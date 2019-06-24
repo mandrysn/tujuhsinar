@@ -82,7 +82,7 @@
                 @if (Auth::user()->role == 3 || Auth::user()->role == 1)
                     <a href="#total" class="btn btn-option2"><i class="fa fa-money"></i> Pembayaran</a>
                 @endif
-            @else
+            @elseif($order->status_payment != 'cancel')
                 <a href="{{ route('order.print', $id) }}" target="_blank" class="btn btn-option2"><i class="fa fa-money"></i> Print Nota</a>
                 <a  href="{{ route('order.print-spk', $id) }}"   class="btn btn-option2" target="_blank"><i class="fa fa-money"></i> Print Nota & SPK</a>
 

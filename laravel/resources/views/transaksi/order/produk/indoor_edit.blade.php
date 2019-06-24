@@ -54,7 +54,7 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="" class="form-label">Finishing</label>
-				<select class="form-control selectpicker" multiple="multiple" name="editor_id[]" id="editor_indoor">
+				<select class="form-control selectpicker" data-live-search="true" multiple="multiple" name="editor_id[]" id="editor_indoor">
 					<option disabled>-- Pilih Finishing --</option>
 					{{-- @foreach($editors as $editor)
 						@if($editor->produk_id == 2)
@@ -68,7 +68,7 @@
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
 				<label for="" class="form-label">Kaki</label>
-				<select class="form-control" name="kaki_id" id="kaki_indoor">
+				<select class="form-control selectpicker" data-live-search="true" name="kaki_id" id="kaki_indoor">
 					<option disabled>-- Pilih Kaki --</option>
 					{{-- @foreach($kakis as $kaki)
 						@if($kaki->produk_id == 2)
@@ -201,7 +201,7 @@
 				var tablaDatos = jQuery('#kaki_indoor');
 				
 				jQuery(data).each(function(key,value){
-					    tablaDatos.append("<option class='indoorKaki' data-pid='"+value.id+"' value='"+value.id+"' data-harga='"+value.tambahan_harga+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>");
+					    tablaDatos.append("<option class='indoorKaki' data-pid='"+value.id+"' value='"+value.id+"' data-harga='"+value.tambahan_harga+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
 					});
 				
 			}
