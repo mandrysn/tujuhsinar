@@ -28,16 +28,14 @@
                 
                 <td width="10%">
                     <br /><br />
-                    <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($order->order, 'CODABAR') }}" height="30" width="110">
                 </td>
                 <td width="5%"></td>
                 <td width="60%" colspan="5" align="left" valign="top">
                     
                     <br ><br />
-                    No. Invoice/Nota : {{ $order->order }} <br>
                     Kepada Yth <br>
-                    {{ $order->pelanggan->nama }} <br>
-                    Telp : {{ $order->pelanggan->no_telp }} <br>
+                    <strong>{{ $order->pelanggan->nama }} </strong><br>
+                    Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
                     
                     Tanggal pemesanan : {{ Helper::tanggalId($order->tanggal) }}
                 
@@ -142,14 +140,12 @@
                     4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
                 </td>
                 <td width="20%" align="left" valign="top">
-                Kasir<br />
-                Tanggal:<br /><br /><br />
-                ADMIN
+                Hormat Kami<br /><br /><br /><br />
+                {{ Auth::user()->nama }}
                 </td>
                 <td width="10%" align="left" valign="top">
-                Penerima<br />
-                Tanggal:<br /><br /><br />
-                Nama jelas:
+                Tanda Terima<br /><br /><br /><br />
+                {{ $order->pelanggan->nama }}
                 </td>
             </tr>
         </table>

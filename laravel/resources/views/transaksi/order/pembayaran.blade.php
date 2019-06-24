@@ -56,10 +56,6 @@
                         </div>
 
                         <div class="panel-body" id="form_pembayaran_invoice">
-                            <div class="form-group">
-                                <label for="example3" class="form-label">Jumlah bayar</label>
-                                <input type="text" name="jumlah_invoice" class="form-control form-control-line">
-                            </div>
 
                             <div class="form-group">
                                 <label class="form-label">Nama Penanggung Jawab</label>

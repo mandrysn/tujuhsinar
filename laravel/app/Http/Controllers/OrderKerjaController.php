@@ -483,11 +483,8 @@ class OrderKerjaController extends Controller
 
         } else if ( $request->type_pembayaran == "invoice") {
             $data->keterangan  = "Invoice.";
-            $data->keterangan .= "<br />Total bayar : "  . number_format($request->jumlah_invoice);
-            $data->keterangan .= "<br />Diskon : " . number_format($request->diskon);
-            $data->keterangan .= "<br />Total Akhir : " . number_format($request->total_akhir);
-            $data->keterangan .= "<br />Nama Penangggung jawab : " . $request->penanggung_jawab;
             $data->keterangan .= "<br />Nama Perusahaan : " . $request->nama_perusahaan;
+            $data->keterangan .= "<br />Nama Penangggung jawab : " . $request->penanggung_jawab;
 
         } else if ( $request->type_pembayaran == "down payment") {
 
@@ -537,10 +534,10 @@ class OrderKerjaController extends Controller
 
     public function print3($id)
     {
-        $data = OrderKerjaSub::where('order_kerja_id', $id)->get();
-        $order = OrderKerja::find($id);
-        $totalan = OrderKerjaSub::select(DB::raw('SUM(total) AS total'))->where('order_kerja_id', '=', $id)->first();
         $editors = Editor::all();
+        $order = OrderKerja::find($id);
+        $data = OrderKerjaSub::where('order_kerja_id', $id)->get();
+        $totalan = OrderKerjaSub::select(DB::raw('SUM(total) AS total'))->where('order_kerja_id', '=', $id)->first();
 
         try {
             
@@ -570,9 +567,9 @@ class OrderKerjaController extends Controller
         $print = OrderKerjaSub::where('produk_id', '4')->count();
         $custom = OrderKerjaSub::where('produk_id', '5')->count();
         $hari = OrderKerja::count();
+        $tunai = OrderKerja::where('status_payment','tunai')->count();
         $invoice = OrderKerja::where('status_payment','invoice')->count();
         $dp = OrderKerja::where('status_payment','down payment')->count();
-        $tunai = OrderKerja::where('status_payment','tunai')->count();
         return view('laporan.order.index', compact('order', 'indoor', 'outdoor', 'merchandise', 'print', 'custom', 'hari','invoice','dp','tunai'));
     }
 
