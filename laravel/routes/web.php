@@ -22,8 +22,8 @@
 	
 //api
 Route::get('', 'AntrianController@indexAntrian')->name('antrian');
+Route::get('antrian/cetak', 'AntrianController@AntrianUser')->name('antrian.cetak');
 Route::get('antrian/konfirmasi/{id}', 'AntrianController@konfirmasi')->name('antrian.konfirmasi');
-Route::get('antrian/cetak', 'AntrianController@AntrianCetak')->name('antrian.cetak');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
@@ -44,6 +44,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 	});
 
 	Route::group(['prefix' => 'transaksi'], function() {
+
+		Route::group(['prefix' => 'antrian'], function() {
+			Route::get('', 'AntrianController@index');
+			Route::delete('hapus/{id}', 'OrderKerjaController@destroy')->name('antrian.destroy');
+			Route::resource('antrian', 'AntrianController');
+		});
 
 		Route::group(['prefix' => 'order', 'middleware' => 'auth'], function() {
 			Route::get('cancel', 'OrderKerjaController@lihatCancel')->name('order.cancel.view');
@@ -235,17 +241,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 		Route::delete('harga/large-format/destroy/{id}', 'HargaController@largeFormatDestroy')->name('harga.largeFormatDestroy');
 		Route::delete('harga/print-quarto/destroy/{id}', 'HargaController@printQuartoDestroy')->name('harga.printQuartoDestroy');
 		Route::delete('harga/costum-produk/destroy/{id}', 'HargaController@costumProdukDestroy')->name('harga.costumProdukDestroy');
-	});
-
-	
-	Route::group(['prefix' => 'transaksi'], function() {
-		
-		Route::resource('antrian', 'AntrianController');
-		
-		Route::group(['prefix' => 'gudang'], function() {
-			Route::get('update_status/{id}', 'GudangController@update_status')->name('gudang.update_status');
-		});
-		
 	});
 
 

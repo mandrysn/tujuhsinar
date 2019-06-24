@@ -81,6 +81,38 @@ class AntrianController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function AntrianUser()
+    {
+        $cekData = Antrian::all();
+        $data = Antrian::orderBy('nomor', 'desc')->first();
+        $data1 = Antrian::orderBy('nomor', 'desc')->get();
+        if ($data1->isEmpty()) {
+            $new = new Antrian;
+            $new->nomor = 1;
+            $new->status = 0;
+            $new->save();
+
+            return redirect()->back()->with('alert-success', 'Antrian Berhasil Ditambah');
+
+        } elseif (!$data1->isEmpty()) {
+            $nomorTerakhir = $data->nomor;
+
+            $new = new Antrian;
+            $new->nomor = (int) $nomorTerakhir + 1;
+            $new->status = 0;
+            $new->save();
+
+            return redirect()->back()->with('alert-success', 'Antrian Berhasil Ditambah');
+        } else {
+            $antrian = 0;
+        }
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

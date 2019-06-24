@@ -15,22 +15,18 @@
 							<thead>
 								<tr>
 									<th>Kode</th>
-									<th>Nomor</th>
-									<th>Kategori</th>
 									<th colspan="2">Aksi</th>
 								</tr>
 							</thead>
 							<tbody>
 								@forelse($data as $datas)
 								<tr>
-									<td>{{ $datas->kode }}</td>
-									<td>{{ $datas->nomor }}</td>
-									<td>{{ $datas->kategori }}</td>
+									<td>{{ Helper::kodeAntrian() }}</td>
 									<td>
-										<form action="{{ route(Helper::role() . '.antrian.destroy', $datas->id) }}" method="post">
+										<form action="{{ route('antrian.destroy', $datas->id) }}" method="post">
 											{{ csrf_field() }}
 											{{ method_field('DELETE') }}
-										<a href="{{ route(Helper::role() . '.antrian.konfirmasi', $datas->id) }}" class="btn btn-success"><i class="fa fa-check"></i>Konfirmasi</a>
+										<a href="{{ route('antrian.konfirmasi', $datas->id) }}" class="btn btn-success"><i class="fa fa-check"></i>Konfirmasi</a>
 										<button class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data ?')"><i class="fa fa-remove"></i>Hapus</button>
 										</form>
 									</td>

@@ -36,6 +36,17 @@ class Helper
         return sprintf("%06s", $id);
     }
 
+    public static function kodeAntrian()
+    {
+        $cari = OrderKerja::count();
+        if($cari == 0 ) {
+            $add = 1;
+        } else {
+            $add = $cari + 1;
+        }
+        return sprintf("%05s", $add);
+    }
+
     public static function role()
     {
         if (Auth::user()->role == 1) {

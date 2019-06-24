@@ -48,7 +48,6 @@ class OrderKerjaController extends Controller
      */
     public function create()
     {
-        // $cari = OrderKerja::orderBy('created_at','DESC')->first()->id;
         $cari = OrderKerja::count();
         if($cari == 0 ) {
             $add = 1;
