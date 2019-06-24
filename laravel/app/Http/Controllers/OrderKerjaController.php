@@ -250,7 +250,6 @@ class OrderKerjaController extends Controller
     public function storePrintQuarto(Request $request)
     {
         $cekData = OrderKerja::where('order', $request->order)->first();
-        $editor = Editor::findOrFail($request->editor_id);
         
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;
@@ -277,6 +276,25 @@ class OrderKerjaController extends Controller
                     break;
             }
         }
+        //finishing
+        $fnsText = "Finishing: ";
+        $fnsReq = $request->editor_id;
+        for ($i=0; $i <count($fnsReq) ; $i++) { 
+            $editor = Editor::findOrFail($fnsReq[$i]);
+           
+            $typenya = \Helper::get_type($editor->type);
+            $pcsnya = "";
+            if(isset($request->id_pcs)){
+                for ($i=0; $i < count($request->id_pcs) ; $i++) { 
+                    if($request->id_pcs[$i] == $editor->id && $editor->type == 3){
+                        $pcsnya = $request->jumlah_pcs[$i]." Pcs";
+                    }
+                }
+            }
+                
+            $fnsText .= $editor->nama_finishing .'('.$typenya.' : '.$pcsnya.'), Rp ' . number_format($editor->tambahan_harga) . " - ";
+        }
+        $fnsText .=  "<br />";
 
         $subOrderKerjaBaru = new OrderKerjaSub;
         $subOrderKerjaBaru->order_kerja_id = $orderKerjaId;
@@ -289,7 +307,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->deadline = $request->deadline_print . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Ukuran : '.$ukuran . "<br />";
-        $subOrderKerjaBaru->keterangan_sub .= 'Finishing : ' . $editor->nama_finishing . ', Rp ' . number_format($editor->tambahan_harga) . "<br />";
+        $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
         $subOrderKerjaBaru->keterangan_sub .= $request->keterangan;
 
         $subOrderKerjaBaru->save();

@@ -7,7 +7,9 @@ use App\Models\Harga;
 use App\Models\Editor;
 use App\Models\Pelanggan;
 use App\Models\HargaIndoor;
+use App\Models\UkuranBahan;
 use App\Models\UkuranBahanDetail;
+
 use Illuminate\Http\Request;
 
 class HargaIndoorController extends Controller

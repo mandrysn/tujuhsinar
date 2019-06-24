@@ -209,13 +209,12 @@
 
     function get_indoor() {
 			var pelanggan_indoor = document.getElementById("pelanggan_indoor").value;
-    	var produk_indoor = document.getElementById("produk_indoor").value;
   		var barang_indoor = document.getElementById("barang_indoor").value;
 			var p_indoor = document.getElementById("panjang_indoor").value;
 			var qty_indoor = document.getElementById("qty_indoor").value;
 			var l_indoor = document.getElementById("lebar_indoor").value;
 
-			if(produk_indoor != '' && pelanggan_indoor != '' && barang_indoor != '' && qty_indoor != '' && l_indoor != '' && p_indoor != '' && produk_indoor != null && pelanggan_indoor != null && barang_indoor != null && qty_indoor != null && l_indoor != null && p_indoor != null){
+			if( pelanggan_indoor != '' && barang_indoor != '' && qty_indoor != '' && l_indoor != '' && p_indoor != '' && pelanggan_indoor != null && barang_indoor != null && qty_indoor != null && l_indoor != null && p_indoor != null){
 
 				jQuery.ajax({
 							
@@ -224,7 +223,7 @@
 								success: function(data) {
 										jQuery('#diskon_indoor').val(data.diskon);
 										total_harga = data.total;
-	                					jQuery("#total_indoor").val(total_harga + total_finishing+ total_kaki;
+	                					jQuery("#total_indoor").val(total_harga + total_finishing + total_kaki);
 										jQuery('#harga_indoor').val(data.harga);
 										console.log("{{ url('admin/transaksi/order/indoor/data/') }}/"+barang_indoor+"/"+pelanggan_indoor+"/"+qty_indoor+"/"+p_indoor+"/"+l_indoor);
 										if(data.total > 0 || data.total != '') {
