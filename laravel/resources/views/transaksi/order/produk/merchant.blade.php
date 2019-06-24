@@ -88,7 +88,7 @@
 <script type="text/javascript">
 
     function get_display() {
-		var merchant_pelanggan = document.getElementById("merchant_pelanggan").value;
+		var merchant_pelanggan = document.getElementById("pelanggan_merchant").value;
         var merchant_produk = document.getElementById("merchant_produk").value;
         var merchant_barang = document.getElementById("merchant_barang").value;
 		var merchant_qty = document.getElementById("merchant_qty").value;
