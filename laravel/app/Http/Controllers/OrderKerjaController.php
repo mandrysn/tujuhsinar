@@ -217,7 +217,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
-        $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $nama_kaki . ', Rp ' . number_format($kaki->tambahan_harga);
+        $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $nama_kaki . ', Rp ' . number_format($tambahan_harga);
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -268,6 +268,7 @@ class OrderKerjaController extends Controller
     public function storePrintQuarto(Request $request)
     {
         $cekData = OrderKerja::where('order', $request->order)->first();
+
         $nama_finishing = "Tidak Ada";
         $tambahan_harga = 0;
         $fnsText = " ";
@@ -278,6 +279,7 @@ class OrderKerjaController extends Controller
             $fnsText = 'Finishing : ' . $nama_finishing . ', Rp ' . number_format($tambahan_harga) . "<br />";
         }
         
+
         
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;
@@ -304,6 +306,29 @@ class OrderKerjaController extends Controller
                     break;
             }
         }
+        //finishing
+        $fnsText = "Finishing: ";
+        if($request->editor_id != null || $request->editor_id != ''){
+            $fnsReq = $request->editor_id;
+            for ($i=0; $i <count($fnsReq) ; $i++) { 
+                $editor = Editor::findOrFail($fnsReq[$i]);
+               
+                $typenya = \Helper::get_type($editor->type);
+                $pcsnya = "";
+                if(isset($request->id_pcs)){
+                    for ($i=0; $i < count($request->id_pcs) ; $i++) { 
+                        if($request->id_pcs[$i] == $editor->id && $editor->type == 3){
+                            $pcsnya = $request->jumlah_pcs[$i]." Pcs";
+                        }
+                    }
+                }
+                    
+                $fnsText .= $editor->nama_finishing .'('.$typenya.' : '.$pcsnya.'), Rp ' . number_format($editor->tambahan_harga) . " - ";
+            }
+            $fnsText .=  "<br />";
+        } else {
+            $fnsText = " ";
+        }
 
         $subOrderKerjaBaru = new OrderKerjaSub;
         $subOrderKerjaBaru->order_kerja_id = $orderKerjaId;
@@ -316,7 +341,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->deadline = $request->deadline_print . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Ukuran : '.$ukuran . "<br />";
-        $subOrderKerjaBaru->keterangan_sub .= $fnsText;
+        $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
         $subOrderKerjaBaru->keterangan_sub .= $request->keterangan;
 
         $subOrderKerjaBaru->save();
@@ -492,11 +517,8 @@ class OrderKerjaController extends Controller
 
         } else if ( $request->type_pembayaran == "invoice") {
             $data->keterangan  = "Invoice.";
-            $data->keterangan .= "<br />Total bayar : "  . number_format($request->jumlah_invoice);
-            $data->keterangan .= "<br />Diskon : " . number_format($request->diskon);
-            $data->keterangan .= "<br />Total Akhir : " . number_format($request->total_akhir);
-            $data->keterangan .= "<br />Nama Penangggung jawab : " . $request->penanggung_jawab;
             $data->keterangan .= "<br />Nama Perusahaan : " . $request->nama_perusahaan;
+            $data->keterangan .= "<br />Nama Penangggung jawab : " . $request->penanggung_jawab;
 
         } else if ( $request->type_pembayaran == "down payment") {
 
@@ -546,10 +568,10 @@ class OrderKerjaController extends Controller
 
     public function print3($id)
     {
-        $data = OrderKerjaSub::where('order_kerja_id', $id)->get();
-        $order = OrderKerja::find($id);
-        $totalan = OrderKerjaSub::select(DB::raw('SUM(total) AS total'))->where('order_kerja_id', '=', $id)->first();
         $editors = Editor::all();
+        $order = OrderKerja::find($id);
+        $data = OrderKerjaSub::where('order_kerja_id', $id)->get();
+        $totalan = OrderKerjaSub::select(DB::raw('SUM(total) AS total'))->where('order_kerja_id', '=', $id)->first();
 
         try {
             
@@ -579,9 +601,9 @@ class OrderKerjaController extends Controller
         $print = OrderKerjaSub::where('produk_id', '4')->count();
         $custom = OrderKerjaSub::where('produk_id', '5')->count();
         $hari = OrderKerja::count();
+        $tunai = OrderKerja::where('status_payment','tunai')->count();
         $invoice = OrderKerja::where('status_payment','invoice')->count();
         $dp = OrderKerja::where('status_payment','down payment')->count();
-        $tunai = OrderKerja::where('status_payment','tunai')->count();
         return view('laporan.order.index', compact('order', 'indoor', 'outdoor', 'merchandise', 'print', 'custom', 'hari','invoice','dp','tunai'));
     }
 

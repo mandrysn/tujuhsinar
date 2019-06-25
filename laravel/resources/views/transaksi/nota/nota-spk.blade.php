@@ -28,16 +28,14 @@
                 
                 <td width="10%">
                     <br /><br />
-                    <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($order->order, 'CODABAR') }}" height="30" width="110">
                 </td>
                 <td width="5%"></td>
                 <td width="60%" colspan="5" align="left" valign="top">
                     
                     <br ><br />
-                    No. Invoice/Nota : {{ $order->order }} <br>
                     Kepada Yth <br>
-                    {{ $order->pelanggan->nama }} <br>
-                    Telp : {{ $order->pelanggan->no_telp }} <br>
+                    <strong>{{ $order->pelanggan->nama }} </strong><br>
+                    Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
                     
                     Tanggal pemesanan : {{ Helper::tanggalId($order->tanggal) }}
                 
@@ -101,10 +99,10 @@
                     <strong>{{ $datas->qty }}</strong>
                 </td>
                 <td width="20%" align="center" valign="top">
-                    <strong>{{ $datas->ukuran }}</strong>
+                    <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
                 </td>
                 <td width="20%" align="center" valign="top">
-                    <strong>{!! $datas->keterangan_sub !!}</strong>
+                    <strong>{{ Helper::keteranganSatuBaris($datas->keterangan_sub) }}</strong>
                 </td>
                 
             </tr>
@@ -113,15 +111,71 @@
 
         </table>
 
-        <table class="table-foot" width="100%">
+        <table  width="100%">
+            <?php 
+                $arr = explode('<br />',$order->keterangan);
+                
+             ?>
+            
+             <style type="text/css">
+                 .border-bottom {
+                    border-bottom: 1px solid black;
+                 }
+             </style>
+
+
             <tr>
                 <td colspan="5" align="left" width="71%">
-                    <strong>Pembayaran {{ $order->status_payment }}. {{ str_replace("<br />", ". ", $order->keterangan) }}</strong>
+                    Catatan :
+                    
+                    
                 </td>
-                <td class="border-left" align="right">
-                    <strong>{{ number_format($totalan->total) }}</strong>
+                <td class="border-bottom" align="left">
+                    <strong>Type bayar : {{$arr[0]}}</strong>
                 </td>
             </tr>
+
+            <tr>
+                <td colspan="5" align="left" width="71%">
+                    1.  Periksa Kembali File Sebelum Cetak, Kesalahan Setelah Cetak Bukan tanggung jawab Management Toedjoe Sinar Group 
+                    
+                    
+                </td>
+                <td class="border-bottom" align="left">
+                    <strong>{{$arr[1]}}</strong>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5" align="left" width="71%">
+                    2. Wajib DP min 50% dari Total Biaya Cetak
+                    
+                    
+                </td>
+                <td class="border-bottom" align="left">
+                    <strong>{{$arr[2]}}</strong>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5" align="left" width="71%">
+                    3. 1 (SATU) bulan barang tidak diambil, bukan tanggung jawab management Toedjoe Sinar Group
+                    
+                </td>
+                <td class="border-bottom" align="left">
+                    <strong>{{$arr[3]}}</strong>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5" align="left" width="71%">
+                    4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
+                </td>
+                <td class="border-bottom" align="left">
+                    <strong>{{$arr[4]}}</strong>
+                </td>
+            </tr>
+            
         </table>
         </div>
     </main>
@@ -130,21 +184,15 @@
         <table width="100%" >
             <tr>
                 <td width="60%" align="left" valign="top">
-                    Catatan :<br />
-                    1.  Periksa Kembali File Sebelum Cetak, Kesalahan Setelah Cetak Bukan tanggung jawab Management Toedjoe Sinar Group <br />
-                    2. Wajib DP min 50% dari Total Biaya Cetak <br />
-                    3. 1 (SATU) bulan barang tidak diambil, bukan tanggung jawab management Toedjoe Sinar Group<br />
-                    4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
+                   
                 </td>
                 <td width="20%" align="left" valign="top">
-                Kasir<br />
-                Tanggal:<br /><br /><br />
-                ADMIN
+                Hormat Kami<br /><br /><br /><br />
+                {{ Auth::user()->nama }}
                 </td>
                 <td width="10%" align="left" valign="top">
-                Penerima<br />
-                Tanggal:<br /><br /><br />
-                Nama jelas:
+                Tanda Terima<br /><br /><br /><br />
+                {{ $order->pelanggan->nama }}
                 </td>
             </tr>
         </table>

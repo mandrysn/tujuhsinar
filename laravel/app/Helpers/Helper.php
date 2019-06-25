@@ -238,8 +238,16 @@ class Helper
     public static function getUkuran($keterangan)
     {
         $data = explode('<br />', $keterangan);
-        $hasil = explode(' : ', $data[0]);
-        return $hasil[1];
+        $hasil = explode(':', $data[0]);
+   
+        if($hasil[0] != 'Ukuran '){
+            $hasil = explode(':', $data[1]);
+
+        }
+        $ukuran = @$hasil[1];
+        return $ukuran;
     }
+
+  
 
 }

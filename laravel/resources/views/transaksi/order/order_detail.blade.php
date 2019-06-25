@@ -48,7 +48,6 @@
                 
             </div>
         </form>
-                <h1>{!! trim($order->keterangan) !!}</h1>
             </div>
         </div>
     </div>
