@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Antrian;
 use Illuminate\Http\Request;
 use App\Helpers\Helper;
+use Auth;
 class AntrianController extends Controller
 {
     /**
@@ -26,6 +27,9 @@ class AntrianController extends Controller
     public function indexAntrian()
     {
         $ctk = Antrian::orderBy('updated_at', 'desc')->orderBy('nomor', 'asc')->orderBy('status', 'desc')->first();
+        if(Auth::user()->role == 1){
+            return redirect('admin');
+        }
         if ($ctk == null) {
             return view('transaksi.antrian.customer', compact('ctk'));
         } elseif ($ctk->updated_at->format('d-m-Y') != \Carbon\Carbon::now()->format('d-m-Y')) {

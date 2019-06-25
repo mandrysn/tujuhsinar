@@ -82,23 +82,7 @@
             // $('.modal-backdrop').remove();
             var id = jQuery(this).data('memberid');
         
-            jQuery.ajax({
-                type     : 'get',
-                url      : "{{ url('admin/transaksi/order/outdoor/kaki') }}",
-                data     : {id:id},
-                typeData : 'json',
-                success:function(data)
-                {
-                    //console.log(data)
-                    jQuery('.'+produk+'Kaki').remove();
-                    var tablaDatos = jQuery('#kaki_'+produk);
-                    
-                    jQuery(data).each(function(key,value){
-                            tablaDatos.append("<option class='"+produk+"Kaki' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
-                        });
-                    
-                }
-            });
+            
 
             jQuery.ajax({
                 type     : 'get',
@@ -114,6 +98,24 @@
                     jQuery(data).each(function(key,value){
                             
                             tablaDatos.append("<option class='editor"+jsUcfirst(produk)+"' data-type='"+value.type+"' data-nama='"+value.nama_finishing+"' data-target='#pcs-"+produk+"' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_finishing+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
+                        });
+                    
+                }
+            });
+
+            jQuery.ajax({
+                type     : 'get',
+                url      : "{{ url('admin/transaksi/order/outdoor/kaki') }}",
+                data     : {id:id},
+                typeData : 'json',
+                success:function(data)
+                {
+                    //console.log(data)
+                    jQuery('.'+produk+'Kaki').remove();
+                    var tablaDatos = jQuery('#kaki_'+produk);
+                    
+                    jQuery(data).each(function(key,value){
+                            tablaDatos.append("<option class='"+produk+"Kaki' data-pid='"+value.id+"' data-harga='"+value.tambahan_harga+"' value='"+value.id+"'>"+value.nama_kaki+" - ["+value.tambahan_harga+"]</option>").selectpicker('refresh');
                         });
                     
                 }

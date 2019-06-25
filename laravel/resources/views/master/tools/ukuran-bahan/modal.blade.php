@@ -17,7 +17,7 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="select2" class="form-label">Tipe Produk</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="produk_id" id="produk_id" multiple required>
+                            <select class="form-control selectpicker" data-live-search="true" name="produk_id" id="produk_id" required>
                                 <option>-- Pilih Tipe Produk --</option>
                                 <option value="1">Outdoor</option>
                                 <option value="2">Indoor</option>

@@ -82,11 +82,7 @@
 				<label for="editor_print" class="form-label">Finishing</label>
 				<select class="form-control selectpicker" name="editor_id" data-live-search="true" id="editor_print">
 					<option disabled>-- Pilih Finishing --</option>
-					{{-- @foreach($editors as $editor)
-						@if($editor->produk_id == 4)
-							<option value="{{ $editor->id }}">{{ $editor->nama_finishing }} - {{ number_format($editor->tambahan_harga) }}</option>
-						@endif
-					@endforeach --}}
+					
 				</select>
 			</div>
 		</div>

@@ -122,6 +122,7 @@ class Dashboard extends Controller
         Helper::get_username(1);
 
         $tet = $this->perhari();
+     
         $order = OrderKerja::count();
         $tagih = Piutang::where('status_payment', 'Utang')->count();
         $pel = Pelanggan::count();
@@ -131,21 +132,22 @@ class Dashboard extends Controller
     }
 
     public function perhari()
-    {
+    {   
+        $order = [];
         $tgl[0] = date('Y-m-d');
-        $order[0] = OrderKerja::where('tanggal', $tgl[0])->count();
+        $order[0] = OrderKerja::where(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), $tgl[0])->count();
         $tgl[1] = date('Y-m-d', strtotime('-1 days'));
-        $order[1] = OrderKerja::where('tanggal', $tgl[1])->count();
+        $order[1] = OrderKerja::where(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), $tgl[1])->count();
         $tgl[2] = date('Y-m-d', strtotime('-2 days'));
-        $order[2] = OrderKerja::where('tanggal', $tgl[2])->count();
+        $order[2] = OrderKerja::where(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), $tgl[2])->count();
         $tgl[3] = date('Y-m-d', strtotime('-3 days'));
-        $order[3] = OrderKerja::where('tanggal', $tgl[3])->count();
+        $order[3] = OrderKerja::where(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), $tgl[3])->count();
         $tgl[4] = date('Y-m-d', strtotime('-4 days'));
-        $order[4] = OrderKerja::where('tanggal', $tgl[4])->count();
+        $order[4] = OrderKerja::where(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), $tgl[4])->count();
         $tgl[5] = date('Y-m-d', strtotime('-5 days'));
-        $order[5] = OrderKerja::where('tanggal', $tgl[5])->count();
+        $order[5] = OrderKerja::where(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), $tgl[5])->count();
         $tgl[6] = date('Y-m-d', strtotime('-6 days'));
-        $order[6] = OrderKerja::where('tanggal', $tgl[6])->count();
+        $order[6] = OrderKerja::where(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), $tgl[6])->count();
         
         return $order;
     }

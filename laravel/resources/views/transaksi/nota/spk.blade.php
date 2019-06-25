@@ -10,7 +10,7 @@
     <title>SURAT JALAN TUJUH SINAR</title>
     <script type="text/javascript">
         
-        window.print();
+        // window.print();
 
     </script>
 </head>
@@ -103,10 +103,10 @@
                                 <strong>{{ $datas->qty }}</strong>
                             </td>
                             <td width="20%" align="center" valign="top">
-                                <strong>{{ $datas->ukuran }}</strong>
+                                <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
                             </td>
                             <td width="20%" align="center" valign="top">
-                                <strong>{!! $datas->keterangan_sub !!}</strong>
+                                <strong>{{ Helper::keteranganSatuBaris($datas->keterangan_sub) }}</strong>
                             </td>
                             
                         </tr>

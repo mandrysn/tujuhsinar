@@ -133,6 +133,14 @@
             }
            
         });
+    jQuery('#laporanHari').daterangepicker({
+            singleDatePicker: true,
+           
+          
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
 </script>
 </body>
 </html>
