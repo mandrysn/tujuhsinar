@@ -29,12 +29,12 @@
                 </td>
                 <td width="5%"></td>
                 <td width="60%" colspan="5" align="left" valign="top">
-                    <br ><br />
-                    Kepada Yth <br>
+                    <br >
+                    <h2>Kepada Yth</h2>
                     <strong>{{ $order->pelanggan->nama }} </strong><br>
                     Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
                     
-                    Tanggal pemesanan : {{ Helper::tanggalId($order->tanggal) }}
+                    Tgl. order : {{ Helper::tanggalId($order->tanggal) }}
                 
                 </td>
                 
@@ -106,7 +106,7 @@
 
         <table  width="100%">
             <?php 
-                $arr = explode('<br />',$order->keterangan);
+                $arr = explode('<br />', $order->keterangan);
                 
              ?>
             

@@ -42,7 +42,6 @@ main { top: 150px; }
 .table-header,
 .table-foot {
 	border: 1px solid black;
-	border-radius: 7px;
 }
 
 td.border-left {
