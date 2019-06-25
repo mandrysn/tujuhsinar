@@ -31,7 +31,6 @@
 							</thead>
 							<tbody>
 								@forelse($data as $index => $datas)
-								@php($id_pelanggan = $datas->id)
 								<tr>
 									<td>{{ $index + 1 }}</td>
 									<td>{{ sprintf("%06s", $datas->id) }}</td>
@@ -40,9 +39,9 @@
 									<td>{{ $datas->no_telp }}</td>
 									<td>{{ $datas->email }}</td>
 									<td>{{ $datas->member->nm_tipe }}</td>
-									<td>{{ Helper::totalOutdoor($id_pelanggan) }} kali</td>
-									<td>{{ Helper::totalIndoor($id_pelanggan) }} kali</td>
-									<td>{{ Helper::totalPrint($id_pelanggan) }} kali</td>
+									<td>{{ Helper::totalOutdoor($datas->id) }} kali</td>
+									<td>{{ Helper::totalIndoor($datas->id) }} kali</td>
+									<td>{{ Helper::totalPrint($datas->id) }} kali</td>
 									<td>
 										<form action="{{ route('pelanggan.destroy', $datas->id) }}" method="post">
 											{{ csrf_field() }}
