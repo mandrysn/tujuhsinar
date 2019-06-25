@@ -77,7 +77,6 @@ class OrderKerjaController extends Controller
     public function storeOutdoor(Request $request)
     {
         $cekData = OrderKerja::where('order', $request->order)->where('status_payment','belum bayar')->first();
-        $editor = Editor::findOrFail($request->editor_id);
         
         $tambahan_harga = 0;
         $nama_kaki = "Tidak Ada";
@@ -85,7 +84,13 @@ class OrderKerjaController extends Controller
             $kaki = Kaki::findOrFail($request->kaki_id);
             $tambahan_harga = $kaki->tambahan_harga;
             $nama_kaki = $kaki->nama_kaki;
-        }
+        } 
+
+        if($request->kaki_id != null || $request->kaki_id != ''){
+            $kaki = Kaki::findOrFail($request->kaki_id);
+            $tambahan_harga = $kaki->tambahan_harga;
+            $nama_kaki = $kaki->nama_kaki;
+        } 
         
         
         if ( is_null($cekData) ) {
@@ -106,26 +111,33 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->deadline = $request->deadline . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
+
         //finishing
         $fnsText = "Finishing: ";
-        $fnsReq = $request->editor_id;
-        for ($i=0; $i < count($fnsReq); $i++) { 
-            $editor = Editor::findOrFail($fnsReq[$i]);
-            
-            $typenya = \Helper::get_type($editor->type);
-            $pcsnya = "";
-            if(isset($request->id_pcs)){
-                for ($i=0; $i <count($request->id_pcs) ; $i++) { 
-                    if($request->id_pcs[$i] == $editor->id && $editor->type == 3){
-                        $pcsnya = $request->jumlah_pcs[$i]." Pcs";
+        if($request->editor_id != null || $request->editor_id != ''){
+            $fnsReq = $request->editor_id;
+            for ($i=0; $i < count($fnsReq); $i++) { 
+                $editor = Editor::findOrFail($fnsReq[$i]);
+                
+                $typenya = \Helper::get_type($editor->type);
+                $pcsnya = "";
+                if(isset($request->id_pcs)){
+                    for ($i=0; $i <count($request->id_pcs) ; $i++) { 
+                        if($request->id_pcs[$i] == $editor->id && $editor->type == 3){
+                            $pcsnya = $request->jumlah_pcs[$i]." Pcs";
+                        }
                     }
                 }
+                    
+                $fnsText .= $editor->nama_finishing .' ('.$typenya.' : '.$pcsnya.'), Rp ' . number_format($editor->tambahan_harga) . " - ";
             }
-                
-            $fnsText .= $editor->nama_finishing .' ('.$typenya.' : '.$pcsnya.'), Rp ' . number_format($editor->tambahan_harga) . " - ";
+            $fnsText .=  "<br />";
+        } else {
+            $fnsText = " ";
         }
+            
         
-        $fnsText .=  "<br />";
+        
 
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
@@ -147,7 +159,7 @@ class OrderKerjaController extends Controller
     public function storeIndoor(Request $request)
     {
         $cekData = OrderKerja::where('order', $request->order)->first();
-        $editor = Editor::findOrFail($request->editor_id);
+        
         $tambahan_harga = 0;
         $nama_kaki = "Tidak Ada";
         if($request->kaki_id != null || $request->kaki_id != ''){
@@ -175,31 +187,37 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
         //finishing
+        //finishing
         $fnsText = "Finishing: ";
-        $fnsReq = $request->editor_id;
-        for ($i=0; $i <count($fnsReq) ; $i++) { 
-            $editor = Editor::findOrFail($fnsReq[$i]);
-           
-            $typenya = \Helper::get_type($editor->type);
-            $pcsnya = "";
-            if(isset($request->id_pcs)){
-                for ($i=0; $i <count($request->id_pcs) ; $i++) { 
-                    if($request->id_pcs[$i] == $editor->id && $editor->type == 3){
-                        $pcsnya = $request->jumlah_pcs[$i]." Pcs";
+        if($request->editor_id != null || $request->editor_id != ''){
+            $fnsReq = $request->editor_id;
+            for ($i=0; $i < count($fnsReq); $i++) { 
+                $editor = Editor::findOrFail($fnsReq[$i]);
+                
+                $typenya = \Helper::get_type($editor->type);
+                $pcsnya = "";
+                if(isset($request->id_pcs)){
+                    for ($i=0; $i <count($request->id_pcs) ; $i++) { 
+                        if($request->id_pcs[$i] == $editor->id && $editor->type == 3){
+                            $pcsnya = $request->jumlah_pcs[$i]." Pcs";
+                        }
                     }
                 }
+                    
+                $fnsText .= $editor->nama_finishing .' ('.$typenya.' : '.$pcsnya.'), Rp ' . number_format($editor->tambahan_harga) . " - ";
             }
-                
-            $fnsText .= $editor->nama_finishing .'('.$typenya.' : '.$pcsnya.'), Rp ' . number_format($editor->tambahan_harga) . " - ";
+            $fnsText .=  "<br />";
+        } else {
+            $fnsText = " ";
         }
-        $fnsText .=  "<br />";
+        
 
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
-        $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $nama_kaki . ', Rp ' . number_format($kaki->tambahan_harga);
+        $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $nama_kaki . ', Rp ' . number_format($tambahan_harga);
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -250,6 +268,18 @@ class OrderKerjaController extends Controller
     public function storePrintQuarto(Request $request)
     {
         $cekData = OrderKerja::where('order', $request->order)->first();
+
+        $nama_finishing = "Tidak Ada";
+        $tambahan_harga = 0;
+        $fnsText = " ";
+        if($request->editor_id != null || $request->editor_id != ''){
+            $editor = Editor::findOrFail($request->editor_id);
+            $nama_finishing = $editor->nama_finishing;
+            $tambahan_harga = $editor->tambahan_harga;
+            $fnsText = 'Finishing : ' . $nama_finishing . ', Rp ' . number_format($tambahan_harga) . "<br />";
+        }
+        
+
         
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;
@@ -278,23 +308,27 @@ class OrderKerjaController extends Controller
         }
         //finishing
         $fnsText = "Finishing: ";
-        $fnsReq = $request->editor_id;
-        for ($i=0; $i <count($fnsReq) ; $i++) { 
-            $editor = Editor::findOrFail($fnsReq[$i]);
-           
-            $typenya = \Helper::get_type($editor->type);
-            $pcsnya = "";
-            if(isset($request->id_pcs)){
-                for ($i=0; $i < count($request->id_pcs) ; $i++) { 
-                    if($request->id_pcs[$i] == $editor->id && $editor->type == 3){
-                        $pcsnya = $request->jumlah_pcs[$i]." Pcs";
+        if($request->editor_id != null || $request->editor_id != ''){
+            $fnsReq = $request->editor_id;
+            for ($i=0; $i <count($fnsReq) ; $i++) { 
+                $editor = Editor::findOrFail($fnsReq[$i]);
+               
+                $typenya = \Helper::get_type($editor->type);
+                $pcsnya = "";
+                if(isset($request->id_pcs)){
+                    for ($i=0; $i < count($request->id_pcs) ; $i++) { 
+                        if($request->id_pcs[$i] == $editor->id && $editor->type == 3){
+                            $pcsnya = $request->jumlah_pcs[$i]." Pcs";
+                        }
                     }
                 }
+                    
+                $fnsText .= $editor->nama_finishing .'('.$typenya.' : '.$pcsnya.'), Rp ' . number_format($editor->tambahan_harga) . " - ";
             }
-                
-            $fnsText .= $editor->nama_finishing .'('.$typenya.' : '.$pcsnya.'), Rp ' . number_format($editor->tambahan_harga) . " - ";
+            $fnsText .=  "<br />";
+        } else {
+            $fnsText = " ";
         }
-        $fnsText .=  "<br />";
 
         $subOrderKerjaBaru = new OrderKerjaSub;
         $subOrderKerjaBaru->order_kerja_id = $orderKerjaId;
@@ -302,7 +336,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->qty = $request->qty;
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
-        is_null($request->editor_id) ? $request->total : ($request->total + $editor->tambahan_harga);
+        
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->deadline = $request->deadline_print . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
@@ -583,7 +617,7 @@ class OrderKerjaController extends Controller
             return view('laporan.order.laporan-order');
         } else {
             $tanggal = explode(' / ', $request->periode);
-            $data = OrderKerja::whereBetween('tanggal', [$tanggal[0], $tanggal[1]])->orderBy('tanggal', 'desc')->get();
+            $data = OrderKerja::whereBetween(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), [$tanggal[0], $tanggal[1]])->orderBy('tanggal', 'desc')->get();
             return view('laporan.order.laporan-order', compact('data'));
         }
     }
@@ -592,8 +626,9 @@ class OrderKerjaController extends Controller
         if ( isset($request)) {
             return view('laporan.order.laporan-hari');
         } else {
-            $tanggal = explode(' / ', $request->periode);
-            $data = OrderKerja::whereBetween('tanggal', [$tanggal[0], $tanggal[1]])->orderBy('tanggal', 'desc')->get();
+            $tanggal = $request->tanggal;
+            $jam = explode(' - ', $request->jam);
+            $data = OrderKerja::where(\DB::raw("(DATE_FORMAT(tanggal,'%Y-%m-%d'))"), $tanggal)->whereBetween(\DB::raw("(DATE_FORMAT(tanggal,'%H'))"), [$jam[0], $jam[1]])->orderBy('tanggal', 'desc')->get();
             return view('laporan.order.laporan-hari', compact('data'));
         }
     }

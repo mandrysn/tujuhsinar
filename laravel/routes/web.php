@@ -19,9 +19,10 @@
 	});
 
 
-	
-//api
-Route::get('', 'AntrianController@indexAntrian')->name('antrian');
+Route::get('', function ()
+{
+	return redirect('admin');
+})->name('antrian');
 Route::get('antrian/cetak', 'AntrianController@AntrianUser')->name('antrian.cetak');
 Route::get('antrian/konfirmasi/{id}', 'AntrianController@konfirmasi')->name('antrian.konfirmasi');
 
@@ -210,6 +211,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 			Route::post('/invoice', 'LaporanController@laporanInvoice')->name('laporan.cetak.invoice');
 			Route::post('/dp', 'LaporanController@laporanDp')->name('laporan.cetak.dp');
 			Route::post('/tunai', 'LaporanController@laporanTunai')->name('laporan.cetak.tunai');
+			Route::post('/hari', 'LaporanController@laporanHari')->name('laporan.cetak.hari');
 		});
 	});
 

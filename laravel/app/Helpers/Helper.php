@@ -229,4 +229,25 @@ class Helper
        return $typenya;
     }
 
+    public static function keteranganSatuBaris($keterangan)
+    {
+        $hasil = str_replace('<br />',' , ', $keterangan);
+        return $hasil;
+    }
+
+    public static function getUkuran($keterangan)
+    {
+        $data = explode('<br />', $keterangan);
+        $hasil = explode(':', $data[0]);
+   
+        if($hasil[0] != 'Ukuran '){
+            $hasil = explode(':', $data[1]);
+
+        }
+        $ukuran = @$hasil[1];
+        return $ukuran;
+    }
+
+  
+
 }

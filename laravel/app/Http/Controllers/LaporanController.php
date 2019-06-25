@@ -66,6 +66,18 @@ class LaporanController extends Controller
             return view('laporan.detail.detail-indoor', compact('data', 'periode'));
         }
     }
+
+
+
+    public function laporanDetailHari(Request $request)
+    {
+        $tanggal = $request->tanggal;
+        $jam = explode(' - ', $request->jam);
+        $jamnya = $request->jam;
+        $data = OrderKerjaSub::where(\DB::raw("(DATE_FORMAT(deadline,'%Y-%m-%d'))"), $tanggal)->whereBetween(\DB::raw("(DATE_FORMAT(deadline,'%H'))"), [$jam[0], $jam[1]])->orderBy('deadline', 'desc')->get();
+        return view('laporan.detail.detail-hari', compact('data','tanggal','jamnya'));
+    }
+
     /**
      * Print all the specified resource from storage.
      *
@@ -272,5 +284,14 @@ class LaporanController extends Controller
                 $q->where('status_payment', 'tunai');
             })->whereBetween('deadline', [date('Y-m-d',strtotime($tanggal[0])), date('Y-m-d',strtotime($tanggal[1]))])->orderBy('id', 'desc')->get();
         return view('laporan.cetak.cetak-tunai', compact('data'));
+    }
+
+    public function laporanHari(Request $request)
+    {
+        $tanggal = $request->tanggal;
+        $jam = explode(' - ', $request->jam);
+        $jamnya = $request->jam;
+        $data = OrderKerjaSub::where(\DB::raw("(DATE_FORMAT(deadline,'%Y-%m-%d'))"), $tanggal)->whereBetween(\DB::raw("(DATE_FORMAT(deadline,'%H'))"), [$jam[0], $jam[1]])->orderBy('deadline', 'desc')->get();
+        return view('laporan.cetak.cetak-hari', compact('data'));
     }
 }
