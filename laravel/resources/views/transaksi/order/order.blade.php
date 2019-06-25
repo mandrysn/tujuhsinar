@@ -25,6 +25,7 @@
 									<th>Pelanggan</th>
 									<th>Tanggal Order</th>
 									<th>Pembayaran</th>
+									<th>Status Pembayaran</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -36,6 +37,7 @@
 									<td>{{ $datas->pelanggan->nama }}</td>
 									<td>{{ Helper::tanggalId($datas->tanggal) }}</td>
 									<td>{{ $datas->status_payment }}</td>
+									<td>{{ $datas->status_payment == 'invoice' ? 'Invoice' : 'Umum' }}</td>
 									<td>
 																	
 										<form action="{{ route('order.destroy', $datas->id) }}" class="form-horizontal" method="post">

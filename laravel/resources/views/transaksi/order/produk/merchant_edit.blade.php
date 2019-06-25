@@ -29,7 +29,7 @@
 		
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
-				<label class="form-label">Keterangan</label>
+				<label class="form-label">Nama File</label>
 				<input type="text" name="keterangan" class="form-control" required>
 			</div>
 		</div>

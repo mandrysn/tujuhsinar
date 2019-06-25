@@ -17,13 +17,8 @@ class PiutangController extends Controller
      */
     public function index()
     {
-        $data = OrderKerjaSub::where('status_produksi', '>', '2')
-                             ->select('order_kerja_subs.*', 'order_kerja_subs.keterangan as keteranganSub')
-                             ->join('order_kerjas', function ($join) {
-                                $join->on('order_kerja_subs.order_kerja_id', '=', 'order_kerjas.id')
-                                    ->where('order_kerjas.status_payment', '!=', 'belum bayar');
-                                })->get();
-        return view('keuangan.piutang.piutang', compact('data'));
+        $data = OrderKerja::where('status_payment', '=', 'invoice')->get();
+        return view('transaksi.invoice.invoice', compact('data'));
     }
 
     /**

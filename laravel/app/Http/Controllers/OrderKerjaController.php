@@ -550,8 +550,6 @@ class OrderKerjaController extends Controller
         $editors = Editor::all();
 
         return view('transaksi.nota.nota',  compact('data', 'order', 'totalan', 'editors'));
-		// $pdf = PDF::loadview('transaksi.nota.nota',  compact('data', 'order', 'totalan', 'editors'));
-		// return $pdf->setPaper('a6', 'landscape')->download('nota-'.$order->order.'.pdf');
     }
 
     public function print2($id)
@@ -562,8 +560,6 @@ class OrderKerjaController extends Controller
         $editors = Editor::all();
 
         return view('transaksi.nota.nota-spk',  compact('data', 'order', 'totalan', 'editors'));
-        // $pdf = PDF::loadview('transaksi.nota.nota',  compact('data', 'order', 'totalan', 'editors'));
-        // return $pdf->setPaper('a6', 'landscape')->download('nota-'.$order->order.'.pdf');
     }
 
     public function print3($id)
@@ -584,8 +580,6 @@ class OrderKerjaController extends Controller
         
 
         return view('transaksi.nota.spk',  compact('data', 'order', 'totalan', 'editors','dataGroup'));
-        // $pdf = PDF::loadview('transaksi.nota.nota',  compact('data', 'order', 'totalan', 'editors'));
-        // return $pdf->setPaper('a6', 'landscape')->download('nota-'.$order->order.'.pdf');
     }
 
     /**

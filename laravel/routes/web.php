@@ -59,6 +59,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 			Route::get('transaksi', 'OrderKerjaController@transaksi')->name('order.transaksi');
 			Route::delete('hapus/{id}', 'OrderKerjaController@destroySubKerja')->name('order.subkerja.hapus');
 
+			Route::group(['prefix' => 'invoice'], function() {
+				Route::get('', 'PiutangController@index')->name('order.invoice');
+			});
+
 			Route::group(['prefix' => 'outdoor'], function() {
 				Route::get('kaki', 'HargaOutdoorController@getKaki');
 				Route::get('finishing', 'HargaOutdoorController@getFinishing');

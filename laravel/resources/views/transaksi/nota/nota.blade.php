@@ -143,7 +143,6 @@
                 <td colspan="5" align="left" width="71%">
                     2. Wajib DP min 50% dari Total Biaya Cetak
                     
-                    
                 </td>
                 <td class="border-bottom" align="left">
                     <strong>{{$arr[2]}}</strong>

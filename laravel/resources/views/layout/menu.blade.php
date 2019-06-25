@@ -21,6 +21,7 @@
            <ul>
             <li><a href="{{ route('order.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Order Kerja</a></li>
             <li><a href="{{ route('order.transaksi') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Transaksi Order</a></li>
+            <li><a href="{{ route('order.invoice') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Invoice</a></li>
             <li><a href="{{ route('produksi.index') }}"><i class="fa fa-angle-right" aria-hidden="true"></i> Produksi</a></li>
         </ul>
     </li>
