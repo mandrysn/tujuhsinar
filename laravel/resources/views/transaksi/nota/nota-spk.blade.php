@@ -34,7 +34,7 @@
     <header>
         <table cellspacing="0" cellpadding="1">
             <tr>
-                <td width="40%" >
+                <td width="42%" >
                     <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
                     <br>
                     Jl. KH Wahid Hasyim 1 No.32 <br>
@@ -43,7 +43,7 @@
                     toedjoesinargroup@gmail.com
                 </td>
                 
-                <td width="20%"  style="text-align: left;">
+                <td width="20%"  style="text-align: center;">
                     <br>
                     <br>
                     <h3>NOTA SURAT JALAN </h3>
@@ -52,23 +52,22 @@
                      
                 </td>
                 
-				<td colspan="2">
+				<td width="10%">
 				</td>
-                <td width="30%" colspan="5" align="left" valign="top">
+                <td width="60%" align="left" valign="top">
                     
                     <br >
                     <h2>Kepada Yth</h2>
                     <strong>{{ $order->pelanggan->nama }} </strong><br>
                     Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
                     
-                    Tgl. order : {{ Helper::tanggalId($order->tanggal) }}
+                    Tgl. order : {{ Helper::onlyDate($order->tanggal) }}
                 
                 </td>
             </tr>
             <tr>
-                <td>
-                    <br>
-                    <br>
+                <td colspan="4">
+                    &nbsp;
                 </td>
             </tr>
         </table>
@@ -79,21 +78,21 @@
         <table class="table-header" width="100%">
             
             <tr> 
-                <td  width="5%" align="center">
+                <th width="5%" align="center">
                     No
-                </td>
-                <td  width="45%" class="border-left" align="center">
+                </th>
+                <th  width="40%" class="border-left" align="center">
                     Keterangan
-                </td>
-                <td  width="10%" class="border-left" align="center">
+                </th>
+                <td  width="13%" class="border-left" align="center">
                     Nama Bahan
-                </td>
-                <td  width="5%" class="border-left" align="center">
+                </th>
+                <th  width="7%" class="border-left" align="center">
                     Qty
-                </td>
-                <td  width="10%" class="border-left" align="center">
+                </th>
+                <th  width="10%" class="border-left" align="center">
                     Ukuran
-                </td>
+                </th>
                 
             </tr>
         </table>
@@ -106,17 +105,17 @@
                         <td width="5%" valign="top">
                             {{ $index + 1 }}.&nbsp;
                         </td>
-                        <td width="45%" align="center" valign="top">
-                            <strong>{!! Helper::keteranganSatuBaris($datas->keterangan_sub) !!}</strong>
+                        <td width="40%" align="center" valign="top">
+                            {!! Helper::keteranganSatuBaris($datas->keterangan_sub) !!}
                         </td>
-                        <td  width="10%" align="center" valign="top">
+                        <td  width="13%" align="center" valign="top">
                             {{ $datas->barang->nm_barang }}
                         </td>
-                        <td width="5%" align="center" valign="top">
-                            <strong>{{ $datas->qty }} pcs</strong>
+                        <td width="7%" align="center" valign="top">
+                            {{ $datas->qty }} pcs
                         </td>
                         <td width="10%" align="center" valign="top">
-                            <strong>{!! Helper::getUkuran($datas->keterangan_sub) !!}</strong>
+                            {!! Helper::getUkuran($datas->keterangan_sub) !!}
                         </td>
                         
                         
@@ -127,19 +126,19 @@
 
         </table>
 
-        <table  width="80%">
+        <table  width="87%">
 <tr>
 
 					<td width="20%" align="left" valign="top">
 					
 					</td>
-					<td width="15%"  align="left" valign="top">
+					<td width="15%"  align="center" valign="top">
 					Hormat Kami<br /><br /><br /><br /><br />
 					<hr />
 					</td>
-					<td width="30%">
+					<td width="25%">
 					</td>
-					<td width="15%" align="left" valign="top">
+					<td width="15%" align="center" valign="top">
 					Tanda Terima<br /><br /><br /><br /><br />
 					<hr />
 					</td>

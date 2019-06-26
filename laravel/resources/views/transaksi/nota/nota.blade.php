@@ -33,7 +33,7 @@
             <header>
                 <table cellspacing="0" cellpadding="1" >
                     <tr>
-                        <td width="40%" colspan="5" align="left" valign="top">
+                        <td width="42%" align="left" valign="top">
                         <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
                         <br>
                         Jl. KH Wahid Hasyim 1 No.32 <br>
@@ -46,9 +46,9 @@
                             <br>
                             <h3>NOTA PENJUALAN </h3>
                             <hr>
-                            No.Invoice {{ $order->order }}
+                            No. Nota {{ $order->order }}
                         </td>
-                        <td width="10%">
+                        <td width="11%">
                         </td>
                         <td width="60%" align="left" valign="top">
                             <br >
@@ -56,13 +56,13 @@
                             <strong>{{ $order->pelanggan->nama }} </strong><br>
                             Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
                             
-                            Tgl. order : {{ Helper::tanggalId($order->tanggal) }}
+                            Tgl. order : {{ Helper::onlyDate($order->tanggal) }}
                         
                         </td>
                         
                     </tr>
                     <tr>
-                        <td colspan="6" align="left" valign="top">
+                        <td colspan="4" >
                         &nbsp;
                         </td>
                     </tr>
@@ -106,17 +106,17 @@
                             </tr>
                             <tr>
                                 <td  width="5%" align="center" valign="top">
-                                    <strong>{{ $datas->qty }} pcs</strong>
+                                    {{ $datas->qty }} pcs
                                 </td>
                                 
                                 <td width="10%" align="center" valign="top">
-                                    <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
+                                    {{ Helper::getUkuran($datas->keterangan_sub) }}
                                 </td>
                                 <td width="15%" align="center" valign="top">
-                                    <strong>{{ number_format($datas->harga) }}</strong>
+                                    {{ number_format($datas->harga) }}
                                 </td>
                                 <td  width="12%" align="right" valign="top">
-                                    <strong>{{ number_format($datas->total) }}</strong>
+                                    {{ number_format($datas->total) }}
                                 </td>
                             </tr>
                         @endif
@@ -125,7 +125,7 @@
 
                 </table>
 
-                <table  width="100%">
+                <table  width="100%" >
                     <?php 
                         $arr = explode('<br />', $order->keterangan);
                         
@@ -139,21 +139,8 @@
 
 
                     <tr>
-                        <td colspan="5" style="font-size: 10px" align="left" width="71%">
+                        <td style="font-size: 10px" align="left" width="71%">
                             Catatan :
-                            
-                            
-                        </td>
-                        @if($order->status_payment != 'lunas')
-                        <td class="border-bottom" align="left">
-                            <strong>Type bayar : {{@$arr[0]}}</strong>
-                        </td>
-                        @endif
-                    </tr>
-
-                    <tr>
-                        <td colspan="5" style="font-size: 10px" align="left" width="71%">
-                            1.  Periksa Kembali File Sebelum Cetak, Kesalahan Setelah Cetak Bukan tanggung jawab Management Toedjoe Sinar Group 
                             
                             
                         </td>
@@ -165,22 +152,26 @@
                     </tr>
 
                     <tr>
-                        <td colspan="5" style="font-size: 10px"  align="left" width="71%">
-                            2. Wajib DP min 50% dari Total Biaya Cetak
+                        <td style="font-size: 10px" align="left" width="71%">
+                            1.  Periksa Kembali File Sebelum Cetak, Kesalahan Setelah Cetak Bukan tanggung jawab Management Toedjoe Sinar Group 
+                            
                             
                         </td>
+                        
                         @if($order->status_payment != 'lunas')
                         <td class="border-bottom" align="left">
                             <strong>{{@$arr[2]}}</strong>
                         </td>
                         @endif
+                        
                     </tr>
 
                     <tr>
-                        <td colspan="5" style="font-size: 10px"  align="left" width="71%">
-                            3. 1 (SATU) bulan barang tidak diambil, bukan tanggung jawab management Toedjoe Sinar Group
+                        <td style="font-size: 10px"  align="left" width="71%">
+                            2. Wajib DP min 50% dari Total Biaya Cetak
                             
                         </td>
+                        
                         @if($order->status_payment != 'lunas')
                         <td class="border-bottom" align="left">
                             <strong>{{@$arr[1]}}</strong>
@@ -189,14 +180,22 @@
                     </tr>
 
                     <tr>
-                        <td colspan="5" style="font-size: 10px"  align="left" width="71%">
-                            4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
+                        <td style="font-size: 10px"  align="left" width="71%">
+                            3. 1 (SATU) bulan barang tidak diambil, bukan tanggung jawab management Toedjoe Sinar Group
+                            
                         </td>
+                        
                         @if($order->status_payment != 'lunas')
                         <td class="border-bottom" align="left">
                             <strong>{{@$arr[4]}}</strong>
                         </td>
                         @endif
+                    </tr>
+
+                    <tr>
+                        <td style="font-size: 10px"  align="left" width="71%">
+                            4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
+                        </td>
                     </tr>
                     
                 </table>
@@ -206,14 +205,14 @@
             <footer>
                 <table width="100%" >
                     <tr>
-                        <td width="60%" align="left" valign="top">
+                        <td width="55%" align="left" valign="top">
                             
                         </td>
                         <td width="20%" align="left" valign="top">
                         Hormat Kami<br /><br /><br /><br />
                         {{ Auth::user()->nama }}
                         </td>
-                        <td width="20%" align="left" valign="top">
+                        <td width="25%" align="left" valign="top">
                         Tanda Terima<br /><br /><br /><br />
                         {{ $order->pelanggan->nama }}
                         </td>

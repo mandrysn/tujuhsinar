@@ -20,7 +20,7 @@ header {
 	height: auto;
 }
 footer {
-	margin-top: 20px;
+	margin-top: 0px;
 	left: 0px; 
 	right: 0px;
 	height: auto;
@@ -45,9 +45,12 @@ main { top: 150px; }
 	border: 1px solid black;
 }
 
+th.border-left,
 td.border-left {
 	border-left: 1px solid black;
 }
+
+th.border-right,
 td.border-right {
 	border-right: 1px solid black;
 }

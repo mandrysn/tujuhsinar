@@ -39,7 +39,7 @@
     <header>
         <table cellspacing="0" cellpadding="1">
             <tr>
-                <td  width="40%">
+                <td  width="43%">
                     <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
                     <br>
                     Jl. KH Wahid Hasyim 1 No.32 <br>
@@ -53,21 +53,22 @@
                     <br>
                     <h3>NOTA SPK </h3>
 					<hr>
-                    No.SPK {{ $order->order }}
+                    No. SPK {{ $order->order }}
                     
                     
                 </td>
-				<td colspan="2">
+				<td width="10%">
+                    &nbsp;
 				</td>
                 
-                <td width="30%" colspan="5" align="left" valign="top">
+                <td width="60%" align="left" valign="top">
                     
                     <br >
                     <h2>Kepada Yth</h2>
                     <strong>{{ $order->pelanggan->nama }} </strong><br>
                     Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
                     
-                    Tgl. order : {{ Helper::tanggalId($order->tanggal) }}
+                    Tgl. order : {{ Helper::onlyDate($order->tanggal) }}
                 
                 </td>
                 
@@ -79,27 +80,26 @@
 
     <main>
         
-
-            <h1>{{ $dg->nama_produk }}</h1>
+            <h2>{{ $dg->nama_produk }}</h2>
             <div class="main">
         <table class="table-header" width="100%">
             
             <tr> 
-                <td  width="5%" align="center">
+                <th  width="5%" align="center">
                     No
-                </td>
-                <td  width="45%" class="border-left" align="center">
+                </th>
+                <th  width="40%" class="border-left" align="center">
                     Keterangan
-                </td>
-                <td  width="10%" class="border-left" align="center">
+                </th>
+                <th  width="13%" class="border-left" align="center">
                     Nama Bahan
-                </td>
-                <td  width="5%" class="border-left" align="center">
+                </th>
+                <th  width="7%" class="border-left" align="center">
                     Qty
-                </td>
-                <td  width="10%" class="border-left" align="center">
+                </th>
+                <th  width="10%" class="border-left" align="center">
                     Ukuran
-                </td>
+                </th>
                 
             </tr>
         </table>
@@ -109,20 +109,20 @@
             @forelse($data as $index => $datas)
                 @if(($index+1) > $start && $index < $end && $datas->produk_id == $dg->produk_id)
                     <tr>
-                        <td width="5%" valign="top">
+                        <td width="5%" align="center" valign="top">
                             {{ $index + 1 }}.&nbsp;
                         </td>
-                        <td width="45%" align="center" valign="top">
-                            <strong>{!! Helper::keteranganSatuBaris($datas->keterangan_sub) !!}</strong>
+                        <td width="40%" align="center" valign="top">
+                            {!! Helper::keteranganSatuBaris($datas->keterangan_sub) !!}
                         </td>
-                        <td  width="10%" align="center" valign="top">
+                        <td  width="13%" align="center" valign="top">
                             {{ $datas->barang->nm_barang }}
                         </td>
-                        <td width="5%" align="center" valign="top">
-                            <strong>{{ $datas->qty }} pcs</strong>
+                        <td width="7%" align="center" valign="top">
+                            {{ $datas->qty }} pcs
                         </td>
                         <td width="10%" align="center" valign="top">
-                            <strong>{!! Helper::getUkuran($datas->keterangan_sub) !!}</strong>
+                            {!! Helper::getUkuran($datas->keterangan_sub) !!}
                         </td>
                         
                         
@@ -147,7 +147,7 @@
 
 
                 <tr>
-                    <td rowspan="3" style="font-size: 10px" valign="top" align="left" width="50%">
+                    <td rowspan="3" style="font-size: 10px" valign="top" align="left" width="57%">
                         Catatan :
                         
                         
@@ -155,11 +155,11 @@
                 </tr>
 				
 				<tr>
-					<td width="30%" align="left" valign="top">
+					<td width="24%" align="left" valign="top">
 					 Kasir<br /><br /><br /><br /><br />
 					ADMIN
 					</td>
-					<td width="20%" align="left" valign="top">
+					<td width="15%" align="center" valign="top">
 					Pj Produksi<br /><br /><br /><br /><br />
 					<hr />
 					</td>
