@@ -47,7 +47,7 @@ class PelangganController extends Controller
         $data->email = $request->email;
         $data->save();
 
-        return redirect()->route('pelanggan.index')->with('alert-success', 'Data Berhasil Ditambah');
+        return redirect()->back()->with('alert-success', 'Data Berhasil Ditambah');
     }
 
     /**
@@ -108,7 +108,7 @@ class PelangganController extends Controller
         $pelanggan->email = $request->email;
         $pelanggan->update();
 
-        return redirect()->route('pelanggan.index')->with('alert-success', 'Data Berhasil Ditubah');   
+        return redirect()->back()->with('alert-success', 'Data Berhasil Ditubah');   
     }
 
     /**
@@ -120,7 +120,7 @@ class PelangganController extends Controller
     public function destroy(Pelanggan $pelanggan)
     {
         $pelanggan->delete();
-        return redirect()->route('pelanggan.index')->with('alert-success', 'Data Berhasil Dihapus');
+        return redirect()->back()->with('alert-success', 'Data Berhasil Dihapus');
     }
 
     /**

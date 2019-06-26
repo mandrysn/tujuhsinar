@@ -26,7 +26,7 @@ class OrderKerjaController extends Controller
      */
     public function index()
     {
-        $data = OrderKerja::where('status_payment', '=', 'belum bayar')->orderBy('order', 'desc')->get();
+        $data = OrderKerja::where('status_payment', '=', 'belum bayar')->orWhere('status_payment', '=', 'invoice')->orderBy('order', 'desc')->get();
         return view('transaksi.order.order', compact('data'));
     }
 
@@ -37,7 +37,7 @@ class OrderKerjaController extends Controller
      */
     public function transaksi()
     {
-        $data = OrderKerja::where('status_payment', '!=', 'belum bayar')->orderBy('order', 'desc')->get();
+        $data = OrderKerja::where('status_payment', '!=', 'cancel')->where('status_payment', '!=', 'belum bayar')->where('status_payment', '!=', 'invoice')->orderBy('order', 'desc')->get();
         return view('transaksi.order.transaksi', compact('data'));
     }
 
@@ -141,7 +141,7 @@ class OrderKerjaController extends Controller
 
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
-        $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
+        $subOrderKerjaBaru->keterangan_sub  = '<strong>Nama File: '.$request->nama_file."</strong><br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
         $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $nama_kaki . ', Rp ' . number_format($tambahan_harga);
@@ -214,7 +214,7 @@ class OrderKerjaController extends Controller
 
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
-        $subOrderKerjaBaru->keterangan_sub  = 'Nama File: '.$request->nama_file."<br />";
+        $subOrderKerjaBaru->keterangan_sub  = '<strong>Nama File: '.$request->nama_file."</strong><br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
         $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $nama_kaki . ', Rp ' . number_format($tambahan_harga);
@@ -253,7 +253,9 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->deadline = $request->deadline_merchant . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
-        $subOrderKerjaBaru->keterangan_sub = 'Nama file: ' . $request->keterangan;
+        $subOrderKerjaBaru->keterangan_sub  = '<strong>Nama File: '.$request->keterangan."</strong><br />";
+        $subOrderKerjaBaru->keterangan_sub .= 'Ukuran: -';
+		$subOrderKerjaBaru->keterangan_sub .= '<br />Keterangan : ' . nl2br($request->keterangan_file);
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -269,15 +271,9 @@ class OrderKerjaController extends Controller
     {
         $cekData = OrderKerja::where('order', $request->order)->first();
 
-        $nama_finishing = "Tidak Ada";
-        $tambahan_harga = 0;
+       
         $fnsText = " ";
-        if($request->editor_id != null || $request->editor_id != ''){
-            $editor = Editor::findOrFail($request->editor_id);
-            $nama_finishing = $editor->nama_finishing;
-            $tambahan_harga = $editor->tambahan_harga;
-            $fnsText = 'Finishing : ' . $nama_finishing . ', Rp ' . number_format($tambahan_harga) . "<br />";
-        }
+        
         
 
         
@@ -340,7 +336,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->deadline = $request->deadline_print . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
-        $subOrderKerjaBaru->keterangan_sub = 'Nama file: ' . $request->keterangan;
+        $subOrderKerjaBaru->keterangan_sub = '<strong>Nama file: ' . $request->keterangan. "</strong><br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$ukuran . "<br />";
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
 
@@ -381,7 +377,8 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->total = $request->total;
         $db = Barang::find($request->barang_id);
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
-        $subOrderKerjaBaru->keterangan_sub = 'Nama Produk : ' . $db->nm_barang;
+        $subOrderKerjaBaru->keterangan_sub = '<strong>Nama Produk : ' . $db->nm_barang.'</strong><br />';
+        $subOrderKerjaBaru->keterangan_sub = 'Ukuran: -';
         $subOrderKerjaBaru->keterangan_sub .= '<br />Keterangan : ' . nl2br($request->keterangan);
         $subOrderKerjaBaru->save();
 

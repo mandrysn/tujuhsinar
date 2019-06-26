@@ -565,7 +565,7 @@ class HargaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function displayDestroy($id)
+    public function merchantDestroy($id)
     {
         $data = HargaMerchant::findOrFail($id);
         $data->delete();

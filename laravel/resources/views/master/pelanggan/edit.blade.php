@@ -13,7 +13,7 @@
             </div>
             <div class="row" style="max-height: 80vh;overflow-y: scroll;width: 100%;">
                 <div class="col-md-12 col-lg-12">
-        		    <form method="post" action="{{ route('member.update', $pelanggan->id) }}">
+        		    <form method="post" action="{{ route('pelanggan.update', $pelanggan->id) }}">
         			{!! csrf_field() !!}
                     {{ method_field('PUT') }}
                     <div class="col-md-12 col-lg-12">

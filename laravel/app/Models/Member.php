@@ -15,7 +15,7 @@ class Member extends Model
 
     public function Pelanggan()
     {
-    	return $this->hasMany('Pelanggan');
+    	return $this->hasMany(Pelanggan::class);
     }
     public function Harga()
     {

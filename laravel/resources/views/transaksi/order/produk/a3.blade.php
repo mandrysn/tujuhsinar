@@ -80,7 +80,7 @@
 		<div class="col-md-12 col-lg-3">
 			<div class="form-group">
 				<label for="editor_print" class="form-label">Finishing</label>
-				<select class="form-control selectpicker" name="editor_id" data-live-search="true" id="editor_print">
+				<select class="form-control selectpicker" multiple name="editor_id[]" data-live-search="true" id="editor_print">
 					<option disabled>-- Pilih Finishing --</option>
 					
 				</select>

@@ -8,8 +8,18 @@
 	<div class="row">
 		<div class="col-md-12 col-lg-4">
 			<div class="form-group">
-				<label for="input5" class="form-label">Nama Produk</label>
-				<input type="text" class="form-control" name="nama_produk" id="custom_nama_produk" placeholder="Nama Produk" onchange="get_costum()" required>
+				<div class="form-group">
+			<label for="barang_id" class="form-label">Nama Produk</label>
+			
+			<select class="selectpicker form-control" name="barang_id" data-live-search="true" id="barang_id" onchange="get_costum()" required >
+				<option selected disabled>-- Pilih Produk --</option>
+				@foreach($barangs as $barang)
+					@if($barang->produk_id == 5)
+						<option value="{{ $barang->id }}">{{ $barang->nm_barang }}</option>
+					@endif
+				@endforeach
+			</select>
+		</div>
 			</div>
 		</div>
 		<div class="col-md-12 col-lg-4">
@@ -55,7 +65,7 @@
     function get_costum() {
         var custom_produk = document.getElementById("custom_produk").value;
 		var custom_pelanggan = document.getElementById("custom_pelanggan").value;
-        var custom_nama_produk = document.getElementById("custom_nama_produk").value;
+        var custom_nama_produk = document.getElementById("barang_id").value;
 		var custom_qty = document.getElementById("custom_qty").value;
 
         jQuery.ajax({

@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
 			Route::group(['prefix' => 'invoice'], function() {
 				Route::get('', 'PiutangController@index')->name('order.invoice');
+				Route::get('payment/{orderKerja}', 'PiutangController@bayar')->name('order.invoice.bayar');
 			});
 
 			Route::group(['prefix' => 'outdoor'], function() {

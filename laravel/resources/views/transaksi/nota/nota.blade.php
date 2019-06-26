@@ -16,19 +16,26 @@
 
 <body >
     <header>
-        <table cellspacing="0" cellpadding="1">
+        <table cellspacing="0" cellpadding="1" >
             <tr>
                 <td width="40%" colspan="5" align="left" valign="top">
                 <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
                 <br>
-                M Yamin
+                Jl. KH Wahid Hasyim 1 No.32 <br>
+                Samarinda - Kaltim<br>
+                Hp/WA : 0821 4995 2015<br>
+                toedjoesinargroup@gmail.com
                 </td>
-                <td width="20%"></td>
-                <td width="10%">
-                    <br /><br />
+                <td width="20%" style="text-align: center;">
+                    <br>
+                    <br>
+                    <h3>NOTA PENJUALAN </h3>
+                    <hr>
+                    No.Invoice {{ $order->order }}
                 </td>
-                <td width="5%"></td>
-                <td width="60%" colspan="5" align="left" valign="top">
+				<td width="10%">
+				</td>
+                <td width="60%" align="left" valign="top">
                     <br >
                     <h2>Kepada Yth</h2>
                     <strong>{{ $order->pelanggan->nama }} </strong><br>
@@ -40,15 +47,8 @@
                 
             </tr>
             <tr>
-                <td width="40%"></td>
-                <td rowspan="2">&nbsp;</td>
-            </tr>
-            <tr>
-                <td colspan="5" align="left" valign="top">
+                <td colspan="6" align="left" valign="top">
                 &nbsp;
-                </td>
-                <td colspan="5" align="left" valign="top">
-                    &nbsp;
                 </td>
             </tr>
         </table>
@@ -64,8 +64,9 @@
                 </td>
              
                 <td  width="10%" class="border-left" align="center">
-                    Tipe Produk
+                    Ukuran
                 </td>
+
                 <td  width="15%" class="border-left" align="center">
                     Harga Satuan
                 </td>
@@ -78,19 +79,21 @@
         <table class="table-list" width="100%">
 
             @forelse($data as $index => $datas)
-
+            <?php 
+                $ket = str_replace(", Ukuran:".Helper::getUkuran($datas->keterangan_sub), ' ', Helper::keteranganSatuBaris($datas->keterangan_sub));
+             ?>
             <tr>
                 <td colspan="5" valign="top">
-                    {{ $index + 1 }}.&nbsp;{{ $datas->Barang->nm_barang }} ({{ Helper::keteranganSatuBaris($datas->keterangan_sub) }})
+                    - &nbsp;{{ $datas->Barang->nm_barang }} ({!! $ket !!})
                 </td>
             </tr>
             <tr>
                 <td  width="5%" align="center" valign="top">
-                    <strong>{{ $datas->qty }}</strong>
+                    <strong>{{ $datas->qty }} pcs</strong>
                 </td>
                 
                 <td width="10%" align="center" valign="top">
-                    <strong>{{ $datas->nama_produk }}</strong>
+                    <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
                 </td>
                 <td width="15%" align="center" valign="top">
                     <strong>{{ number_format($datas->harga) }}</strong>
@@ -118,54 +121,64 @@
 
 
             <tr>
-                <td colspan="5" align="left" width="71%">
+                <td colspan="5" style="font-size: 10px" align="left" width="71%">
                     Catatan :
                     
                     
                 </td>
+				@if($order->status_payment != 'lunas')
                 <td class="border-bottom" align="left">
-                    <strong>Type bayar : {{$arr[0]}}</strong>
+                    <strong>Type bayar : {{@$arr[0]}}</strong>
                 </td>
+				@endif
             </tr>
 
             <tr>
-                <td colspan="5" align="left" width="71%">
+                <td colspan="5" style="font-size: 10px" align="left" width="71%">
                     1.  Periksa Kembali File Sebelum Cetak, Kesalahan Setelah Cetak Bukan tanggung jawab Management Toedjoe Sinar Group 
                     
                     
                 </td>
+				@if($order->status_payment != 'lunas')
                 <td class="border-bottom" align="left">
-                    <strong>{{$arr[1]}}</strong>
+                    <strong>{{@$arr[3]}}</strong>
                 </td>
+				@endif
             </tr>
 
             <tr>
-                <td colspan="5" align="left" width="71%">
+                <td colspan="5" style="font-size: 10px"  align="left" width="71%">
                     2. Wajib DP min 50% dari Total Biaya Cetak
                     
                 </td>
+				@if($order->status_payment != 'lunas')
                 <td class="border-bottom" align="left">
-                    <strong>{{$arr[2]}}</strong>
+                    <strong>{{@$arr[2]}}</strong>
                 </td>
+				@endif
             </tr>
 
             <tr>
-                <td colspan="5" align="left" width="71%">
+                <td colspan="5" style="font-size: 10px"  align="left" width="71%">
                     3. 1 (SATU) bulan barang tidak diambil, bukan tanggung jawab management Toedjoe Sinar Group
                     
                 </td>
+				@if($order->status_payment != 'lunas')
                 <td class="border-bottom" align="left">
-                    <strong>{{$arr[3]}}</strong>
+                    <strong>{{@$arr[1]}}</strong>
                 </td>
+				@endif
             </tr>
 
             <tr>
-                <td colspan="5" align="left" width="71%">
+                <td colspan="5" style="font-size: 10px"  align="left" width="71%">
                     4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
                 </td>
+				@if($order->status_payment != 'lunas')
                 <td class="border-bottom" align="left">
-                    <strong>{{$arr[4]}}</strong>
+                    <strong>{{@$arr[4]}}</strong>
                 </td>
+				@endif
             </tr>
             
         </table>

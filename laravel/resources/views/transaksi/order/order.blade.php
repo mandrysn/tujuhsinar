@@ -36,7 +36,7 @@
 									<td>{{ $datas->order }}</td>
 									<td>{{ $datas->pelanggan->nama }}</td>
 									<td>{{ Helper::tanggalId($datas->tanggal) }}</td>
-									<td>{{ $datas->status_payment }}</td>
+									<td>{{ $datas->status_payment == 'belum bayar' ? 'Belum bayar' : 'Piutang' }}</td>
 									<td>{{ $datas->status_payment == 'invoice' ? 'Invoice' : 'Umum' }}</td>
 									<td>
 																	

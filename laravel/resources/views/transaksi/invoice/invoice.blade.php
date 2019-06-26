@@ -27,7 +27,11 @@
 									<td>{{ $datas->pelanggan->nama }}</td>
 									<td>{{ Helper::tanggalId($datas->tanggal) }}</td>
 									<td>{{ $datas->status_payment }}</td>
-									<td><a href="{{ route('order.show', $datas->id) }}" class="btn btn-option2"><i class="fa fa-info"></i>Detail</a></td>
+									<td><a href="{{ route('order.show', $datas->id) }}" class="btn btn-option2"><i class="fa fa-info"></i>Detail</a>
+									@if (Auth::user()->role == 3 || Auth::user()->role == 1)
+										<a href="{{ route('order.invoice.bayar', $datas->id) }}" class="btn btn-option2"><i class="fa fa-money"></i> Pembayaran</a>
+									@endif
+									</td>
 								</tr>
 								@empty
 								@endforelse

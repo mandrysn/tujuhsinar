@@ -20,7 +20,20 @@ class PiutangController extends Controller
         $data = OrderKerja::where('status_payment', '=', 'invoice')->get();
         return view('transaksi.invoice.invoice', compact('data'));
     }
-
+	
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Piutang  $piutang
+     * @return \Illuminate\Http\Response
+     */
+    public function bayar(OrderKerja $orderKerja)
+    {
+        $orderKerja->status_payment = 'lunas';
+		$orderKerja->update();
+        return redirect()->route('order.show', $orderKerja->id);
+    }
     /**
      * Show the form for creating a new resource.
      *
