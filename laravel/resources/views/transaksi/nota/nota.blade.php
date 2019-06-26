@@ -21,13 +21,25 @@
                 <td width="40%" colspan="5" align="left" valign="top">
                 <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
                 <br>
-                M Yamin
+                Jln.KH Wahid hasyim 1 No.32 <br>
+                Samarinda - Kaltim<br>
+                Hp/WA : 0821 4995 2015<br>
+                toedjoesinargroup@gmail.com
                 </td>
-                <td width="20%"></td>
-                <td width="10%">
+                <td width="15%" style="text-align: center;">
+                    <br>
+                    <br>
+                    Nota Penjualan
+                    <hr>
+                    No.Invoice {{ $order->order }}
+                </td>
+                <td width="15%">
                     <br /><br />
+
                 </td>
-                <td width="5%"></td>
+                <td width="5%" >
+                    
+                </td>
                 <td width="60%" colspan="5" align="left" valign="top">
                     <br >
                     <h2>Kepada Yth</h2>
@@ -40,8 +52,12 @@
                 
             </tr>
             <tr>
-                <td width="40%"></td>
-                <td rowspan="2">&nbsp;</td>
+                <td width="40%">
+
+                </td>
+                <td rowspan="2" > 
+                    
+                </td>
             </tr>
             <tr>
                 <td colspan="5" align="left" valign="top">
@@ -64,8 +80,9 @@
                 </td>
              
                 <td  width="10%" class="border-left" align="center">
-                    Tipe Produk
+                    Ukuran
                 </td>
+
                 <td  width="15%" class="border-left" align="center">
                     Harga Satuan
                 </td>
@@ -78,10 +95,12 @@
         <table class="table-list" width="100%">
 
             @forelse($data as $index => $datas)
-
+            <?php 
+                $ket = str_replace(", Ukuran:".Helper::getUkuran($datas->keterangan_sub), ' ', Helper::keteranganSatuBaris($datas->keterangan_sub));
+             ?>
             <tr>
                 <td colspan="5" valign="top">
-                    {{ $index + 1 }}.&nbsp;{{ $datas->Barang->nm_barang }} ({{ Helper::keteranganSatuBaris($datas->keterangan_sub) }})
+                    {{ $index + 1 }}.&nbsp;{{ $datas->Barang->nm_barang }} ({{ $ket }})
                 </td>
             </tr>
             <tr>
@@ -90,7 +109,7 @@
                 </td>
                 
                 <td width="10%" align="center" valign="top">
-                    <strong>{{ $datas->nama_produk }}</strong>
+                    <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
                 </td>
                 <td width="15%" align="center" valign="top">
                     <strong>{{ number_format($datas->harga) }}</strong>

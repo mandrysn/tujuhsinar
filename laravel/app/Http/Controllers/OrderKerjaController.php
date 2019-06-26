@@ -253,7 +253,8 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->deadline = $request->deadline_merchant . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
-        $subOrderKerjaBaru->keterangan_sub = 'Nama file: ' . $request->keterangan;
+        $subOrderKerjaBaru->keterangan_sub = 'Nama file: ' . $request->keterangan.'<br />';
+        $subOrderKerjaBaru->keterangan_sub = 'Ukuran: -';
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -375,7 +376,8 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->total = $request->total;
         $db = Barang::find($request->barang_id);
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
-        $subOrderKerjaBaru->keterangan_sub = 'Nama Produk : ' . $db->nm_barang;
+        $subOrderKerjaBaru->keterangan_sub = 'Nama Produk : ' . $db->nm_barang.'<br />';
+        $subOrderKerjaBaru->keterangan_sub = 'Ukuran: -';
         $subOrderKerjaBaru->keterangan_sub .= '<br />Keterangan : ' . nl2br($request->keterangan);
         $subOrderKerjaBaru->save();
 

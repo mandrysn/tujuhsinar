@@ -19,43 +19,39 @@
     <header>
         <table cellspacing="0" cellpadding="1">
             <tr>
-                <td width="40%" colspan="5" align="left" valign="top">
-                <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
-                <br>
-                M Yamin
+                <td  >
+                    <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
+                    <br>
+                    Jln.KH Wahid hasyim 1 No.32 <br>
+                    Samarinda - Kaltim<br>
+                    Hp/WA : 0821 4995 2015<br>
+                    toedjoesinargroup@gmail.com
                 </td>
                 
-                
-                <td width="10%">
-                    <br /><br />
+                <td width="40%"  style="text-align: left;text-decoration: underline;">
+                    <br>
+                    <br>
+                    <h1>NOTA SURAT JALAN </h1>
+                    
+                    
                 </td>
-                <td width="5%"></td>
-                <td width="60%" colspan="5" align="left" valign="top">
+                
+                <td width="20%" colspan="7" align="left" valign="top">
                     
                     <br ><br />
+                    No. Invoice/Nota : {{ $order->order }} <br>
                     Kepada Yth <br>
-                    <strong>{{ $order->pelanggan->nama }} </strong><br>
-                    Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
+                    {{ $order->pelanggan->nama }} <br>
+                    Telp : {{ $order->pelanggan->no_telp }} <br>
                     
                     Tanggal pemesanan : {{ Helper::tanggalId($order->tanggal) }}
                 
                 </td>
-                
-            </tr>
-            
-            <tr>
-                <td width="40%" ></td>
-                <td rowspan="2">&nbsp;</td>
             </tr>
             <tr>
-                <td colspan="10" style="text-align: center;"><h1>NOTA SURAT JALAN </h1></td>
-            </tr>
-            <tr>
-                <td colspan="5" align="left" valign="top">
-                &nbsp;
-                </td>
-                <td colspan="5" align="left" valign="top">
-                    &nbsp;
+                <td>
+                    <br>
+                    <br>
                 </td>
             </tr>
         </table>
@@ -64,23 +60,24 @@
     <main>
         <div class="main">
         <table class="table-header" width="100%">
-            <tr><th colspan="5" align="left">Bahan</th></tr>
+            
             <tr> 
                 <td  width="5%" align="center">
                     No
                 </td>
-                <td  width="20%" class="border-left" align="center">
-                    Nama File
-                </td>
-                <td  width="10%" class="border-left" align="center">
-                    Qty
-                </td>
-                <td  width="20%" class="border-left" align="center">
-                    Ukuran
-                </td>
-                <td  width="20%" class="border-left" align="center">
+                <td  width="45%" class="border-left" align="center">
                     Keterangan
                 </td>
+                <td  width="10%" class="border-left" align="center">
+                    Nama File
+                </td>
+                <td  width="5%" class="border-left" align="center">
+                    Qty
+                </td>
+                <td  width="10%" class="border-left" align="center">
+                    Ukuran
+                </td>
+                
             </tr>
         </table>
         
@@ -92,18 +89,19 @@
                 <td width="5%" valign="top">
                     {{ $index + 1 }}.&nbsp;
                 </td>
-                <td  width="20%" align="center" valign="top">
-                    {{ $datas->barang->nm_barang }}
-                </td>
-                <td width="10%" align="center" valign="top">
-                    <strong>{{ $datas->qty }}</strong>
-                </td>
-                <td width="20%" align="center" valign="top">
-                    <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
-                </td>
-                <td width="20%" align="center" valign="top">
+                <td width="45%" align="center" valign="top">
                     <strong>{{ Helper::keteranganSatuBaris($datas->keterangan_sub) }}</strong>
                 </td>
+                <td  width="10%" align="center" valign="top">
+                    {{ $datas->barang->nm_barang }}
+                </td>
+                <td width="5%" align="center" valign="top">
+                    <strong>{{ $datas->qty }}</strong>
+                </td>
+                <td width="10%" align="center" valign="top">
+                    <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
+                </td>
+                
                 
             </tr>
             @empty
