@@ -240,10 +240,15 @@ class Helper
         $data = explode('<br />', $keterangan);
         $hasil = explode(':', $data[0]);
    
-        if($hasil[0] != 'Ukuran '){
-            $hasil = explode(':', $data[1]);
+        if($hasil[0] != 'Ukuran'){
+            if(isset($data[1])){
+                $hasil = explode(':', $data[1]);
+            } else {
+                $hasil = ['Ukuran','-'];
+            }
+            
 
-        }
+        } 
         $ukuran = @$hasil[1];
         return $ukuran;
     }
