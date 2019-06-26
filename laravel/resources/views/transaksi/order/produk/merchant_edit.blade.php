@@ -55,7 +55,7 @@
 		
 		<div class="col-md-12 col-lg-4">
 		<div class="form-group">
-			<label for="inputext" class="form-label">Keterangan File</label>
+			<label for="inputext" class="form-label">Keterangan</label>
 			<textarea class="form-control" id="inputext" name="keterangan_file"></textarea>
 		</div>
 	</div>

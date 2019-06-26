@@ -13,38 +13,55 @@
         window.print();
 
     </script>
+    <style type="text/css">
+        @media all {
+        .page-break { display: none; }
+        }
+
+        @media print {
+        .page-break { display: block; page-break-before: always; }
+        }
+    </style>
 </head>
 
 <body >
+    <?php 
+            $start = 0;
+            $end = 3;
+            $totalHalaman = ceil(count($data)/3);
+        for($i = 0;$i < $totalHalaman; $i++){
+        ?>
     <header>
         <table cellspacing="0" cellpadding="1">
             <tr>
-                <td  >
+                <td width="40%" >
                     <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
                     <br>
-                    Jln.KH Wahid hasyim 1 No.32 <br>
+                    Jl. KH Wahid Hasyim 1 No.32 <br>
                     Samarinda - Kaltim<br>
                     Hp/WA : 0821 4995 2015<br>
                     toedjoesinargroup@gmail.com
                 </td>
                 
-                <td width="40%"  style="text-align: left;text-decoration: underline;">
+                <td width="20%"  style="text-align: left;">
                     <br>
                     <br>
-                    <h1>NOTA SURAT JALAN </h1>
-                    
-                    
+                    <h3>NOTA SURAT JALAN </h3>
+                    <hr>
+                    No. Surat Jalan {{ $order->order }}
+                     
                 </td>
                 
-                <td width="20%" colspan="7" align="left" valign="top">
+				<td colspan="2">
+				</td>
+                <td width="30%" colspan="5" align="left" valign="top">
                     
-                    <br ><br />
-                    No. Invoice/Nota : {{ $order->order }} <br>
-                    Kepada Yth <br>
-                    {{ $order->pelanggan->nama }} <br>
-                    Telp : {{ $order->pelanggan->no_telp }} <br>
+                    <br >
+                    <h2>Kepada Yth</h2>
+                    <strong>{{ $order->pelanggan->nama }} </strong><br>
+                    Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
                     
-                    Tanggal pemesanan : {{ Helper::tanggalId($order->tanggal) }}
+                    Tgl. order : {{ Helper::tanggalId($order->tanggal) }}
                 
                 </td>
             </tr>
@@ -69,7 +86,7 @@
                     Keterangan
                 </td>
                 <td  width="10%" class="border-left" align="center">
-                    Nama File
+                    Nama Bahan
                 </td>
                 <td  width="5%" class="border-left" align="center">
                     Qty
@@ -84,117 +101,55 @@
         <table class="table-list" width="100%">
 
             @forelse($data as $index => $datas)
-        
-            <tr>
-                <td width="5%" valign="top">
-                    {{ $index + 1 }}.&nbsp;
-                </td>
-                <td width="45%" align="center" valign="top">
-                    <strong>{{ Helper::keteranganSatuBaris($datas->keterangan_sub) }}</strong>
-                </td>
-                <td  width="10%" align="center" valign="top">
-                    {{ $datas->barang->nm_barang }}
-                </td>
-                <td width="5%" align="center" valign="top">
-                    <strong>{{ $datas->qty }}</strong>
-                </td>
-                <td width="10%" align="center" valign="top">
-                    <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
-                </td>
-                
-                
-            </tr>
+                @if(($index+1) > $start && $index < $end)
+                    <tr>
+                        <td width="5%" valign="top">
+                            {{ $index + 1 }}.&nbsp;
+                        </td>
+                        <td width="45%" align="center" valign="top">
+                            <strong>{!! Helper::keteranganSatuBaris($datas->keterangan_sub) !!}</strong>
+                        </td>
+                        <td  width="10%" align="center" valign="top">
+                            {{ $datas->barang->nm_barang }}
+                        </td>
+                        <td width="5%" align="center" valign="top">
+                            <strong>{{ $datas->qty }} pcs</strong>
+                        </td>
+                        <td width="10%" align="center" valign="top">
+                            <strong>{!! Helper::getUkuran($datas->keterangan_sub) !!}</strong>
+                        </td>
+                        
+                        
+                    </tr>
+                @endif
             @empty
             @endforelse
 
         </table>
 
-        <table  width="100%">
-            <?php 
-                $arr = explode('<br />',$order->keterangan);
-                
-             ?>
-            
-             <style type="text/css">
-                 .border-bottom {
-                    border-bottom: 1px solid black;
-                 }
-             </style>
+        <table  width="80%">
+<tr>
 
-
-            <tr>
-                <td colspan="5" align="left" width="71%">
-                    Catatan :
-                    
-                    
-                </td>
-                <td class="border-bottom" align="left">
-                    <strong>Type bayar : @{{$arr[0]}}</strong>
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="5" align="left" width="71%">
-                    1.  Periksa Kembali File Sebelum Cetak, Kesalahan Setelah Cetak Bukan tanggung jawab Management Toedjoe Sinar Group 
-                    
-                    
-                </td>
-                <td class="border-bottom" align="left">
-                    <strong>{{@$arr[1]}}</strong>
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="5" align="left" width="71%">
-                    2. Wajib DP min 50% dari Total Biaya Cetak
-                    
-                    
-                </td>
-                <td class="border-bottom" align="left">
-                    <strong>{{@$arr[2]}}</strong>
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="5" align="left" width="71%">
-                    3. 1 (SATU) bulan barang tidak diambil, bukan tanggung jawab management Toedjoe Sinar Group
-                    
-                </td>
-                <td class="border-bottom" align="left">
-                    <strong>{{@$arr[3]}}</strong>
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="5" align="left" width="71%">
-                    4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
-                </td>
-                <td class="border-bottom" align="left">
-                    <strong>{{@$arr[4]}}</strong>
-                </td>
-            </tr>
-            
-        </table>
+					<td width="20%" align="left" valign="top">
+					
+					</td>
+					<td width="15%"  align="left" valign="top">
+					Hormat Kami<br /><br /><br /><br /><br />
+					<hr />
+					</td>
+					<td width="30%">
+					</td>
+					<td width="15%" align="left" valign="top">
+					Tanda Terima<br /><br /><br /><br /><br />
+					<hr />
+					</td>
+				</tr>
+				</table>
         </div>
     </main>
-
-    <footer>
-        <table width="100%" >
-            <tr>
-                <td width="60%" align="left" valign="top">
-                   
-                </td>
-                <td width="20%" align="left" valign="top">
-                Hormat Kami<br /><br /><br /><br />
-                {{ Auth::user()->nama }}
-                </td>
-                <td width="10%" align="left" valign="top">
-                Tanda Terima<br /><br /><br /><br />
-                {{ $order->pelanggan->nama }}
-                </td>
-            </tr>
-        </table>
-    </footer>
+<div class="page-break"></div>
+        <?php  $start += 3;$end += 3; ?>
+    <?php  } ?>
 
 </body>
 

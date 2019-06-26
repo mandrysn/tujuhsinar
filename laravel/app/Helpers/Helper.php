@@ -240,19 +240,23 @@ class Helper
         $data = explode('<br />', $keterangan);
         $hasil = explode(':', $data[0]);
    
-        if($hasil[0] != 'Ukuran'){
+        if($hasil[0] != 'Ukuran:'){
             if(isset($data[1])){
                 $hasil = explode(':', $data[1]);
             } else {
-                $hasil = ['Ukuran','-'];
+                $hasil = ['Ukuran ','-'];
             }
-            
-
         } 
+    
         $ukuran = @$hasil[1];
         return $ukuran;
     }
 
+
+    public static function dataProduk($id,$produk_id)
+    {
+        return $data = OrderKerjaSub::where('order_kerja_id', $id)->where('produk_id',$produk_id)->get();
+    }
   
 
 }

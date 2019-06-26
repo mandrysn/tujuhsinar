@@ -120,7 +120,7 @@
                             <td>{!! $datas->keterangan_sub !!}</td>
                             <td>
                                 @if ($datas->status_produksi == '1')
-                                Antrian
+								Antrian
                                 @elseif ($datas->status_produksi == '2')
                                 Printing
                                 @elseif ($datas->status_produksi == '3')
