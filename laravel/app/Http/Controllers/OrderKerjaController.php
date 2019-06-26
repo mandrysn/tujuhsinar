@@ -269,15 +269,9 @@ class OrderKerjaController extends Controller
     {
         $cekData = OrderKerja::where('order', $request->order)->first();
 
-        $nama_finishing = "Tidak Ada";
-        $tambahan_harga = 0;
+       
         $fnsText = " ";
-        if($request->editor_id != null || $request->editor_id != ''){
-            $editor = Editor::findOrFail($request->editor_id);
-            $nama_finishing = $editor->nama_finishing;
-            $tambahan_harga = $editor->tambahan_harga;
-            $fnsText = 'Finishing : ' . $nama_finishing . ', Rp ' . number_format($tambahan_harga) . "<br />";
-        }
+        
         
 
         
@@ -340,7 +334,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
         $subOrderKerjaBaru->deadline = $request->deadline_print . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->barang_id = $request->barang_id;
-        $subOrderKerjaBaru->keterangan_sub = 'Nama file: ' . $request->keterangan;
+        $subOrderKerjaBaru->keterangan_sub = 'Nama file: ' . $request->keterangan. "<br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$ukuran . "<br />";
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
 

@@ -148,7 +148,7 @@
                         
                     </td>
                     <td class="border-bottom" align="left">
-                        <strong>Type bayar : {{$arr[0]}}</strong>
+                        <strong>Type bayar : {{@$arr[0]}}</strong>
                     </td>
                 </tr>
 
@@ -159,7 +159,7 @@
                         
                     </td>
                     <td class="border-bottom" align="left">
-                        <strong>{{$arr[1]}}</strong>
+                        <strong>{{@$arr[1]}}</strong>
                     </td>
                 </tr>
 
@@ -170,7 +170,7 @@
                         
                     </td>
                     <td class="border-bottom" align="left">
-                        <strong>{{$arr[2]}}</strong>
+                        <strong>{{@$arr[2]}}</strong>
                     </td>
                 </tr>
 
@@ -180,7 +180,7 @@
                         
                     </td>
                     <td class="border-bottom" align="left">
-                        <strong>{{$arr[3]}}</strong>
+                        <strong>{{@$arr[3]}}</strong>
                     </td>
                 </tr>
 
@@ -189,7 +189,7 @@
                         4. Pembayaran dianggap SAH apabila menunjukkan bukti transfer.
                     </td>
                     <td class="border-bottom" align="left">
-                        <strong>{{$arr[4]}}</strong>
+                        <strong>{{@$arr[4]}}</strong>
                     </td>
                 </tr>
                 
