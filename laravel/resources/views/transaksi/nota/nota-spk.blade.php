@@ -27,8 +27,8 @@
 <body >
     <?php 
             $start = 0;
-            $end = 3;
-            $totalHalaman = ceil(count($data)/3);
+            $end = 6;
+            $totalHalaman = ceil(count($data)/6);
         for($i = 0;$i < $totalHalaman; $i++){
         ?>
     <header>
@@ -147,7 +147,7 @@
         </div>
     </main>
 <div class="page-break"></div>
-        <?php  $start += 3;$end += 3; ?>
+        <?php  $start += 6;$end += 6; ?>
     <?php  } ?>
 
 </body>

@@ -16,12 +16,11 @@ class HargaIndoorController extends Controller
 {   
     public function getData( $barang, $pelanggan, $qty, $p, $l) {
         if ( is_null($pelanggan) || is_null($barang) || is_null($qty)) {
-            return '-';
+            return '';
         } else {
-            $diskon = '-';
-            $total = '-';
-            $harga = '-';
-            $tp = 0;
+            $diskon = '';
+            $total = '';
+            $harga = '';
 
             $idPelanggan = Pelanggan::findOrFail($pelanggan);
             $harga = Harga::where('produk_id', '=', '2')->where('member_id', '=', $idPelanggan->member_id)->first();

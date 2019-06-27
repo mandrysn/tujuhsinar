@@ -31,9 +31,9 @@
         <?php 
 
             $start = 0;
-            $end = 3;
+            $end = 6;
             $data = Helper::dataProduk($id,$dg->produk_id);
-            $totalHalaman = ceil(count($data)/3);
+            $totalHalaman = ceil(count($data)/6);
         for($i = 0;$i < $totalHalaman; $i++){
         ?>
     <header>
@@ -175,7 +175,7 @@
             
     </main>
 <div class="page-break"></div>
-        <?php  $start += 3;$end += 3; ?>
+        <?php  $start += 6; $end += 6; ?>
     <?php  } ?>
  
 @if($nama_produk != $dg->nama_produk)

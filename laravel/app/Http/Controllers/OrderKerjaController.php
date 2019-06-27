@@ -79,18 +79,12 @@ class OrderKerjaController extends Controller
         $cekData = OrderKerja::where('order', $request->order)->where('status_payment','belum bayar')->first();
         
         $tambahan_harga = 0;
-        $nama_kaki = "Tidak Ada";
+        $nama_kaki = "";
         if($request->kaki_id != null || $request->kaki_id != ''){
             $kaki = Kaki::findOrFail($request->kaki_id);
             $tambahan_harga = $kaki->tambahan_harga;
-            $nama_kaki = $kaki->nama_kaki;
-        } 
-
-        if($request->kaki_id != null || $request->kaki_id != ''){
-            $kaki = Kaki::findOrFail($request->kaki_id);
-            $tambahan_harga = $kaki->tambahan_harga;
-            $nama_kaki = $kaki->nama_kaki;
-        } 
+            $nama_kaki = "Kaki : ".$kaki->nama_kaki . ', Rp ' . number_format($tambahan_harga);
+        }
         
         
         if ( is_null($cekData) ) {
@@ -144,7 +138,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->keterangan_sub  = '<strong>Nama File: '.$request->nama_file."</strong><br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
-        $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $nama_kaki . ', Rp ' . number_format($tambahan_harga);
+        $subOrderKerjaBaru->keterangan_sub  .= $nama_kaki;
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -161,11 +155,11 @@ class OrderKerjaController extends Controller
         $cekData = OrderKerja::where('order', $request->order)->first();
         
         $tambahan_harga = 0;
-        $nama_kaki = "Tidak Ada";
+        $nama_kaki = "";
         if($request->kaki_id != null || $request->kaki_id != ''){
             $kaki = Kaki::findOrFail($request->kaki_id);
             $tambahan_harga = $kaki->tambahan_harga;
-            $nama_kaki = $kaki->nama_kaki;
+            $nama_kaki = "Kaki : " . $kaki->nama_kaki . ', Rp ' . number_format($tambahan_harga);
         }
         
         if ( is_null($cekData) ) {
@@ -186,7 +180,7 @@ class OrderKerjaController extends Controller
         $subOrderKerjaBaru->deadline = $request->deadline_indoor . ' '. \Carbon\Carbon::now()->toTimeString();
         $subOrderKerjaBaru->harga = $request->harga;
         $subOrderKerjaBaru->total = $request->total;
-        //finishing
+
         //finishing
         $fnsText = "Finishing: ";
         if($request->editor_id != null || $request->editor_id != ''){
@@ -212,12 +206,12 @@ class OrderKerjaController extends Controller
         }
         
 
-        $subOrderKerjaBaru->diskon = (isset($request->diskon))?$request->diskon:0;
+        $subOrderKerjaBaru->diskon = (isset($request->diskon)) ? $request->diskon:0;
         $subOrderKerjaBaru->barang_id = $request->barang_id;
         $subOrderKerjaBaru->keterangan_sub  = '<strong>Nama File: '.$request->nama_file."</strong><br />";
         $subOrderKerjaBaru->keterangan_sub  .= 'Ukuran: '.$request->panjang."x".$request->lebar."<br />";
         $subOrderKerjaBaru->keterangan_sub  .= $fnsText;
-        $subOrderKerjaBaru->keterangan_sub  .= 'Kaki: ' . $nama_kaki . ', Rp ' . number_format($tambahan_harga);
+        $subOrderKerjaBaru->keterangan_sub  .= $nama_kaki;
         $subOrderKerjaBaru->save();
 
         return redirect()->route('order.show', $orderKerjaId);
@@ -273,9 +267,6 @@ class OrderKerjaController extends Controller
 
        
         $fnsText = " ";
-        
-        
-
         
         if ( is_null($cekData) ) {
             $orderKerjaBaru = new OrderKerja;

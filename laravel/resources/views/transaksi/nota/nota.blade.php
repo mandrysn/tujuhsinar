@@ -26,8 +26,8 @@
 <body >
         <?php 
             $start = 0;
-            $end = 3;
-            $totalHalaman = ceil(count($data)/3);
+            $end = 5;
+            $totalHalaman = ceil(count($data)/5);
         for($i = 0;$i < $totalHalaman; $i++){
         ?>
             <header>
@@ -154,7 +154,6 @@
                     <tr>
                         <td style="font-size: 10px" align="left" width="71%">
                             1.  Periksa Kembali File Sebelum Cetak, Kesalahan Setelah Cetak Bukan tanggung jawab Management Toedjoe Sinar Group 
-                            
                             
                         </td>
                         
