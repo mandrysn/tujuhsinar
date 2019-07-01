@@ -212,78 +212,6 @@ class Helper
             \Carbon\Carbon::parse($tanggal)->format('-Y') . ' - ' . \Carbon\Carbon::parse($tanggal)->format('H:i');
     }
 
-    public static function onlyDate($tanggal)
-    {
-        \Carbon\Carbon::setLocale('id');
-
-        switch(\Carbon\Carbon::parse($tanggal)->format('l')) {
-            case 'Monday' :
-                $hari = 'Senin';
-                break;
-            case 'Tuesday' :
-                $hari = 'Selasa';
-                break;
-            case 'Wednesday' :
-                $hari = 'Rabu';
-                break;
-            case 'Thursday' :
-                $hari = 'Kamis';
-                break;
-            case 'Friday' :
-                $hari = 'Jumat';
-                break;
-            case 'Saturday' :
-                $hari = 'Sabtu';
-                break;
-            default:
-                $hari = 'Minggu';
-        }
-
-        switch(\Carbon\Carbon::parse($tanggal)->format('F')) {
-            case 'January' :
-                $bulan = 'Jan';
-                break;
-            case 'February' :
-                $bulan = 'Feb';
-                break;
-            case 'March' :
-                $bulan = 'Maret';
-                break;
-            case 'April' :
-                $bulan = 'April';
-                break;
-            case 'May' :
-                $bulan = 'Mei';
-                break;
-            case 'June' :
-                $bulan = 'Juni';
-                break;
-            case 'July' :
-                $bulan = 'Juli';
-                break;
-            case 'August' :
-                $bulan = 'Agst';
-                break;
-            case 'September' :
-                $bulan = 'Sept';
-                break;
-            case 'October' :
-                $bulan = 'Okt';
-                break;
-            case 'November' :
-                $bulan = 'Nov';
-                break;
-            default:
-                $bulan = 'Dec';
-        }
-
-
-        return $hari . ', ' .
-            \Carbon\Carbon::parse($tanggal)->format('d-') .
-            $bulan .
-            \Carbon\Carbon::parse($tanggal)->format('-Y');
-    }
-
     public static function get_type($t)
     {   
         $typenya = "Pcs";
@@ -312,23 +240,14 @@ class Helper
         $data = explode('<br />', $keterangan);
         $hasil = explode(':', $data[0]);
    
-        if($hasil[0] != 'Ukuran:'){
-            if(isset($data[1])){
-                $hasil = explode(':', $data[1]);
-            } else {
-                $hasil = ['Ukuran ','-'];
-            }
-        } 
-    
+        if($hasil[0] != 'Ukuran '){
+            $hasil = explode(':', $data[1]);
+
+        }
         $ukuran = @$hasil[1];
         return $ukuran;
     }
 
-
-    public static function dataProduk($id,$produk_id)
-    {
-        return $data = OrderKerjaSub::where('order_kerja_id', $id)->where('produk_id',$produk_id)->get();
-    }
   
 
 }

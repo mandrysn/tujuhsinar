@@ -25,21 +25,12 @@
 </head>
 
 <body >
-    <?php $id = $order->id; ?>
     <?php $nama_produk = "Indoor"; ?>
         @foreach($dataGroup as $dg)
-        <?php 
-
-            $start = 0;
-            $end = 6;
-            $data = Helper::dataProduk($id,$dg->produk_id);
-            $totalHalaman = ceil(count($data)/6);
-        for($i = 0;$i < $totalHalaman; $i++){
-        ?>
     <header>
         <table cellspacing="0" cellpadding="1">
             <tr>
-                <td  width="43%">
+                <td  width="40%">
                     <span style="font-size: 24px">Toedjoe Sinar Group</span><br />
                     <br>
                     Jl. KH Wahid Hasyim 1 No.32 <br>
@@ -53,22 +44,21 @@
                     <br>
                     <h3>NOTA SPK </h3>
 					<hr>
-                    No. SPK {{ $order->order }}
+                    No.SPK {{ $order->order }}
                     
                     
                 </td>
-				<td width="10%">
-                    &nbsp;
+				<td colspan="2">
 				</td>
                 
-                <td width="60%" align="left" valign="top">
+                <td width="30%" colspan="5" align="left" valign="top">
                     
                     <br >
                     <h2>Kepada Yth</h2>
                     <strong>{{ $order->pelanggan->nama }} </strong><br>
                     Hp/Telp : {{ $order->pelanggan->no_telp }} <br><br>
                     
-                    Tgl. order : {{ Helper::onlyDate($order->tanggal) }}
+                    Tgl. order : {{ Helper::tanggalId($order->tanggal) }}
                 
                 </td>
                 
@@ -80,26 +70,27 @@
 
     <main>
         
-            <h2>{{ $dg->nama_produk }}</h2>
+
+            <h1>{{ $dg->nama_produk }}</h1>
             <div class="main">
         <table class="table-header" width="100%">
             
             <tr> 
-                <th  width="5%" align="center">
+                <td  width="5%" align="center">
                     No
-                </th>
-                <th  width="40%" class="border-left" align="center">
+                </td>
+                <td  width="45%" class="border-left" align="center">
                     Keterangan
-                </th>
-                <th  width="13%" class="border-left" align="center">
+                </td>
+                <td  width="10%" class="border-left" align="center">
                     Nama Bahan
-                </th>
-                <th  width="7%" class="border-left" align="center">
+                </td>
+                <td  width="5%" class="border-left" align="center">
                     Qty
-                </th>
-                <th  width="10%" class="border-left" align="center">
+                </td>
+                <td  width="10%" class="border-left" align="center">
                     Ukuran
-                </th>
+                </td>
                 
             </tr>
         </table>
@@ -107,27 +98,26 @@
         <table class="table-list" width="100%">
 
             @forelse($data as $index => $datas)
-                @if(($index+1) > $start && $index < $end && $datas->produk_id == $dg->produk_id)
-                    <tr>
-                        <td width="5%" align="center" valign="top">
-                            {{ $index + 1 }}.&nbsp;
-                        </td>
-                        <td width="40%" align="center" valign="top">
-                            {!! Helper::keteranganSatuBaris($datas->keterangan_sub) !!}
-                        </td>
-                        <td  width="13%" align="center" valign="top">
-                            {{ $datas->barang->nm_barang }}
-                        </td>
-                        <td width="7%" align="center" valign="top">
-                            {{ $datas->qty }} pcs
-                        </td>
-                        <td width="10%" align="center" valign="top">
-                            {!! Helper::getUkuran($datas->keterangan_sub) !!}
-                        </td>
-                        
-                        
-                    </tr>
-                @endif
+        
+            <tr>
+                <td width="5%" valign="top">
+                    {{ $index + 1 }}.&nbsp;
+                </td>
+                <td width="45%" align="center" valign="top">
+                    <strong>{{ Helper::keteranganSatuBaris($datas->keterangan_sub) }}</strong>
+                </td>
+                <td  width="10%" align="center" valign="top">
+                    {{ $datas->barang->nm_barang }}
+                </td>
+                <td width="5%" align="center" valign="top">
+                    <strong>{{ $datas->qty }} pcs</strong>
+                </td>
+                <td width="10%" align="center" valign="top">
+                    <strong>{{ Helper::getUkuran($datas->keterangan_sub) }}</strong>
+                </td>
+                
+                
+            </tr>
             @empty
             @endforelse
 
@@ -147,7 +137,7 @@
 
 
                 <tr>
-                    <td rowspan="3" style="font-size: 10px" valign="top" align="left" width="57%">
+                    <td rowspan="3" style="font-size: 10px" valign="top" align="left" width="50%">
                         Catatan :
                         
                         
@@ -155,11 +145,11 @@
                 </tr>
 				
 				<tr>
-					<td width="24%" align="left" valign="top">
+					<td width="30%" align="left" valign="top">
 					 Kasir<br /><br /><br /><br /><br />
 					ADMIN
 					</td>
-					<td width="15%" align="center" valign="top">
+					<td width="20%" align="left" valign="top">
 					Pj Produksi<br /><br /><br /><br /><br />
 					<hr />
 					</td>
@@ -174,9 +164,7 @@
             
             
     </main>
-<div class="page-break"></div>
-        <?php  $start += 6; $end += 6; ?>
-    <?php  } ?>
+
  
 @if($nama_produk != $dg->nama_produk)
                 <?php $nama_produk = $dg->nama_produk; ?>

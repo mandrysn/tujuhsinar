@@ -70,7 +70,7 @@
 	</div>
 
 	<div class="col-md-12 col-lg-4" style="margin-top: 28px;">
-		<button type="submit" class="btn btn-primary" id="CSub" disabled>Submit</button>
+		<button type="submit" class="btn btn-primary" id="ISub" disabled>Submit</button>
 		<a href="{{ URL(Helper::backButton()) }}" class="btn btn-option2"><i class="fa fa-info"></i>Kembali</a>
 	</div>
 

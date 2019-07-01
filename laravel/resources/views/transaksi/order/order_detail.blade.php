@@ -82,10 +82,10 @@
                     <a href="#total" class="btn btn-option2"><i class="fa fa-money"></i> Pembayaran</a>
                 @endif
             @elseif($order->status_payment != 'cancel')
-                <a href="{{ route('order.print', $id) }}" target="_blank" class="btn btn-option2"><i class="fa fa-print"></i> Print Nota</a>
-                <a  href="{{ route('order.print-spk', $id) }}"   class="btn btn-option2" target="_blank"><i class="fa fa-print"></i> Print Nota & Surat Jalan</a>
+                <a href="{{ route('order.print', $id) }}" target="_blank" class="btn btn-option2"><i class="fa fa-money"></i> Print Nota</a>
+                <a  href="{{ route('order.print-spk', $id) }}"   class="btn btn-option2" target="_blank"><i class="fa fa-money"></i> Print Nota & SPK</a>
 
-                <a href="{{ route('order.spk', $id) }}" target="_blank" class="btn btn-option2"><i class="fa fa-print"></i> Print SPK</a>
+                <a href="{{ route('order.spk', $id) }}" target="_blank" class="btn btn-option2"><i class="fa fa-money"></i> Print SPK</a>
             @endif
             <a href="{{ route('order.index') }}" class="btn btn-default">Kembali</a>
 
